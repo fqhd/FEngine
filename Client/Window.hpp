@@ -12,12 +12,8 @@ public:
 
      sf::Window window;
 
-     unsigned int getWidth();
-     unsigned int getHeight();
 
 private:
 
-     unsigned int m_width = 0;
-     unsigned int m_height = 0;
 
 };

@@ -11,4 +11,4 @@ public:
      unsigned int screenWidth = 1280;
      unsigned int screenHeight = 720;
 
-}
+};

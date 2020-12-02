@@ -2,10 +2,8 @@
 #include <GL/glew.h>
 
 void Window::create(Settings& settings){
-     sf::ContextSettings settings;
-     window.create(sf::VideoMode(settings.screenWidth, setting.screenHeight), "Sokuban", sf::Style::Titlebar | sf::Style::Close, settings);
-     m_width = width;
-     m_height = height;
+     sf::ContextSettings cSettings;
+     window.create(sf::VideoMode(settings.screenWidth, settings.screenHeight), "Sokuban", sf::Style::Titlebar | sf::Style::Close, cSettings);
 }
 
 void Window::clear(){
@@ -18,12 +16,4 @@ void Window::update(){
 
 void Window::close(){
      window.close();
-}
-
-unsigned int Window::getWidth(){
-     return m_width;
-}
-
-unsigned int Window::getHeight(){
-     return m_height;
 }
