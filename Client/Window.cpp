@@ -1,9 +1,9 @@
 #include "Window.hpp"
 #include <GL/glew.h>
 
-void Window::create(const char* title){
+void Window::create(Settings& settings){
      sf::ContextSettings settings;
-     window.create(sf::VideoMode(width, height), title, sf::Style::Titlebar | sf::Style::Close, settings);
+     window.create(sf::VideoMode(settings.screenWidth, setting.screenHeight), "Sokuban", sf::Style::Titlebar | sf::Style::Close, settings);
      m_width = width;
      m_height = height;
 }

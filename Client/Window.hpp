@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Window.hpp>
+#include "Settings.hpp"
 
 class Window {
 public:
 
-     void create(unsigned int width, unsigned int height, const char* title);
+     void create(Settings& settings);
      void clear();
      void update();
      void close();

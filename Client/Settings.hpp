@@ -3,6 +3,7 @@
 class Settings{
 public:
 
+     //Useful functions
      void loadFromFile();
      void writeToFile();
 
