@@ -12,6 +12,7 @@ int main(){
      Settings settings;
 
      //Initializing game variables
+     settings.loadFromFile();
      window.create(settings);
 
 
