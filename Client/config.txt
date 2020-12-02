@@ -1,2 +1,2 @@
-ScreenWidth: 800
-ScreenHeight: 600
+ScreenWidth: 1280
+ScreenHeight: 720

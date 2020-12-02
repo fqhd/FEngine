@@ -25,9 +25,8 @@ int main(){
           window.update();
      }
 
-
-
      //Cleanup
+     settings.writeToFile();
      window.close();
 
 

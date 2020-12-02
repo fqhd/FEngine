@@ -3,6 +3,15 @@
 
 void Settings::writeToFile(){
 
+     std::ofstream os;
+     os.open("config.txt");
+
+     os << "ScreenWidth: " << screenWidth << std::endl;
+     os << "ScreenHeight: " << screenHeight << std::endl;
+
+     os.close();
+
+
 }
 
 void Settings::loadFromFile(){
@@ -16,4 +25,5 @@ void Settings::loadFromFile(){
                is >> screenHeight;
           }
      }
+     is.close();
 }
