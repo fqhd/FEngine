@@ -11,6 +11,7 @@ build main.o: cc main.cpp
 build window.o: cc Window.cpp
 build inputmanager.o: cc InputManager.cpp
 build settings.o: cc Settings.cpp
+build guirenderer.o: cc GUIRenderer.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o
 
