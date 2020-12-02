@@ -15,8 +15,6 @@ int main(){
      settings.loadFromFile();
      window.create(settings);
 
-     printf("starting");
-     
      //Gameloop
      while(state != GameStates::EXIT){
           manager.processInput(window.window, state);
