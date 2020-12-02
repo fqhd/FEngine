@@ -1,6 +1,0 @@
-out
-Client/*.o
-Server/*.o
-Client/.build.ninja.swp
-Client/.ninja_log
-
