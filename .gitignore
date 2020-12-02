@@ -1,0 +1,4 @@
+out
+Client/*.o
+Server/*.o
+
