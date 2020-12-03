@@ -10,6 +10,7 @@
 #include "GUIAssets.hpp"
 #include "GUIButton.hpp"
 #include "GUICheckbox.hpp"
+#include "GUISlider.hpp"
 
 int main(){
 
@@ -23,8 +24,6 @@ int main(){
      GUIImage image;
      Camera2D camera;
      GUIAssets assets;
-     GUIButton button(glm::vec4(30, 30, 150, 30), ColorRGBA8());
-     GUICheckbox checkbox(glm::vec4(200, 30, 16, 16), ColorRGBA8(0, 255, 0, 255), ColorRGBA8(50, 50, 50, 50), false);
 
      //Initializing game variables
      settings.loadFromFile();
@@ -34,6 +33,7 @@ int main(){
      camera.createProjectionMatrix(settings);
      assets.init();
 
+     GUISlider slider(glm::vec2(50, 50), 250.0f, ColorRGBA8(255, 0, 0, 255), ColorRGBA8(), 0.0f, settings);
 
 
      //Gameloop
@@ -42,7 +42,7 @@ int main(){
           window.clear();
 
           //Updating
-          checkbox.update(manager);
+          slider.update(manager, settings);
 
           //Rendering
           shader.bind();
@@ -50,8 +50,7 @@ int main(){
           shader.loadMatrix(camera.getProjectionMatrix());
           renderer.begin();
 
-          checkbox.render(renderer, assets.getBlankTextureID());
-
+          slider.render(renderer, assets.getBlankTextureID());
 
           renderer.end();
           renderer.renderBatch();

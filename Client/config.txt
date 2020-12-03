@@ -1,2 +1,4 @@
 ScreenWidth: 1280
 ScreenHeight: 720
+SliderButtonWidth: 7
+SliderButtonHeight: 16

@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include "Settings.hpp"
 
+
 class Window {
 public:
 
