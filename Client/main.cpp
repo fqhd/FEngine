@@ -11,8 +11,12 @@
 #include "GUIButton.hpp"
 #include "GUICheckbox.hpp"
 #include "GUISlider.hpp"
+#include "GUIFont.hpp"
+#include <iostream>
 
 int main(){
+
+
 
      //Game Variables
      Window window;
@@ -24,6 +28,7 @@ int main(){
      GUIImage image;
      Camera2D camera;
      GUIAssets assets;
+     GUIFont font;
 
      //Initializing game variables
      settings.loadFromFile();
@@ -32,6 +37,7 @@ int main(){
      shader.loadShader("res/shaders/gui_vertex_shader.glsl", "res/shaders/gui_fragment_shader.glsl");
      camera.createProjectionMatrix(settings);
      assets.init();
+     font.initFont();
 
      GUISlider slider(glm::vec2(50, 50), 250.0f, ColorRGBA8(255, 0, 0, 255), ColorRGBA8(), 0.0f, settings);
 
@@ -44,17 +50,24 @@ int main(){
           //Updating
           slider.update(manager, settings);
 
-          //Rendering
-          shader.bind();
 
+
+          //Preparing
+          shader.bind();
           shader.loadMatrix(camera.getProjectionMatrix());
           renderer.begin();
 
+
+
+
+          //Rendering
           slider.render(renderer, assets.getBlankTextureID());
+          font.renderFont(renderer, 200.0f, 200.0f, "FDsdf");
+
+
 
           renderer.end();
           renderer.renderBatch();
-
           shader.unbind();
 
 

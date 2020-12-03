@@ -15,5 +15,6 @@ void main(){
      out_color = texture2D(ourTexture, pass_uv);
 
      out_color *= pass_color;
+     out_color.w = pass_color.w;
 
 }

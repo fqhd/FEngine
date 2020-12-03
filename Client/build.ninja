@@ -1,11 +1,11 @@
-cflags = -std=c++17 -fdiagnostics-color=always -g
+cflags = -std=c++17 -fdiagnostics-color=always -g -O0 
 lflags = -lsfml-system -lsfml-window -lGLEW -lGLU -lGL
 
 rule cc
-  command = clang++ -c $in -o $out $cflags
+  command = g++ -c $in -o $out $cflags
 
 rule lnk
-  command = clang++ -o out $in $lflags
+  command = g++ -o out $in $lflags
 
 build main.o: cc main.cpp
 build window.o: cc Window.cpp
@@ -21,6 +21,7 @@ build guiassets.o: cc GUIAssets.cpp
 build guibutton.o: cc GUIButton.cpp
 build guicheckbox.o: cc GUICheckbox.cpp
 build guislider.o: cc GUISlider.cpp
+build guifont.o: cc GUIFont.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o
 

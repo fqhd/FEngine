@@ -36,10 +36,10 @@ struct ColorRGBA8 {
    ColorRGBA8() : r(255), g(255), b(255), a(255) { }
    ColorRGBA8(GLubyte R, GLubyte G, GLubyte B, GLubyte A) :
        r(R), g(G), b(B), a(A) { }
-   GLubyte r;
-   GLubyte g;
-   GLubyte b;
-   GLubyte a;
+   GLubyte r = 0;
+   GLubyte g = 0;
+   GLubyte b = 0;
+   GLubyte a = 0;
 };
 
 struct UV {
