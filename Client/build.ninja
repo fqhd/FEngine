@@ -19,6 +19,7 @@ build utils.o: cc Utils.cpp
 build camera2d.o: cc Camera2D.cpp
 build guiassets.o: cc GUIAssets.cpp
 build guibutton.o: cc GUIButton.cpp
+build guicheckbox.o: cc GUICheckbox.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o
 
