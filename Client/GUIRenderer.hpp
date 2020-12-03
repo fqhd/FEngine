@@ -115,7 +115,7 @@ public:
 };
 
 // The SpriteBatch class is a more efficient way of drawing sprites
-class SpriteBatch
+class GUIRenderer
 {
 public:
 

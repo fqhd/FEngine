@@ -25,11 +25,11 @@ Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture,
 }
 
 
-void SpriteBatch::init() {
+void GUIRenderer::init() {
     createVertexArray();
 }
 
-void SpriteBatch::dispose() {
+void GUIRenderer::dispose() {
     if (_vao != 0) {
         glDeleteVertexArrays(1, &_vao);
         _vao = 0;
@@ -40,7 +40,7 @@ void SpriteBatch::dispose() {
     }
 }
 
-void SpriteBatch::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
+void GUIRenderer::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
     _sortType = sortType;
     _renderBatches.clear();
 
@@ -49,7 +49,7 @@ void SpriteBatch::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
     _glyphs.clear();
 }
 
-void SpriteBatch::end() {
+void GUIRenderer::end() {
     // Set up all pointers for fast sorting
     _glyphPointers.resize(_glyphs.size());
     for (size_t i = 0; i < _glyphs.size(); i++) {
@@ -60,11 +60,11 @@ void SpriteBatch::end() {
     createRenderBatches();
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColorRGBA8& color) {
+void GUIRenderer::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColorRGBA8& color) {
     _glyphs.emplace_back(destRect, uvRect, texture, depth, color);
 }
 
-void SpriteBatch::renderBatch() {
+void GUIRenderer::renderBatch() {
 
     // Bind our VAO. This sets up the opengl state we need, including the
     // vertex attribute pointers and it binds the VBO
@@ -79,7 +79,7 @@ void SpriteBatch::renderBatch() {
     glBindVertexArray(0);
 }
 
-void SpriteBatch::createRenderBatches() {
+void GUIRenderer::createRenderBatches() {
     // This will store all the vertices that we need to upload
     std::vector <GUIVertex> vertices;
     // Resize the buffer to the exact size we need so we can treat
@@ -135,7 +135,7 @@ void SpriteBatch::createRenderBatches() {
 
 }
 
-void SpriteBatch::createVertexArray() {
+void GUIRenderer::createVertexArray() {
 
     // Generate the VAO if it isn't already generated
     if (_vao == 0) {
@@ -167,7 +167,7 @@ void SpriteBatch::createVertexArray() {
 
 }
 
-void SpriteBatch::sortGlyphs() {
+void GUIRenderer::sortGlyphs() {
 
     switch (_sortType) {
         case GlyphSortType::BACK_TO_FRONT:
@@ -182,14 +182,14 @@ void SpriteBatch::sortGlyphs() {
     }
 }
 
-bool SpriteBatch::compareFrontToBack(Glyph* a, Glyph* b) {
+bool GUIRenderer::compareFrontToBack(Glyph* a, Glyph* b) {
     return (a->depth < b->depth);
 }
 
-bool SpriteBatch::compareBackToFront(Glyph* a, Glyph* b) {
+bool GUIRenderer::compareBackToFront(Glyph* a, Glyph* b) {
     return (a->depth > b->depth);
 }
 
-bool SpriteBatch::compareTexture(Glyph* a, Glyph* b) {
+bool GUIRenderer::compareTexture(Glyph* a, Glyph* b) {
     return (a->texture < b->texture);
 }
