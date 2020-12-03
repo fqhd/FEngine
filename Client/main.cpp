@@ -2,6 +2,10 @@
 #include "GameStates.hpp"
 #include "InputManager.hpp"
 #include "Settings.hpp"
+#include "GUIRenderer.hpp"
+#include "GUIShader.hpp"
+#include "GUIImage.hpp"
+#include "Camera2D.hpp"
 
 int main(){
 
@@ -10,15 +14,32 @@ int main(){
      GameStates state;
      InputManager manager;
      Settings settings;
+     GUIRenderer renderer;
+     GUIShader shader;
+     GUIImage image;
+     Camera2D camera;
 
      //Initializing game variables
      settings.loadFromFile();
      window.create(settings);
+     renderer.init();
+     shader.loadShader("res/shaders/gui_vertex_shader.glsl", "res/shaders/gui_fragment_shader.glsl");
+     camera.createProjectionMatrix(settings);
 
      //Gameloop
      while(state != GameStates::EXIT){
           manager.processInput(window.window, state);
           window.clear();
+
+          shader.bind();
+
+          shader.loadMatrix(camera.getProjectionMatrix());
+          renderer.begin();
+          renderer.draw(glm::vec4(10, 10, 200, 200), glm::vec4(0, 0, 1, 1), 0, 0.0f, ColorRGBA8());
+          renderer.end();
+          renderer.renderBatch();
+
+          shader.unbind();
 
 
           window.update();

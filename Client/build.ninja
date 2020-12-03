@@ -12,6 +12,11 @@ build window.o: cc Window.cpp
 build inputmanager.o: cc InputManager.cpp
 build settings.o: cc Settings.cpp
 build guirenderer.o: cc GUIRenderer.cpp
+build guiimage.o: cc GUIImage.cpp
+build guishader.o: cc GUIShader.cpp
+build shader.o: cc Shader.cpp
+build utils.o: cc Utils.cpp
+build camera2d.o: cc Camera2D.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o
 

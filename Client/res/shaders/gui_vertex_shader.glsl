@@ -18,6 +18,6 @@ void main() {
 
 
     pass_color = in_color;
-    pass_uv = vec2(vertexUV.x, 1.0 - vertexUV.y);
+    pass_uv = vec2(in_uv.x, 1.0 - in_uv.y);
 
 }
