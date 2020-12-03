@@ -27,13 +27,6 @@
 #include <vector>
 
 // Determines how we should sort the glyphs
-enum class GlyphSortType {
-     NONE,
-     FRONT_TO_BACK,
-     BACK_TO_FRONT,
-     TEXTURE
-};
-
 struct Position {
      float x;
      float y;
@@ -90,10 +83,9 @@ struct GUIVertex {
 class Glyph {
 public:
     Glyph() {};
-    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColorRGBA8& color);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, const ColorRGBA8& color);
 
     GLuint texture;
-    float depth;
 
     GUIVertex topLeft;
     GUIVertex bottomLeft;
@@ -124,13 +116,13 @@ public:
     void dispose();
 
     // Begins the spritebatch
-    void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
+    void begin();
 
     // Ends the spritebatch
     void end();
 
     // Adds a glyph to the spritebatch
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColorRGBA8& color);
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color);
 
     // Renders the entire SpriteBatch to the screen
     void renderBatch();
@@ -152,8 +144,6 @@ private:
 
     GLuint _vbo;
     GLuint _vao;
-
-    GlyphSortType _sortType;
 
     std::vector<Glyph*> _glyphPointers; ///< This is for sorting
     std::vector<Glyph> _glyphs; ///< These are the actual glyphs

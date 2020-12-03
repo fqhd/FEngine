@@ -3,9 +3,8 @@
 #include <algorithm>
 
 
-Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColorRGBA8& color) :
-     texture(Texture),
-     depth(Depth) {
+Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, const ColorRGBA8& color) :
+     texture(Texture) {
 
      topLeft.color = color;
      topLeft.setPosition(destRect.x, destRect.y + destRect.w);
@@ -40,8 +39,7 @@ void GUIRenderer::dispose() {
     }
 }
 
-void GUIRenderer::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
-    _sortType = sortType;
+void GUIRenderer::begin() {
     _renderBatches.clear();
 
     // Makes _glpyhs.size() == 0, however it does not free internal memory.
@@ -60,8 +58,8 @@ void GUIRenderer::end() {
     createRenderBatches();
 }
 
-void GUIRenderer::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColorRGBA8& color) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color);
+void GUIRenderer::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color) {
+    _glyphs.emplace_back(destRect, uvRect, texture, color);
 }
 
 void GUIRenderer::renderBatch() {
@@ -168,26 +166,7 @@ void GUIRenderer::createVertexArray() {
 }
 
 void GUIRenderer::sortGlyphs() {
-
-    switch (_sortType) {
-        case GlyphSortType::BACK_TO_FRONT:
-            std::stable_sort(_glyphPointers.begin(), _glyphPointers.end(), compareBackToFront);
-            break;
-        case GlyphSortType::FRONT_TO_BACK:
-            std::stable_sort(_glyphPointers.begin(), _glyphPointers.end(), compareFrontToBack);
-            break;
-        case GlyphSortType::TEXTURE:
-            std::stable_sort(_glyphPointers.begin(), _glyphPointers.end(), compareTexture);
-            break;
-    }
-}
-
-bool GUIRenderer::compareFrontToBack(Glyph* a, Glyph* b) {
-    return (a->depth < b->depth);
-}
-
-bool GUIRenderer::compareBackToFront(Glyph* a, Glyph* b) {
-    return (a->depth > b->depth);
+    std::stable_sort(_glyphPointers.begin(), _glyphPointers.end(), compareTexture);
 }
 
 bool GUIRenderer::compareTexture(Glyph* a, Glyph* b) {

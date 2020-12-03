@@ -1,3 +1,4 @@
+
 #include "Window.hpp"
 #include "GameStates.hpp"
 #include "InputManager.hpp"
@@ -38,7 +39,7 @@ int main(){
 
           shader.loadMatrix(camera.getProjectionMatrix());
           renderer.begin();
-          renderer.draw(glm::vec4(10, 10, 200, 200), glm::vec4(0, 0, 1, 1), assets.getBlankTextureID(), 0.0f, ColorRGBA8());
+          renderer.draw(glm::vec4(10, 10, 200, 200), glm::vec4(0, 0, 1, 1), assets.getBlankTextureID(), ColorRGBA8());
           renderer.end();
           renderer.renderBatch();
 

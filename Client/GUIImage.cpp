@@ -6,5 +6,5 @@ GUIImage::GUIImage(const glm::vec4& destRect, GLuint textureID){
 }
 
 void GUIImage::render(GUIRenderer& renderer){
-     renderer.draw(m_destRect, glm::vec4(0, 0, 1, 1), m_textureID, 0.0f, ColorRGBA8());
+     renderer.draw(m_destRect, glm::vec4(0, 0, 1, 1), m_textureID, ColorRGBA8());
 }
