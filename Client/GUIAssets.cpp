@@ -13,7 +13,7 @@ GLuint GUIAssets::getBlankTextureID(){
 GLuint GUIAssets::loadTexture(const char* path){
 
      int x, y, n;
-     unsigned char* data = stbi_load(path, &x, &y, &n, 0);
+     unsigned char* data = stbi_load(path, &x, &y, &n, 4);
 
      if(!data){
           printf("Failed to load image %s\n", path);
