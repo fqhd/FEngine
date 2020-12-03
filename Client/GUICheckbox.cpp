@@ -8,7 +8,7 @@ GUICheckbox::GUICheckbox(const glm::vec4& destRect, const ColorRGBA8& onColor, c
 	m_isChecked = isChecked;
 }
 
-void GUICheckbox::update(sf::Window& window, InputManager& manager){
+void GUICheckbox::update(InputManager& manager){
 
      ColorRGBA8 color = m_isChecked ? m_onColor : m_offColor;
 
