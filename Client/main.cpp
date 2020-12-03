@@ -8,6 +8,7 @@
 #include "GUIImage.hpp"
 #include "Camera2D.hpp"
 #include "GUIAssets.hpp"
+#include "GUIButton.hpp"
 
 int main(){
 
@@ -21,6 +22,7 @@ int main(){
      GUIImage image;
      Camera2D camera;
      GUIAssets assets;
+     GUIButton button(glm::vec4(30, 30, 150, 30), ColorRGBA8());
 
      //Initializing game variables
      settings.loadFromFile();
@@ -30,16 +32,20 @@ int main(){
      camera.createProjectionMatrix(settings);
      assets.init();
 
+
      //Gameloop
      while(state != GameStates::EXIT){
           manager.processInput(window.window, state);
           window.clear();
 
+          //Updating
+
+          //Rendering
           shader.bind();
 
           shader.loadMatrix(camera.getProjectionMatrix());
           renderer.begin();
-          renderer.draw(glm::vec4(10, 10, 200, 200), glm::vec4(0, 0, 1, 1), assets.getBlankTextureID(), ColorRGBA8());
+
           renderer.end();
           renderer.renderBatch();
 
@@ -49,8 +55,12 @@ int main(){
           window.update();
      }
 
-     //Cleanup
+     //Saving Changes
      settings.writeToFile();
+
+     //Cleanup
+     renderer.dispose();
+     shader.destroy();
      window.close();
 
 
