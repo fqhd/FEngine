@@ -18,6 +18,7 @@ void GUIFont::initFont(){
      glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, 512,512, 0, GL_ALPHA, GL_UNSIGNED_BYTE, temp_bitmap);
      glBindTexture(GL_TEXTURE_2D, 0);
 
+
      Utils::freeBuffer(ttf_buffer);
      delete[] temp_bitmap;
 

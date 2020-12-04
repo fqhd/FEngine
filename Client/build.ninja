@@ -22,6 +22,10 @@ build guibutton.o: cc GUIButton.cpp
 build guicheckbox.o: cc GUICheckbox.cpp
 build guislider.o: cc GUISlider.cpp
 build guifont.o: cc GUIFont.cpp
+build model.o: cc Model.cpp
+build objmodel.o: cc obj_loader.cpp
+build game.o: cc Game.cpp
+build menu.o: cc Menu.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o
 

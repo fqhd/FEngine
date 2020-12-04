@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 class Settings{
 public:
@@ -14,3 +15,4 @@ public:
      unsigned int sliderButtonHeight = 16;
      
 };
+#endif
