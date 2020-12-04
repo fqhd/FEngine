@@ -12,9 +12,9 @@ uniform sampler2D ourTexture;
 
 void main(){
 
-     out_color = texture2D(ourTexture, pass_uv);
+     float transparency = texture2D(ourTexture, pass_uv).w;
 
-     out_color *= pass_color;
-     out_color.w = pass_color.w;
+     out_color = vec4(255, 255, 255, transparency);
+
 
 }

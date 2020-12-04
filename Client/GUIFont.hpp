@@ -9,11 +9,10 @@ public:
      void initFont();
      void renderFont(GUIRenderer& renderer, float x, float y, const char* data);
 
-     const stbtt_bakedchar* getBakedData() const;
-
 private:
 
-     stbtt_bakedchar m_cdata[96];
-     GLuint m_textureID = 0;
+     GLuint m_textureID;
+     stbtt_bakedchar* m_cdata = nullptr; // ASCII 32..126 is 95 glyphs
+
 
 };

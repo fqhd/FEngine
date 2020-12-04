@@ -25,7 +25,6 @@ int main(){
      Settings settings;
      GUIRenderer renderer;
      GUIShader shader;
-     GUIImage image;
      Camera2D camera;
      GUIAssets assets;
      GUIFont font;
@@ -39,6 +38,7 @@ int main(){
      assets.init();
      font.initFont();
 
+     GUIImage image(glm::vec4(200, 200, 128, 128), assets.getBlankTextureID(), ColorRGBA8());
      GUISlider slider(glm::vec2(50, 50), 250.0f, ColorRGBA8(255, 0, 0, 255), ColorRGBA8(), 0.0f, settings);
 
 
@@ -62,7 +62,8 @@ int main(){
 
           //Rendering
           slider.render(renderer, assets.getBlankTextureID());
-          font.renderFont(renderer, 200.0f, 200.0f, "FDsdf");
+          image.render(renderer);
+          font.renderFont(renderer, 100.0f, 100.0f, "The quick brown fox jumped over the lazy dog");
 
 
 
