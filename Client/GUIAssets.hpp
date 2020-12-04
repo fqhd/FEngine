@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GUIASSETS_H
+#define GUIASSETS_H
 #include <GL/glew.h>
 
 class GUIAssets {
@@ -15,3 +16,4 @@ private:
      GLuint m_blankTextureID;
 
 };
+#endif

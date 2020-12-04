@@ -2,15 +2,12 @@
 #include <GL/glew.h>
 
 void Window::create(Settings& settings){
-     sf::ContextSettings cSettings;
-     cSettings.majorVersion = 3;
-     cSettings.minorVersion = 3;
-
-     window.create(sf::VideoMode(settings.screenWidth, settings.screenHeight), "Sokuban", sf::Style::Titlebar | sf::Style::Close, cSettings);
 
      //Setting Window settings
-     window.setVerticalSyncEnabled(true);
+     sf::ContextSettings cSettings;
 
+     window.create(sf::VideoMode(settings.screenWidth, settings.screenHeight), "Window",
+                   sf::Style::Fullscreen, cSettings);
      glewInit();
 
      glClearColor(0, 0, 1, 1);

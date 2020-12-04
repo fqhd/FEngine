@@ -1,6 +1,9 @@
-#pragma once
+#ifndef INPUT_MANAGER_H
+#define INPUT_MANAGER_H
+
 #include <SFML/Window.hpp>
 #include <glm/glm.hpp>
+#include <unordered_map>
 #include "GameStates.hpp"
 
 class InputManager{
@@ -39,3 +42,4 @@ private:
 	glm::vec2 m_mousePosition;
 
 };
+#endif

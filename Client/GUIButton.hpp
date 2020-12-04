@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GUIBUTTON_H
+#define GUIBUTTON_H
+
 #include "GUIRenderer.hpp"
 #include "InputManager.hpp"
 
@@ -21,3 +23,4 @@ private:
 	std::string m_string;
 
 };
+#endif

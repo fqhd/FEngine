@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAMERA2D_H
+#define CAMERA2D_H
+
 #include <glm/gtc/matrix_transform.hpp>
 #include "Settings.hpp"
 
@@ -16,3 +18,4 @@ private:
 
 
 };
+#endif

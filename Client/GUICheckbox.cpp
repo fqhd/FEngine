@@ -1,5 +1,5 @@
-#include "GUICheckbox.hpp"
 #include "Utils.hpp"
+#include "GUICheckbox.hpp"
 
 GUICheckbox::GUICheckbox(const glm::vec4& destRect, const ColorRGBA8& onColor, const ColorRGBA8& offColor, bool isChecked){
      m_destRect = destRect;

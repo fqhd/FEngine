@@ -1,4 +1,3 @@
-
 #include "Window.hpp"
 #include "GameStates.hpp"
 #include "InputManager.hpp"
@@ -29,7 +28,9 @@ int main(){
      GUIAssets assets;
      GUIFont font;
 
+
      //Initializing game variables
+     state = GameStates::MENU;
      settings.loadFromFile();
      window.create(settings);
      renderer.init();
@@ -51,14 +52,12 @@ int main(){
           slider.update(manager, settings);
 
 
-
           //Preparing
           shader.bind();
           shader.loadMatrix(camera.getProjectionMatrix());
           renderer.begin();
 
-
-
+          
 
           //Rendering
           slider.render(renderer, assets.getBlankTextureID());
