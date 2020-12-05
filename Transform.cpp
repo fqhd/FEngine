@@ -1,6 +1,6 @@
 #include "Transform.hpp"
 
-void Transform::Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale){
+Transform::Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale){
      m_position = position;
      m_rotation = rotation;
      m_scale = scale;
@@ -23,26 +23,29 @@ const glm::mat4& Transform::getMatrix() {
 
 
 void Transform::setPosition(const glm::vec3& position) {
-
+     m_position = position;
+     m_needsUpdate = true;
 }
 
 void Transform::setRotation(const glm::vec3& rotation) {
-
+     m_rotation = rotation;
+     m_needsUpdate = true;
 }
 
 void Transform::setScale(const glm::vec3& scale) {
-
+     m_scale = scale;
+     m_needsUpdate = true;
 }
 
 
 const glm::vec3& Transform::getPosition() const {
-
+     return m_position;
 }
 
 const glm::vec3& Transform::getRotation() const {
-
+     return m_rotation;
 }
 
 const glm::vec3& Transform::getScale() const {
-
+     return m_scale;
 }

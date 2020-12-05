@@ -15,7 +15,7 @@ public:
 	bool isPressed();
 
 private:
-
+	
 	bool m_isPressed = false;
 	ColorRGBA8 m_baseColor;
 	ColorRGBA8 m_currentColor;

@@ -2,7 +2,7 @@
 #include "obj_loader.h"
 
 
-Model::Model(const std::string& path){
+void Model::loadFromFile(const std::string& path){
 
      //Initializing the vao
      glGenVertexArrays(1, &m_vaoID);
@@ -14,7 +14,7 @@ Model::Model(const std::string& path){
      glEnableVertexAttribArray(0);
      glEnableVertexAttribArray(1);
      glEnableVertexAttribArray(2);
-     
+
      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
      glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
      glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
@@ -34,14 +34,14 @@ Model::Model(const std::string& path){
           vertices.push_back(Vertex(model.positions[i], model.texCoords[i], model.normals[i]));
      }
 
-     
+
      //Sending data to EBO and unbinding vao
      glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), model.indices.data(), GL_STATIC_DRAW);
 
      glBindVertexArray(0);
 
      m_numVertices = model.indices.size();
-     
+
 
 }
 

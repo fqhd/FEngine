@@ -20,7 +20,6 @@ void GUIButton::update(InputManager& manager){
 		}
 	}
 
-
 }
 
 void GUIButton::render(GUIRenderer& renderer, GLuint blankTextureID){

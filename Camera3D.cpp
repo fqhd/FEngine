@@ -7,7 +7,7 @@ void Camera3D::init(unsigned int width, unsigned int height){
      forward = glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
-const Camera3D::glm::mat4& getViewMatrix(){
+const glm::mat4& Camera3D::getViewMatrix(){
      if(!m_needsUpdate)
           return m_viewMatrix;
 
@@ -16,6 +16,6 @@ const Camera3D::glm::mat4& getViewMatrix(){
      return m_viewMatrix;
 }
 
-const Camera3D::glm::mat4& getProjectionMatrix() const{
+const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }

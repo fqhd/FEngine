@@ -7,3 +7,7 @@ void Assets::init(){
 Model* Assets::getPlayerModel() {
      return &m_playerModel;
 }
+
+void Assets::destroy(){
+     m_playerModel.destroy();
+}

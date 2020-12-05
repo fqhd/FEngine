@@ -11,6 +11,8 @@ public:
      //Getters
      Model* getPlayerModel();
 
+     void destroy();
+
 
 
 private:

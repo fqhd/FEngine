@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-void Entity::Entity(const Transform& t, Model* m){
+Entity::Entity(const Transform& t, Model* m){
      transform = t;
      model = m;
 }

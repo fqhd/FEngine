@@ -7,7 +7,7 @@
 class Entity {
 public:
 
-     void Entity(const Transform& t, Model* m);
+     Entity(const Transform& t, Model* m);
 
      void render();
 

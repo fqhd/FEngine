@@ -10,6 +10,7 @@ GLuint GUIAssets::getBlankTextureID(){
      return m_blankTextureID;
 }
 
+
 GLuint GUIAssets::loadTexture(const char* path){
 
      int x, y, n;

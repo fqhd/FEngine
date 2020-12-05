@@ -16,4 +16,5 @@ private:
      GLuint m_blankTextureID;
 
 };
+
 #endif

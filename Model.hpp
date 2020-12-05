@@ -8,8 +8,8 @@
 
 class Model {
 public:
-
-     Model(const std::string& model);
+     
+     void loadFromFile(const std::string& model);
      void render();
      void destroy();
 
