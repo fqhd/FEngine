@@ -1,4 +1,4 @@
-cflags = -std=c++17 -fdiagnostics-color=always -g -O0 
+cflags = -std=c++17 -fdiagnostics-color=always -g -O0
 lflags = -lsfml-system -lsfml-window -lGLEW -lGLU -lGL
 
 rule cc
@@ -26,6 +26,6 @@ build model.o: cc Model.cpp
 build objmodel.o: cc obj_loader.cpp
 build game.o: cc Game.cpp
 build menu.o: cc Menu.cpp
+build modelshader.o: cc ModelShader.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o
-
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o modelshader.o

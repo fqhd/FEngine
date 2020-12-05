@@ -6,11 +6,13 @@ void Window::create(Settings& settings){
      //Setting Window settings
      sf::ContextSettings cSettings;
 
+     //Creating the window
      window.create(sf::VideoMode(settings.screenWidth, settings.screenHeight), "Window",
-                   sf::Style::Fullscreen, cSettings);
-     glewInit();
+                   sf::Style::Default, cSettings);
 
-     glClearColor(0, 0, 1, 1);
+     //Initializing glew
+     glewInit();
+     
 
      //Enabling transparency
      glEnable(GL_BLEND);

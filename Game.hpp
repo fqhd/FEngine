@@ -2,7 +2,6 @@
 #define GAME_H
 
 
-
 class Game {
 public:
 
