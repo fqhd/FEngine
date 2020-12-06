@@ -11,7 +11,8 @@ void Game::init(Settings& settings){
 
 }
 
-void Game::update(){
+void Game::update(InputManager& manager){
+     m_camera.move(manager);
 
 }
 

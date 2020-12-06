@@ -1,5 +1,7 @@
 #include "Camera3D.hpp"
 
+#include <iostream>
+
 void Camera3D::init(unsigned int width, unsigned int height){
      m_projectionMatrix = glm::perspective(glm::radians(90.0f), width/(float)height, 0.1f, 1000.0f);
      position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -11,11 +13,65 @@ const glm::mat4& Camera3D::getViewMatrix(){
      if(!m_needsUpdate)
           return m_viewMatrix;
 
-     m_viewMatrix = glm::lookAt(position, position + forward, up);
+     m_viewMatrix = glm::lookAt(position, glm::vec3(0, 0, 0), up);
 
      return m_viewMatrix;
 }
 
 const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
+}
+
+void Camera3D::move(InputManager& manager){
+
+     //Calculating variables
+     calculatePitch(manager);
+     calculateYaw(manager);
+     calculateZoom(manager);
+
+     float horizDistance = calculateHorizontalDistance();
+     float verticDistance = calculateVerticalDistance();
+     calculateCameraPosition(horizDistance, verticDistance);
+
+
+}
+
+void Camera3D::calculateCameraPosition(float horizDistance, float verticDistance) {
+     position.y = verticDistance;
+     float offsetX = (float)(horizDistance * glm::sin(glm::radians(m_yaw)));
+     float offsetZ = (float)(horizDistance * glm::cos(glm::radians(m_yaw)));
+     position.x = -offsetX;
+     position.z = -offsetZ;
+
+}
+
+float Camera3D::calculateHorizontalDistance() {
+     return (float) (m_distanceFromCenter * glm::cos(glm::radians(m_pitch)));
+}
+
+float Camera3D::calculateVerticalDistance() {
+     return (float) (m_distanceFromCenter * glm::sin(glm::radians(m_pitch)));
+}
+
+void Camera3D::calculatePitch(InputManager& manager){
+     if(manager.isMouseDown(sf::Mouse::Left)){
+          m_pitch -= manager.getDeltaMousePosition().y;
+     }
+     if(m_pitch < -89.0f){
+          m_pitch = -89.0f;
+     }
+     if(m_pitch > 89.0f){
+          m_pitch = 89.0f;
+     }
+
+}
+
+void Camera3D::calculateYaw(InputManager& manager){
+     if(manager.isMouseDown(sf::Mouse::Right)){
+          m_yaw -= manager.getDeltaMousePosition().x;
+     }
+}
+
+void Camera3D::calculateZoom(InputManager& manager){
+     m_distanceFromCenter += manager.getDeltaMouseWheel();
 }

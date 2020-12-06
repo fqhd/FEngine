@@ -9,10 +9,11 @@ void Window::create(Settings& settings){
      //Creating the window
      window.create(sf::VideoMode(settings.screenWidth, settings.screenHeight), "Window",
                    sf::Style::Default, cSettings);
+     window.setVerticalSyncEnabled(true);
 
      //Initializing glew
      glewInit();
-     
+
 
      //Enabling transparency
      glEnable(GL_BLEND);

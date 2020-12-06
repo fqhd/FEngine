@@ -4,6 +4,7 @@ void InputManager::processInput(sf::Window& window, GameStates& state){
 
 	m_previousKeyMap = m_keymap;
 	m_previousMouseMap = m_mousemap;
+	m_deltaMouseWheel = 0;
 
 	while(window.pollEvent(m_event)){
 		switch(m_event.type){
@@ -22,18 +23,27 @@ void InputManager::processInput(sf::Window& window, GameStates& state){
 		case sf::Event::MouseButtonReleased:
 			mouseReleased(m_event.mouseButton.button);
 		break;
-		//case sf::Event::TextEntered:
-		//	m_lastKeyTyped = static_cast<char>(m_event.text.unicode);
-		//break;
-		case sf::Event::MouseMoved:
-			m_mousePosition = glm::vec2(m_event.mouseMove.x, window.getSize().y - m_event.mouseMove.y);
+		case sf::Event::MouseWheelScrolled:
+			m_deltaMouseWheel = m_event.mouseWheelScroll.delta;
 		break;
 		}
 	}
 
+	//Updating the mouse position/delta mouse position
+	m_deltaMousePosition = m_mousePosition - glm::vec2(sf::Mouse::getPosition(window).x, window.getSize().y - sf::Mouse::getPosition(window).y);
+	m_mousePosition = glm::vec2(sf::Mouse::getPosition(window).x, window.getSize().y - sf::Mouse::getPosition(window).y);
+
 }
 
-const glm::vec2& InputManager::getMousePosition(){
+float InputManager::getDeltaMouseWheel() const {
+	return m_deltaMouseWheel;
+}
+
+const glm::vec2& InputManager::getDeltaMousePosition() {
+	return m_deltaMousePosition;
+}
+
+const glm::vec2& InputManager::getMousePosition() {
 	return m_mousePosition;
 }
 

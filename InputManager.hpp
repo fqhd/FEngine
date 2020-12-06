@@ -22,7 +22,8 @@ public:
 	bool wasMouseDown(unsigned int keyID);
 
 	const glm::vec2& getMousePosition();
-
+	const glm::vec2& getDeltaMousePosition();
+	float getDeltaMouseWheel() const ;
 
 private:
 
@@ -40,6 +41,7 @@ private:
 
 
 	glm::vec2 m_mousePosition;
-
+	glm::vec2 m_deltaMousePosition;
+	float m_deltaMouseWheel = 0.0f;
 };
 #endif
