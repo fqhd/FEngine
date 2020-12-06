@@ -2,6 +2,7 @@
 #define STATIC_SHADER_H
 
 #include "Shader.hpp"
+#include <glm/glm.hpp>
 
 class StaticShader : public Shader {
 public:
@@ -20,3 +21,5 @@ private:
 
 
 };
+
+#endif

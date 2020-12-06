@@ -15,6 +15,9 @@ public:
 
 private:
 
+     //Model functions
+     void addSurface();
+
      BatchRenderer m_renderer;
      StaticShader m_shader;
 

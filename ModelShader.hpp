@@ -9,7 +9,6 @@ public:
 
      void init();
 
-     void getUniformLocations();
 
      void loadProjectionMatrix(const glm::mat4& matrix);
      void loadViewMatrix(const glm::mat4& matrix);
@@ -18,6 +17,8 @@ public:
 
 
 private:
+
+     void getUniformLocations();
 
      GLint m_projectionMatrixLocation = 0;
      GLint m_viewMatrixLocation = 0;

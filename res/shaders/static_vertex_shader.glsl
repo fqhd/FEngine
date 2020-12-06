@@ -8,13 +8,12 @@ out vec2 pass_uv;
 out vec3 pass_normal;
 
 uniform mat4 view;
-uniform mat4 model;
 uniform mat4 projection;
 
 
 void main(){
 
-     gl_Position = projection * view * model * vec4(in_position, 1.0);
+     gl_Position = projection * view * vec4(in_position, 1.0);
 
      pass_uv = in_uv;
      pass_normal = in_normal;

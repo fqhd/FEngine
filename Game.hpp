@@ -4,9 +4,7 @@
 #include "EntityHandler.hpp"
 #include "Camera3D.hpp"
 #include "Settings.hpp"
-#include "Surface.hpp"
-#include "BatchRenderer.hpp"
-#include "ModelShader.hpp"
+#include "StaticObjects.hpp"
 
 class Game {
 public:
@@ -19,12 +17,11 @@ public:
 
 private:
 
+
      EntityHandler m_entityHandler;
-     BatchRenderer m_batchRenderer;
-     ModelShader m_shader;
+     StaticObjects m_staticObjects;
 
      Camera3D m_camera;
-     Surface m_surface;
 
 };
 

@@ -31,8 +31,8 @@ build transform.o: cc Transform.cpp
 build camera3d.o: cc Camera3D.cpp
 build entity.o: cc Entity.cpp
 build entityhandler.o: cc EntityHandler.cpp
-build surface.o: cc Surface.cpp
 build batchrenderer.o: cc BatchRenderer.cpp
+build staticshader.o: cc StaticShader.cpp
+build staticobjects.o: cc StaticObjects.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o modelshader.o transform.o camera3d.o entityhandler.o entity.o surface.o batchrenderer.o
-
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o modelshader.o transform.o camera3d.o entityhandler.o entity.o batchrenderer.o staticshader.o staticobjects.o
