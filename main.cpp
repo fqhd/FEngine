@@ -11,6 +11,8 @@
 #include "GUICheckbox.hpp"
 #include "GUISlider.hpp"
 #include "GUIFont.hpp"
+#include "Game.hpp"
+#include "Menu.hpp"
 #include <iostream>
 
 int main(){
@@ -23,36 +25,44 @@ int main(){
      InputManager manager;
      Settings settings;
      GUIAssets assets;
+     Game game;
+     Menu menu;
 
 
      //Initializing game variables
-     state = GameStates::MENU;
+     state = GameStates::PLAY;
      settings.loadFromFile();
      window.create(settings);
      assets.init();
+     game.init(settings);
+     menu.init(settings);
 
 
 
      //Gameloop
      while(state != GameStates::EXIT){
-          
+
 
           while(state == GameStates::MENU){
                manager.processInput(window.window, state);
                window.clear();
 
-               
+               menu.update();
+               menu.render();
+
                window.update();
           }
-          
+
           while(state == GameStates::PLAY){
                manager.processInput(window.window, state);
                window.clear();
 
+               game.update();
+               game.render();
 
                window.update();
           }
-          
+
 
 
           window.update();
@@ -62,6 +72,8 @@ int main(){
      settings.writeToFile();
 
      //Cleanup
+     menu.destroy();
+     game.destroy();
      window.close();
 
 

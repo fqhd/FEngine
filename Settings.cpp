@@ -10,6 +10,7 @@ void Settings::writeToFile(){
      os << "ScreenHeight: " << screenHeight << std::endl;
      os << "SliderButtonWidth: " << sliderButtonWidth << std::endl;
      os << "SliderButtonHeight: " << sliderButtonHeight << std::endl;
+     os << "WorldWidth: " << worldWidth << std::endl;
 
      os.close();
 
@@ -29,6 +30,8 @@ void Settings::loadFromFile(){
                is >> sliderButtonWidth;
           }else if(name == "SliderButtonHeight:"){
                is >> sliderButtonHeight;
+          }else if(name == "WorldWidth:"){
+               is >> worldWidth;
           }
      }
      is.close();

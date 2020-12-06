@@ -13,6 +13,7 @@ public:
      unsigned int screenHeight = 720;
      unsigned int sliderButtonWidth = 7;
      unsigned int sliderButtonHeight = 16;
-     
+     unsigned int worldWidth = 16;
+
 };
 #endif

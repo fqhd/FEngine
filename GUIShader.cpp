@@ -1,9 +1,14 @@
 #include "GUIShader.hpp"
 
-void GUIShader::getUniformLocations(){
+void GUIShader::init(){
+     loadShader("res/shaders/gui_vertex_shader.glsl", "res/shaders/gui_fragment_shader.glsl");
      bind();
-     m_matrixLocation = glGetUniformLocation(m_programID, "matrix");
+     getUniformLocations();
      unbind();
+}
+
+void GUIShader::getUniformLocations(){
+     m_matrixLocation = glGetUniformLocation(m_programID, "matrix");
 }
 
 void GUIShader::loadMatrix(const glm::mat4& matrix){

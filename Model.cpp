@@ -19,13 +19,7 @@ void Model::loadFromFile(const std::string& path){
      glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
      glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
-     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-     glGenBuffers(1, &m_eboID);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-
-
-     //Creating the vertices
+     //Creating and sending data to VBO
      IndexedModel model = OBJModel(path).ToIndexedModel();
 
      std::vector<Vertex> vertices;
@@ -34,8 +28,15 @@ void Model::loadFromFile(const std::string& path){
           vertices.push_back(Vertex(model.positions[i], model.texCoords[i], model.normals[i]));
      }
 
+     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);
 
-     //Sending data to EBO and unbinding vao
+     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+     //Sending indices to EBO
+     glGenBuffers(1, &m_eboID);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
+
+     //Sending indices and unbinding vao
      glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), model.indices.data(), GL_STATIC_DRAW);
 
      glBindVertexArray(0);

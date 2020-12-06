@@ -1,5 +1,12 @@
 #include "ModelShader.hpp"
 
+void ModelShader::init(){
+     loadShader("res/shaders/model_vertex_shader.glsl", "res/shaders/model_fragment_shader.glsl");
+     bind();
+     getUniformLocations();
+     unbind();
+}
+
 void ModelShader::getUniformLocations(){
           m_projectionMatrixLocation = glGetUniformLocation(m_programID, "projection");
           m_viewMatrixLocation = glGetUniformLocation(m_programID, "view");

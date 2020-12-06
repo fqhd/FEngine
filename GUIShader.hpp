@@ -6,6 +6,7 @@
 class GUIShader : public Shader {
 public:
 
+     void init();
      void getUniformLocations();
      void loadMatrix(const glm::mat4& matrix);
 

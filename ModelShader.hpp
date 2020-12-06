@@ -7,6 +7,8 @@
 class ModelShader : public Shader {
 public:
 
+     void init();
+
      void getUniformLocations();
 
      void loadProjectionMatrix(const glm::mat4& matrix);

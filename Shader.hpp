@@ -7,12 +7,13 @@ class Shader{
 
 public:
 
-	void loadShader(const char* vs, const char* fs);
 	void bind();
 	void unbind();
 	void destroy();
 
 protected:
+
+	void loadShader(const char* vs, const char* fs);
 
 	GLuint m_programID;
 	GLuint m_vertexID;

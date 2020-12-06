@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 
 
-void Menu::init(){
+void Menu::init(Settings& settings){
 
 }
 
