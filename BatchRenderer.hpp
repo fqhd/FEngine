@@ -4,17 +4,18 @@
 #include <vector>
 #include <GL/glew.h>
 #include "Vertex.hpp"
+#include "StaticShader.hpp"
 
 class BatchModel {
 public:
 
-     BatchModel(unsigned int nv, GLuint t){
-          numVertices = nv;
-          textureID = t;
+     BatchModel(unsigned int n, StaticColor c){
+          numVertices = n;
+          color = c;
      }
 
      unsigned int numVertices = 0;
-     GLuint textureID = 0;
+     StaticColor color;
 
 };
 
@@ -23,9 +24,9 @@ public:
 
      void init();
      void begin();
-     void addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, GLuint textureID);
+     void addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color);
      void end();
-     void render();
+     void render(StaticShader& shader);
      void destroy();
 
 

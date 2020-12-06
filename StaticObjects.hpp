@@ -17,7 +17,7 @@ public:
 private:
 
      //Model functions
-     void addSurface(Settings& settings);
+     void addSurface(Settings& settings, StaticColor color);
 
      BatchRenderer m_renderer;
      StaticShader m_shader;

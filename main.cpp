@@ -57,7 +57,7 @@ int main(){
                manager.processInput(window.window, state);
                window.clear();
 
-               game.update(manager);
+               game.update(manager, settings);
                game.render();
 
                window.update();

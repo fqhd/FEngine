@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 void BatchRenderer::init(){
      //Initializing the vao
      glGenVertexArrays(1, &m_vaoID);
@@ -12,11 +13,9 @@ void BatchRenderer::init(){
 
      glEnableVertexAttribArray(0);
      glEnableVertexAttribArray(1);
-     glEnableVertexAttribArray(2);
 
      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
-     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
-     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
      //Sending indices to EBO
      glGenBuffers(1, &m_eboID);
@@ -33,8 +32,9 @@ void BatchRenderer::begin(){
      m_models.clear();
 }
 
-void BatchRenderer::addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, GLuint textureID){
+void BatchRenderer::addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color){
      //Adding vertices
+
      for(unsigned int i = 0; i < numVertices; i++){
           m_vertices.push_back(vertices[i]);
      }
@@ -44,16 +44,13 @@ void BatchRenderer::addModel(Vertex* vertices, unsigned int numVertices, unsigne
           m_indices.push_back(indices[i]);
      }
 
-     std::cout << "Numvertices: " << m_vertices.size() << std::endl;
-     std::cout << "numindices: " << m_indices.size() << std::endl;
-     //Adding Model
+     //If previous model had same color use the same color
      if(m_models.empty()){
-          //Create new model
-          m_models.emplace_back(BatchModel(numIndices, textureID));
-     }
-     else if(m_models.back().textureID != textureID){
-          //Increase vertices for previous model
+          m_models.push_back(BatchModel(numIndices, color));
+     } else if (m_models.back().color.r == color.r && m_models.back().color.g == color.g && m_models.back().color.b == color.b) {
           m_models.back().numVertices += numIndices;
+     }else{
+          m_models.push_back(BatchModel(numIndices, color));
      }
 
 }
@@ -71,15 +68,18 @@ void BatchRenderer::end(){
 
 }
 
-void BatchRenderer::render(){
+void BatchRenderer::render(StaticShader& shader){
      glBindVertexArray(m_vaoID);
+
      for(unsigned int i = 0; i < m_models.size(); i++){
+          shader.loadColor(m_models[i].color);
           if(i == 0){
                glDrawElements(GL_TRIANGLES, m_models[i].numVertices, GL_UNSIGNED_INT, 0);
           }else{
                glDrawElements(GL_TRIANGLES, m_models[i].numVertices, GL_UNSIGNED_INT, (void*)m_models[i - 1].numVertices);
           }
      }
+
      glBindVertexArray(m_eboID);
 }
 

@@ -4,15 +4,17 @@
 
 void Game::init(Settings& settings){
 
+     m_assets.init();
      m_entityHandler.init();
      m_camera.init(settings.screenWidth, settings.screenHeight);
-     m_staticObjects.init();
+
+     m_staticObjects.init(settings);
 
 
 }
 
-void Game::update(InputManager& manager){
-     m_camera.move(manager);
+void Game::update(InputManager& manager, Settings& settings){
+     m_camera.move(manager, settings);
 
 }
 

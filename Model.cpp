@@ -13,11 +13,9 @@ void Model::loadFromFile(const std::string& path){
 
      glEnableVertexAttribArray(0);
      glEnableVertexAttribArray(1);
-     glEnableVertexAttribArray(2);
 
      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
-     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
-     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
      //Creating and sending data to VBO
      IndexedModel model = OBJModel(path).ToIndexedModel();
@@ -25,7 +23,7 @@ void Model::loadFromFile(const std::string& path){
      std::vector<Vertex> vertices;
 
      for(unsigned int i = 0; i < model.positions.size(); i++){
-          vertices.push_back(Vertex(model.positions[i], model.texCoords[i], model.normals[i]));
+          vertices.push_back(Vertex(model.positions[i], model.normals[i]));
      }
 
      glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);

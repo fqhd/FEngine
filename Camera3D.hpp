@@ -3,12 +3,13 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include "InputManager.hpp"
+#include "Settings.hpp"
 
 class Camera3D {
 public:
 
      void init(unsigned int width, unsigned int height);
-     void move(InputManager& manager);
+     void move(InputManager& manager, Settings& settings);
      const glm::mat4& getViewMatrix();
 
      const glm::mat4& getProjectionMatrix() const;
@@ -19,9 +20,9 @@ public:
 
 private:
 
-     void calculatePitch(InputManager& manager);
-     void calculateYaw(InputManager& manager);
-     void calculateZoom(InputManager& manager);
+     void calculatePitch(InputManager& manager, Settings& settings);
+     void calculateYaw(InputManager& manager, Settings& settings);
+     void calculateZoom(InputManager& manager, Settings& settings);
      void calculateCameraPosition(float horizDistance, float verticDistance);
      float calculateHorizontalDistance();
      float calculateVerticalDistance();

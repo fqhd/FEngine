@@ -22,12 +22,12 @@ const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }
 
-void Camera3D::move(InputManager& manager){
+void Camera3D::move(InputManager& manager, Settings& settings){
 
      //Calculating variables
-     calculatePitch(manager);
-     calculateYaw(manager);
-     calculateZoom(manager);
+     calculatePitch(manager, settings);
+     calculateYaw(manager, settings);
+     calculateZoom(manager, settings);
 
      float horizDistance = calculateHorizontalDistance();
      float verticDistance = calculateVerticalDistance();
@@ -53,9 +53,9 @@ float Camera3D::calculateVerticalDistance() {
      return (float) (m_distanceFromCenter * glm::sin(glm::radians(m_pitch)));
 }
 
-void Camera3D::calculatePitch(InputManager& manager){
+void Camera3D::calculatePitch(InputManager& manager, Settings& settings){
      if(manager.isMouseDown(sf::Mouse::Left)){
-          m_pitch -= manager.getDeltaMousePosition().y;
+          m_pitch += manager.getDeltaMousePosition().y * settings.mouseSensitivity;
      }
      if(m_pitch < -89.0f){
           m_pitch = -89.0f;
@@ -66,12 +66,16 @@ void Camera3D::calculatePitch(InputManager& manager){
 
 }
 
-void Camera3D::calculateYaw(InputManager& manager){
-     if(manager.isMouseDown(sf::Mouse::Right)){
-          m_yaw -= manager.getDeltaMousePosition().x;
+void Camera3D::calculateYaw(InputManager& manager, Settings& settings){
+     if(manager.isMouseDown(sf::Mouse::Left)){
+          m_yaw += manager.getDeltaMousePosition().x * settings.mouseSensitivity;
      }
 }
 
-void Camera3D::calculateZoom(InputManager& manager){
-     m_distanceFromCenter += manager.getDeltaMouseWheel();
+void Camera3D::calculateZoom(InputManager& manager, Settings& settings){
+     m_distanceFromCenter -= manager.getDeltaMouseWheel() * settings.zoomSensitivity;
+     if(m_distanceFromCenter < 5.0f){
+          m_distanceFromCenter = 5.0f;
+     }
+
 }
