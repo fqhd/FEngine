@@ -1,13 +1,13 @@
 #include "StaticObjects.hpp"
 
-void StaticObjects::init(){
+void StaticObjects::init(Settings& settings){
      m_shader.init();
      m_renderer.init();
 
      m_renderer.begin();
 
      //Adding different models to batch renderer
-     addSurface();
+     addSurface(settings);
 
      m_renderer.end();
 
@@ -26,14 +26,22 @@ void StaticObjects::destroy(){
      m_renderer.destroy();
 }
 
-void StaticObjects::addSurface(){
+void StaticObjects::addSurface(Settings& settings){
      std::vector<Vertex> vertices;
 
-     vertices.push_back(Vertex(glm::vec3(-1, -1, 1), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(0, 1, 1), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(1, -1, 1), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     float offset = settings.worldWidth;
 
-     unsigned int indices[] = { 0, 1, 2 };
+     vertices.push_back(Vertex(glm::vec3(-offset, -1, -offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(-offset, 1, -offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(offset, 1, -offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(offset, -1, -offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+
+     vertices.push_back(Vertex(glm::vec3(-offset, -1, offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(-offset, 1, offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(offset, 1, offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(offset, -1, offset), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+
+     unsigned int indices[] = { 0, 1, 2, 0, 2, 3, 4, 5, 1, 4, 1, 0, 4, 6, 5, 4, 7, 6, 1, 5, 6, 1, 6, 2, 0, 7, 4, 0, 3, 7, 3, 2, 6, 3, 6, 7  };
 
      m_renderer.addModel(vertices.data(), vertices.size(), indices, sizeof(indices)  / sizeof(indices[0]), 0);
 }
