@@ -4,6 +4,7 @@
 
 
 void BatchRenderer::init(){
+
      //Initializing the vao
      glGenVertexArrays(1, &m_vaoID);
      glBindVertexArray(m_vaoID);
@@ -32,13 +33,9 @@ void BatchRenderer::begin(){
      m_models.clear();
 }
 
-void BatchRenderer::addModel(const std::string& path, const glm::vec3& position){
-
-}
-
 void BatchRenderer::addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color){
-     //Adding vertices
 
+     //Adding vertices
      for(unsigned int i = 0; i < numVertices; i++){
           m_vertices.push_back(vertices[i]);
      }
@@ -73,6 +70,8 @@ void BatchRenderer::end(){
 }
 
 void BatchRenderer::render(StaticShader& shader){
+     shader.loadModelMatrix(glm::mat4(1.0f));
+
      glBindVertexArray(m_vaoID);
 
      for(unsigned int i = 0; i < m_models.size(); i++){

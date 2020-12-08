@@ -4,10 +4,10 @@
 #include "EntityHandler.hpp"
 #include "Camera3D.hpp"
 #include "Settings.hpp"
-#include "StaticObjects.hpp"
 #include "InputManager.hpp"
 #include "Assets.hpp"
 #include "Cubemap.hpp"
+#include "MasterRenderer.hpp"
 
 class Game {
 public:
@@ -20,11 +20,13 @@ public:
 
 private:
 
+     //Game functions
+     void addEntities();
 
      Assets m_assets;
      Camera3D m_camera;
      EntityHandler m_entityHandler;
-     StaticObjects m_staticObjects;
+     MasterRenderer m_masterRenderer;
      Cubemap m_cubemap;
 
 };

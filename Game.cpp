@@ -1,13 +1,16 @@
-#include "Game.hpp"
+     #include "Game.hpp"
 
 
 void Game::init(Settings& settings){
 
+     //Engine Inits
      m_assets.init();
      m_camera.init(settings.screenWidth, settings.screenHeight);
-     m_staticObjects.init(settings);
-     m_entityHandler.init(m_assets);
      m_cubemap.init();
+     m_masterRenderer.init(settings);
+
+     //Game Inits
+     addEntities();
 
 
 }
@@ -21,15 +24,16 @@ void Game::render(){
 
      m_cubemap.render(m_camera, m_assets);
 
-     m_entityHandler.renderEntities(m_camera);
-
-     m_staticObjects.render(m_camera);
+     m_masterRenderer.renderScene(m_entityHandler.entities, m_camera);
 
 
 }
 
 void Game::destroy(){
      m_cubemap.destroy();
-     m_entityHandler.destroy();
-     m_staticObjects.destroy();
+     m_masterRenderer.destroy();
+}
+
+void Game::addEntities(){
+     m_entityHandler.entities.emplace_back(Transform(glm::vec3(0, 5, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)), m_assets.getPlayerModel(), StaticColor(200, 20, 240));
 }

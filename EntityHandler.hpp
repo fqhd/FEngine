@@ -10,15 +10,12 @@
 class EntityHandler {
 public:
 
-     void init(Assets& assets);
-     void renderEntities(Camera3D& camera);
-     void destroy();
+     void updateEntities();
 
      std::vector<Entity> entities;
 
 private:
 
-     StaticShader m_shader;
 
 };
 
