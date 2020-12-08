@@ -13,7 +13,7 @@ void Settings::writeToFile(){
      os << "WorldWidth: " << worldWidth << std::endl;
      os << "MouseSensitivty: " << mouseSensitivity << std::endl;
      os << "ZoomSensitivty: " << zoomSensitivity << std::endl;
-
+     os << "CurrentWorld: " << currentWorld << std::endl;
 
      os.close();
 
@@ -39,6 +39,8 @@ void Settings::loadFromFile(){
                is >> mouseSensitivity;
           }else if(name == "ZoomSensitivty:"){
                is >> zoomSensitivity;
+          }else if(name == "CurrentWorld:"){
+               is >> currentWorld;
           }
      }
      is.close();

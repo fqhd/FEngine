@@ -5,3 +5,4 @@ SliderButtonHeight: 16
 WorldWidth: 16
 MouseSensitivty: 0.5
 ZoomSensitivty: 0.5
+CurrentWorld: 0

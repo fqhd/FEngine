@@ -3,7 +3,7 @@
 
 #include "Engine.hpp"
 #include "GameStates.hpp"
-
+#include "World.hpp"
 
 class Game {
 public:
@@ -13,8 +13,7 @@ public:
      void render();
      void destroy();
 
-     void loadLevel(unsigned int level);
-
+     void loadLevel(Settings& settings);
 
 private:
 
@@ -24,6 +23,7 @@ private:
 
      //Game Objects
      Engine m_engine;
+     World m_world;
 
      //Game Variables
      std::vector<Entity> m_entities;

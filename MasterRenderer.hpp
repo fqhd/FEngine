@@ -14,16 +14,12 @@ public:
      void renderScene(std::vector<Entity>& entities, Camera3D& camera);
      void destroy();
 
+     BatchRenderer batchRenderer;
 
 private:
 
-     //Static Object functions
-     void addStaticObjects(Settings& settings);
-     void addSurface(Settings& settings, StaticColor color);
-
      void renderEntities(std::vector<Entity>& entities);
 
-     BatchRenderer m_batchRenderer;
      StaticShader m_staticShader;
 
 };
