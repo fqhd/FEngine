@@ -2,12 +2,8 @@
 #define GAME_H
 
 #include "EntityHandler.hpp"
-#include "Camera3D.hpp"
-#include "Settings.hpp"
-#include "InputManager.hpp"
-#include "Assets.hpp"
-#include "Cubemap.hpp"
-#include "MasterRenderer.hpp"
+#include "Engine.hpp"
+
 
 class Game {
 public:
@@ -23,11 +19,9 @@ private:
      //Game functions
      void addEntities();
 
-     Assets m_assets;
-     Camera3D m_camera;
+
+     Engine m_engine;
      EntityHandler m_entityHandler;
-     MasterRenderer m_masterRenderer;
-     Cubemap m_cubemap;
 
 };
 

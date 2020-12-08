@@ -49,15 +49,15 @@ void MasterRenderer::addSurface(Settings& settings, StaticColor color){
 
      float offset = settings.worldWidth;
 
-     vertices.push_back(Vertex(glm::vec3(-offset, -1, -offset), glm::vec3(-1, -1, -1)));
-     vertices.push_back(Vertex(glm::vec3(-offset, 1, -offset), glm::vec3(-1, 1, -1)));
-     vertices.push_back(Vertex(glm::vec3(offset, 1, -offset), glm::vec3(1, 1, -1)));
-     vertices.push_back(Vertex(glm::vec3(offset, -1, -offset), glm::vec3(1, -1, -1)));
+     vertices.push_back(Vertex(glm::vec3(-offset, -0.5f, -offset), glm::vec3(-1, -1, -1)));
+     vertices.push_back(Vertex(glm::vec3(-offset, 0.5f, -offset), glm::vec3(-1, 1, -1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 0.5f, -offset), glm::vec3(1, 1, -1)));
+     vertices.push_back(Vertex(glm::vec3(offset, -0.5f, -offset), glm::vec3(1, -1, -1)));
 
-     vertices.push_back(Vertex(glm::vec3(-offset, -1, offset), glm::vec3(-1, -1, 1)));
-     vertices.push_back(Vertex(glm::vec3(-offset, 1, offset), glm::vec3(-1, 1, 1)));
-     vertices.push_back(Vertex(glm::vec3(offset, 1, offset), glm::vec3(1, 1, 1)));
-     vertices.push_back(Vertex(glm::vec3(offset, -1, offset), glm::vec3(1, -1, 1)));
+     vertices.push_back(Vertex(glm::vec3(-offset, -0.5f, offset), glm::vec3(-1, -1, 1)));
+     vertices.push_back(Vertex(glm::vec3(-offset, 0.5f, offset), glm::vec3(-1, 1, 1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 0.5f, offset), glm::vec3(1, 1, 1)));
+     vertices.push_back(Vertex(glm::vec3(offset, -0.5f, offset), glm::vec3(1, -1, 1)));
 
      unsigned int indices[] = { 0, 1, 2, 0, 2, 3, 4, 5, 1, 4, 1, 0, 4, 6, 5, 4, 7, 6, 1, 5, 6, 1, 6, 2, 0, 7, 4, 0, 3, 7, 3, 2, 6, 3, 6, 7  };
 

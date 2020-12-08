@@ -37,6 +37,7 @@ void Model::loadFromFile(const std::string& path){
      //Sending indices and unbinding vao
      glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), model.indices.data(), GL_STATIC_DRAW);
 
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
 
      m_numVertices = model.indices.size();
@@ -48,7 +49,13 @@ void Model::loadFromFile(const std::string& path){
 void Model::render(){
 
      glBindVertexArray(m_vaoID);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
+     glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
+     
      glDrawElements(GL_TRIANGLES, m_numVertices, GL_UNSIGNED_INT, 0);
+
+     glBindBuffer(GL_ARRAY_BUFFER, 0);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
 
 }

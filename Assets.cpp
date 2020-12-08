@@ -8,7 +8,7 @@ void Assets::init(){
 
 
 void Assets::initModels(){
-     m_playerModel.loadFromFile("res/models/cube.obj");
+     m_playerModel.loadFromFile("res/models/player.obj");
 }
 
 void Assets::initTextures(){

@@ -38,5 +38,6 @@ build cubetexture.o: cc CubeTexture.cpp
 build cubemap.o: cc Cubemap.cpp
 build cubemapshader.o: cc CubemapShader.cpp
 build masterrenderer.o: cc MasterRenderer.cpp
+build engine.o: cc Engine.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o transform.o camera3d.o entityhandler.o entity.o batchrenderer.o staticshader.o staticobjects.o cubetexture.o assets.o cube.o cubemap.o cubemapshader.o masterrenderer.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o guicheckbox.o guislider.o guifont.o model.o objmodel.o game.o menu.o transform.o camera3d.o entityhandler.o entity.o batchrenderer.o staticshader.o staticobjects.o cubetexture.o assets.o cube.o cubemap.o cubemapshader.o masterrenderer.o engine.o
