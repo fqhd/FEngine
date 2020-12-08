@@ -3,6 +3,6 @@ ScreenHeight: 720
 SliderButtonWidth: 7
 SliderButtonHeight: 16
 WorldWidth: 16
-MouseSensitivty: 0.5
+MouseSensitivty: 0.25
 ZoomSensitivty: 0.5
 CurrentWorld: 0

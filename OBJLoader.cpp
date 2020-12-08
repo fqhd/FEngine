@@ -157,31 +157,37 @@ IndexedModel OBJModel::ToIndexedModel()
             result.normals[i] = normalModel.normals[indexMap[i]];
     }
 
+    //Getting center of positions
 	glm::vec3 center;
-
-	//Getting center of positions
 	for(auto& i : result.positions){
 		center += i;
 	}
 	center /= glm::vec3(result.positions.size());
 
-	//Centering positions
-	glm::vec3 deltaCenter;
 	for(auto& i : result.positions){
 		i -= center;
 	}
 
 	//Getting highest value
 	float highestValue = 0.0f;
+
     for(auto& i : result.positions){
-	    if(glm::abs(glm::length(i)) > highestValue){
-		    highestValue = glm::abs(glm::length(i));
+	    if(glm::abs(i.x) > highestValue){
+		    highestValue = glm::abs(i.x);
+	    }
+	    if(glm::abs(i.y) > highestValue){
+		    highestValue = glm::abs(i.y);
+	    }
+	    if(glm::abs(i.z) > highestValue){
+		    highestValue = glm::abs(i.z);
 	    }
     }
 
 	//Scaling positions
 	for(auto& i : result.positions){
-		i *= 1/highestValue;
+		i.x /= highestValue * 2;
+		i.y /= highestValue * 2;
+		i.z /= highestValue * 2;
 	}
 
 

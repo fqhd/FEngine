@@ -7,6 +7,7 @@ void Camera3D::init(unsigned int width, unsigned int height){
      position = glm::vec3(0.0f, 0.0f, 0.0f);
      up = glm::vec3(0.0f, 1.0f, 0.0f);
      forward = glm::vec3(0.0f, 0.0f, 1.0f);
+     center = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 const glm::mat4& Camera3D::getViewMatrix(){
@@ -33,15 +34,14 @@ void Camera3D::move(InputManager& manager, Settings& settings){
      float verticDistance = calculateVerticalDistance();
      calculateCameraPosition(horizDistance, verticDistance);
 
-
 }
 
 void Camera3D::calculateCameraPosition(float horizDistance, float verticDistance) {
      position.y = verticDistance;
      float offsetX = (float)(horizDistance * glm::sin(glm::radians(m_yaw)));
      float offsetZ = (float)(horizDistance * glm::cos(glm::radians(m_yaw)));
-     position.x = -offsetX;
-     position.z = -offsetZ;
+     position.x = offsetX;
+     position.z = offsetZ;
 
 }
 

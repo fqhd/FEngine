@@ -21,6 +21,7 @@ private:
      //Game functions
      void addEntities();
      void createSurface(Settings& settings);
+     void movePlayer(InputManager& manger);
 
      //Game Objects
      Engine m_engine;

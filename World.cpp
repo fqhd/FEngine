@@ -11,6 +11,12 @@ char World::getTile(int x, int z, unsigned int worldWidth){
      return 0;
 }
 
+void World::setTile(int x, int z, char tile, unsigned int worldWidth){
+     if(x >= 0 && x < worldWidth && z >= 0 && z < worldWidth){
+          m_tiles[z * worldWidth + x] = tile;
+     }
+}
+
 bool World::loadWorld(Settings& settings){
 
      if(m_tiles){

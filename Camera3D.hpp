@@ -17,6 +17,8 @@ public:
      glm::vec3 position;
      glm::vec3 forward;
      glm::vec3 up;
+     glm::vec3 center;
+
 
 private:
 

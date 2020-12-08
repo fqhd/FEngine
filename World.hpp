@@ -18,6 +18,7 @@ public:
      void update(std::vector<Entity>& entities);
      void destroy();
      char getTile(int x, int z, unsigned int worldWidth);
+     void setTile(int x, int z, char tile, unsigned int worldWidth);
 
 
 private:
