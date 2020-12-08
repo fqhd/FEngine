@@ -1,11 +1,10 @@
 #include "Menu.hpp"
 
-
-void Menu::init(Settings& settings){
+void Menu::init(){
 
 }
 
-void Menu::update(){
+void Menu::update(InputManager& manager, Settings& settings, GameStates& state){
 
 }
 

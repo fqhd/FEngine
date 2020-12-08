@@ -1,76 +1,53 @@
+#include "Game.hpp"
 #include "Window.hpp"
-#include "GameStates.hpp"
 #include "InputManager.hpp"
 #include "Settings.hpp"
-#include "GUIRenderer.hpp"
-#include "GUIShader.hpp"
-#include "GUIImage.hpp"
-#include "Camera2D.hpp"
-#include "GUIAssets.hpp"
-#include "GUIButton.hpp"
-#include "GUICheckbox.hpp"
-#include "GUISlider.hpp"
-#include "GUIFont.hpp"
-#include "Game.hpp"
+#include "GameStates.hpp"
 #include "Menu.hpp"
+
 
 int main(int argc, char** argv){
 
-
-
-     //Game Variables
+     //Program Objects
      Window window;
-     GameStates state;
      InputManager manager;
      Settings settings;
-     GUIAssets assets;
+     GameStates state;
      Game game;
      Menu menu;
 
-
-     //Initializing game variables
-     state = GameStates::PLAY;
+     //Program Inits
      settings.loadFromFile();
      window.create(settings);
-     assets.init();
+     state = GameStates::PLAY;
      game.init(settings);
-     menu.init(settings);
+     menu.init();
 
-     //Gameloop
      while(state != GameStates::EXIT){
 
-
-          while(state == GameStates::MENU){
-               manager.processInput(state, settings);
-               window.clear();
-
-               menu.update();
-               menu.render();
-
-               window.update();
-          }
 
           while(state == GameStates::PLAY){
                window.clear();
                manager.processInput(state, settings);
 
-               game.update(manager, settings);
+               game.update(manager, settings, state);
                game.render();
 
                window.update();
           }
+          while(state == GameStates::MENU){
+               window.clear();
+               manager.processInput(state, settings);
 
+               menu.update(manager, settings, state);
+               menu.render();
 
-
-          window.update();
+               window.update();
+          }
      }
 
-     //Saving Changes
-     settings.writeToFile();
-
-     //Cleanup
-     menu.destroy();
      game.destroy();
+     menu.destroy();
      window.close();
 
 

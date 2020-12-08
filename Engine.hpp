@@ -22,7 +22,6 @@ public:
      Cubemap cubemap;
      MasterRenderer masterRenderer;
 
-
 private:
 
 

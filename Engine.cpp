@@ -13,11 +13,8 @@ void Engine::update(InputManager& manager, Settings& settings){
 }
 
 void Engine::render(std::vector<Entity>& entities){
-
      cubemap.render(camera, assets);
-
      masterRenderer.renderScene(entities, camera);
-
 }
 
 void Engine::destroy(){
