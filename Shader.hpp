@@ -3,6 +3,9 @@
 #include <string>
 #include <fstream>
 
+#include "Utils.hpp"
+
+
 class Shader{
 
 public:
@@ -13,7 +16,7 @@ public:
 
 protected:
 
-	void loadShader(const char* vs, const char* fs);
+	void loadShader(const std::string& vs, const std::string& fs);
 
 	GLuint m_programID;
 	GLuint m_vertexID;

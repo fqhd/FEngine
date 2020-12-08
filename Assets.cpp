@@ -8,11 +8,24 @@ void Assets::init(){
 
 
 void Assets::initModels(){
-     m_playerModel.loadFromFile("res/models/player.obj");
+     m_playerModel.loadFromFile("res/models/cube.obj");
 }
 
 void Assets::initTextures(){
-     m_surfaceTexture.loadFromFile("res/textures/bricks.jpg");
+
+     //Adding cubemap sky texture
+     std::vector<std::string> faces;
+
+     faces.push_back("res/textures/sky/bottom.png");
+     faces.push_back("res/textures/sky/front.png");
+     faces.push_back("res/textures/sky/top.png");
+     faces.push_back("res/textures/sky/back.png");
+     faces.push_back("res/textures/sky/right.png");
+     faces.push_back("res/textures/sky/left.png");
+
+     m_skyTexture.loadFromFile(faces);
+
+
 }
 
 //Model Getters
@@ -22,8 +35,8 @@ Model* Assets::getPlayerModel() {
 
 
 //Texture getters
-Texture* Assets::getSurfaceTexture() {
-     return &m_surfaceTexture;
+CubeTexture* Assets::getSkyTexture() {
+     return &m_skyTexture;
 }
 
 
@@ -37,5 +50,5 @@ void Assets::destroyModels(){
 }
 
 void Assets::destroyTextures(){
-     m_surfaceTexture.destroy();
+     m_skyTexture.destroy();
 }

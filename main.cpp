@@ -13,9 +13,8 @@
 #include "GUIFont.hpp"
 #include "Game.hpp"
 #include "Menu.hpp"
-#include <iostream>
 
-int main(){
+int main(int argc, char** argv){
 
 
 
@@ -37,14 +36,12 @@ int main(){
      game.init(settings);
      menu.init(settings);
 
-
-
      //Gameloop
      while(state != GameStates::EXIT){
 
 
           while(state == GameStates::MENU){
-               manager.processInput(window.window, state);
+               manager.processInput(state, settings);
                window.clear();
 
                menu.update();
@@ -54,8 +51,8 @@ int main(){
           }
 
           while(state == GameStates::PLAY){
-               manager.processInput(window.window, state);
                window.clear();
+               manager.processInput(state, settings);
 
                game.update(manager, settings);
                game.render();

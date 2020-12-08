@@ -1,7 +1,6 @@
 #include "Shader.hpp"
-#include "Utils.hpp"
 
-void Shader::loadShader(const char* vs, const char* fs){
+void Shader::loadShader(const std::string& vs, const std::string& fs){
 
 	m_vertexID = glCreateShader(GL_VERTEX_SHADER);
 	m_fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -21,13 +20,13 @@ void Shader::loadShader(const char* vs, const char* fs){
 	glCompileShader(m_vertexID);
 	glGetShaderiv(m_vertexID, GL_COMPILE_STATUS, &vsCompileStatus);
 	if(!vsCompileStatus){
-		printf("Failed to compile vertex shader: %s\n", vs);
+		Utils::log(CONSOLE, "Failed to compile vertex shader: " + vs);
 	}
 
 	glCompileShader(m_fragmentID);
 	glGetShaderiv(m_fragmentID, GL_COMPILE_STATUS, &fsCompileStatus);
 	if(!fsCompileStatus){
-		printf("Failed to compile fragment shader: %s\n", fs);
+		Utils::log(CONSOLE, "Failed to compile fragment shader: " + fs);
 	}
 
 	m_programID = glCreateProgram();

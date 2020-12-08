@@ -1,0 +1,16 @@
+#version 330 core
+
+//Ins
+in vec3 pass_uv;
+
+//Outs
+out vec4 out_color;
+
+//Uniforms
+uniform samplerCube skybox;
+
+
+void main()
+{
+    out_color = texture(skybox, pass_uv);
+}

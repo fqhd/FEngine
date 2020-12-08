@@ -7,6 +7,7 @@
 #include "StaticObjects.hpp"
 #include "InputManager.hpp"
 #include "Assets.hpp"
+#include "Cubemap.hpp"
 
 class Game {
 public:
@@ -20,11 +21,11 @@ public:
 private:
 
 
+     Assets m_assets;
+     Camera3D m_camera;
      EntityHandler m_entityHandler;
      StaticObjects m_staticObjects;
-     Assets m_assets;
-
-     Camera3D m_camera;
+     Cubemap m_cubemap;
 
 };
 

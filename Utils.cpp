@@ -1,12 +1,13 @@
 #include "Utils.hpp"
 
-std::string Utils::loadShader(const char* shaderName){
+
+std::string Utils::loadShader(const std::string& shaderName) {
 	std::string shaderCode = "";
 	std::string line;
 	std::ifstream is;
 	is.open(shaderName);
 
-	while(std::getline(is, line)){
+	while(std::getline(is, line)) {
 		shaderCode += line + "\n";
 	}
 
@@ -49,4 +50,15 @@ uint8_t* Utils::readFileToBuffer(const std::string& filePath) {
 
 void Utils::freeBuffer(uint8_t* buffer){
 	delete[] buffer;
+}
+
+void Utils::log(LOG_TYPE type, const std::string& message){
+	if(type == CONSOLE){
+		printf("%s\n", message.c_str());
+	}else{
+		std::ofstream os;
+		os.open("logs.txt");
+		os << message << std::endl;
+		os.close();
+	}
 }

@@ -1,37 +1,43 @@
 #include "InputManager.hpp"
 
-void InputManager::processInput(sf::Window& window, GameStates& state){
+#include "Utils.hpp"
+#include <iostream>
+
+void InputManager::processInput(GameStates& state, Settings& settings){
 
 	m_previousKeyMap = m_keymap;
 	m_previousMouseMap = m_mousemap;
 	m_deltaMouseWheel = 0;
 
-	while(window.pollEvent(m_event)){
+	while(SDL_PollEvent(&m_event)){
 		switch(m_event.type){
-		case sf::Event::Closed:
+		case SDL_QUIT:
 			state = GameStates::EXIT;
 		break;
-		case sf::Event::KeyPressed:
-			keyPressed(m_event.key.code);
+		case SDL_KEYDOWN:
+			keyPressed(m_event.key.keysym.sym);
 		break;
-		case sf::Event::KeyReleased:
-			keyReleased(m_event.key.code);
+		case SDL_KEYUP:
+			keyReleased(m_event.key.keysym.sym);
 		break;
-		case sf::Event::MouseButtonPressed:
-			mousePressed(m_event.mouseButton.button);
+		case SDL_MOUSEBUTTONDOWN:
+			mousePressed(m_event.button.button);
 		break;
-		case sf::Event::MouseButtonReleased:
-			mouseReleased(m_event.mouseButton.button);
+		case SDL_MOUSEBUTTONUP:
+			mouseReleased(m_event.button.button);
 		break;
-		case sf::Event::MouseWheelScrolled:
-			m_deltaMouseWheel = m_event.mouseWheelScroll.delta;
+		case SDL_MOUSEWHEEL:
+			m_deltaMouseWheel = m_event.wheel.y;
 		break;
 		}
 	}
 
 	//Updating the mouse position/delta mouse position
-	m_deltaMousePosition = m_mousePosition - glm::vec2(sf::Mouse::getPosition(window).x, window.getSize().y - sf::Mouse::getPosition(window).y);
-	m_mousePosition = glm::vec2(sf::Mouse::getPosition(window).x, window.getSize().y - sf::Mouse::getPosition(window).y);
+	glm::ivec2 tempPosition;
+	SDL_GetMouseState(&tempPosition.x, &tempPosition.y);
+	tempPosition.y = settings.screenHeight - tempPosition.y;
+	m_deltaMousePosition = m_mousePosition - tempPosition;
+	m_mousePosition = tempPosition;
 
 }
 
@@ -39,11 +45,11 @@ float InputManager::getDeltaMouseWheel() const {
 	return m_deltaMouseWheel;
 }
 
-const glm::vec2& InputManager::getDeltaMousePosition() {
+const glm::ivec2& InputManager::getDeltaMousePosition() {
 	return m_deltaMousePosition;
 }
 
-const glm::vec2& InputManager::getMousePosition() {
+const glm::ivec2& InputManager::getMousePosition() {
 	return m_mousePosition;
 }
 

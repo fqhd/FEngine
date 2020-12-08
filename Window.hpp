@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <SFML/Window.hpp>
+#include <SDL2/SDL.h>
 #include "Settings.hpp"
 
 
@@ -13,10 +13,9 @@ public:
      void update();
      void close();
 
-     sf::Window window;
-
-
 private:
+
+     SDL_Window* m_window;
 
 
 };

@@ -1,15 +1,16 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include <SFML/Window.hpp>
+#include <SDL2/SDL.h>
 #include <glm/glm.hpp>
 #include <unordered_map>
 #include "GameStates.hpp"
+#include "Settings.hpp"
 
 class InputManager{
 public:
 
-	void processInput(sf::Window& window, GameStates& state);
+	void processInput(GameStates& state, Settings& settings);
 
 	bool isKeyPressed(unsigned int keyID);
 	bool isKeyReleased(unsigned int keyID);
@@ -21,8 +22,8 @@ public:
 	bool isMouseDown(unsigned int keyID);
 	bool wasMouseDown(unsigned int keyID);
 
-	const glm::vec2& getMousePosition();
-	const glm::vec2& getDeltaMousePosition();
+	const glm::ivec2& getMousePosition();
+	const glm::ivec2& getDeltaMousePosition();
 	float getDeltaMouseWheel() const ;
 
 private:
@@ -32,7 +33,7 @@ private:
 	void mousePressed(unsigned int buttonID);
 	void mouseReleased(unsigned int buttonID);
 
-	sf::Event m_event;
+	SDL_Event m_event;
 	std::unordered_map<unsigned int, bool> m_keymap;
 	std::unordered_map<unsigned int, bool> m_previousKeyMap;
 
@@ -40,8 +41,8 @@ private:
 	std::unordered_map<unsigned int, bool> m_previousMouseMap;
 
 
-	glm::vec2 m_mousePosition;
-	glm::vec2 m_deltaMousePosition;
+	glm::ivec2 m_mousePosition;
+	glm::ivec2 m_deltaMousePosition;
 	float m_deltaMouseWheel = 0.0f;
 };
 #endif

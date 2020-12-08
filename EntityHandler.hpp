@@ -1,15 +1,16 @@
 #ifndef ENTITY_HANDLER_H
 #define ENTITY_HANDLER_H
 
-#include "ModelShader.hpp"
+#include "StaticShader.hpp"
 #include "Entity.hpp"
 #include "Camera3D.hpp"
+#include "Assets.hpp"
 #include <vector>
 
 class EntityHandler {
 public:
 
-     void init();
+     void init(Assets& assets);
      void renderEntities(Camera3D& camera);
      void destroy();
 
@@ -17,7 +18,7 @@ public:
 
 private:
 
-     ModelShader m_shader;
+     StaticShader m_shader;
 
 };
 

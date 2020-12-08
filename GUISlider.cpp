@@ -18,13 +18,13 @@ void GUISlider::update(InputManager& manager, Settings& settings){
 
      if(Utils::isInside(manager.getMousePosition(), m_buttonRect)){
           m_currentColor = ColorRGBA8(m_buttonColor.r * 0.6f, m_buttonColor.g * 0.6f, m_buttonColor.b * 0.6f, 255);
-          if(manager.isMouseDown(sf::Mouse::Left)){
+          if(manager.isMouseDown(SDL_BUTTON_LEFT)){
                m_isSelected = true;
                m_currentColor = ColorRGBA8(m_buttonColor.r * 0.4f, m_buttonColor.g * 0.4f, m_buttonColor.b * 0.4f, 255);
           }
      }
 
-     if(!manager.isMouseDown(sf::Mouse::Left)){
+     if(!manager.isMouseDown(SDL_BUTTON_LEFT)){
           m_isSelected = false;
      }
 

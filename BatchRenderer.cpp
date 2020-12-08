@@ -32,6 +32,10 @@ void BatchRenderer::begin(){
      m_models.clear();
 }
 
+void BatchRenderer::addModel(const std::string& path, const glm::vec3& position){
+
+}
+
 void BatchRenderer::addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color){
      //Adding vertices
 

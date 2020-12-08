@@ -12,6 +12,7 @@ public:
 
      void loadProjectionMatrix(const glm::mat4& matrix);
      void loadViewMatrix(const glm::mat4& matrix);
+     void loadModelMatrix(const glm::mat4& matrix);
      void loadColor(StaticColor color);
 
 private:
@@ -20,6 +21,7 @@ private:
 
      GLint m_projectionMatrixLocation = 0;
      GLint m_viewMatrixLocation = 0;
+     GLint m_modelMatrixLocation = 0;
      GLint m_colorLocation = 0;
 
 

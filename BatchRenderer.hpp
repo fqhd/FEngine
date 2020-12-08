@@ -24,6 +24,7 @@ public:
 
      void init();
      void begin();
+     void addModel(const std::string& path, const glm::vec3& position);
      void addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color);
      void end();
      void render(StaticShader& shader);

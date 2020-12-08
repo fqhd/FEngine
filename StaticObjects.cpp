@@ -17,6 +17,7 @@ void StaticObjects::render(Camera3D& camera){
      m_shader.bind();
      m_shader.loadViewMatrix(camera.getViewMatrix());
      m_shader.loadProjectionMatrix(camera.getProjectionMatrix());
+     m_shader.loadModelMatrix(glm::mat4(1.0f));
      m_renderer.render(m_shader);
      m_shader.unbind();
 }

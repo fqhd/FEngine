@@ -54,7 +54,7 @@ float Camera3D::calculateVerticalDistance() {
 }
 
 void Camera3D::calculatePitch(InputManager& manager, Settings& settings){
-     if(manager.isMouseDown(sf::Mouse::Left)){
+     if(manager.isMouseDown(SDL_BUTTON_LEFT)){
           m_pitch += manager.getDeltaMousePosition().y * settings.mouseSensitivity;
      }
      if(m_pitch < -89.0f){
@@ -67,7 +67,7 @@ void Camera3D::calculatePitch(InputManager& manager, Settings& settings){
 }
 
 void Camera3D::calculateYaw(InputManager& manager, Settings& settings){
-     if(manager.isMouseDown(sf::Mouse::Left)){
+     if(manager.isMouseDown(SDL_BUTTON_LEFT)){
           m_yaw += manager.getDeltaMousePosition().x * settings.mouseSensitivity;
      }
 }
