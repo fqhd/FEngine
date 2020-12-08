@@ -42,5 +42,14 @@ void Game::loadLevel(Settings& settings){
           }
      }
 
+     m_engine.masterRenderer.batchRenderer.begin();
 
+     createSurface(settings);
+
+     m_engine.masterRenderer.batchRenderer.end();
+
+}
+
+void Game::createSurface(Settings& settings){
+     
 }

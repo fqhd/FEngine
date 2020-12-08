@@ -20,6 +20,7 @@ private:
 
      //Game functions
      void addEntities();
+     void createSurface(Settings& settings);
 
      //Game Objects
      Engine m_engine;
