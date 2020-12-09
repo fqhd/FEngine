@@ -19,6 +19,8 @@ void Window::create(Settings& settings){
 
      //Creating the window
      m_window = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings.screenWidth, settings.screenHeight, SDL_WINDOW_OPENGL);
+     SDL_GL_SetSwapInterval(-1);
+
      if(!m_window){
           Utils::log(CONSOLE, "Failed to create window");
      }

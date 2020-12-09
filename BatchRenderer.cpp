@@ -18,13 +18,9 @@ void BatchRenderer::init(){
      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
-     //Sending indices to EBO
-     glGenBuffers(1, &m_eboID);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-
-
      glBindVertexArray(0);
 
+     glGenBuffers(1, &m_eboID);
 }
 
 void BatchRenderer::begin(){
@@ -66,13 +62,15 @@ void BatchRenderer::end(){
      //Sending indices to EBO
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
      glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(m_indices[0]), m_indices.data(), GL_STATIC_DRAW);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 }
 
-void BatchRenderer::render(StaticShader& shader){
+void BatchRenderer::render(GBufferShader& shader){
      shader.loadModelMatrix(glm::mat4(1.0f));
 
      glBindVertexArray(m_vaoID);
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
 
      for(unsigned int i = 0; i < m_models.size(); i++){
           shader.loadColor(m_models[i].color);
@@ -83,6 +81,7 @@ void BatchRenderer::render(StaticShader& shader){
           }
      }
 
+     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(m_eboID);
 }
 

@@ -14,6 +14,7 @@ public:
      void bind();
      void unbind();
      void destroy();
+     void clear();
 
      GLuint getPositionTextureID();
      GLuint getAlbedoTextureID();

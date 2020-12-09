@@ -4,7 +4,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include "Vertex.hpp"
-#include "StaticShader.hpp"
+#include "GBufferShader.hpp"
 
 class BatchModel {
 public:
@@ -26,7 +26,7 @@ public:
      void begin();
      void addModel(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices, StaticColor color);
      void end();
-     void render(StaticShader& shader);
+     void render(GBufferShader& shader);
      void destroy();
 
 

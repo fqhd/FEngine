@@ -70,7 +70,7 @@ void Game::createSurface(Settings& settings){
 
      unsigned int indices[] = { 0, 1, 2, 0, 2, 3, 4, 5, 1, 4, 1, 0, 4, 6, 5, 4, 7, 6, 1, 5, 6, 1, 6, 2, 0, 7, 4, 0, 3, 7, 3, 2, 6, 3, 6, 7  };
 
-     m_engine.masterRenderer.batchRenderer.addModel(vertices.data(), vertices.size(), indices, sizeof(indices)  / sizeof(indices[0]), StaticColor(255, 255, 255));
+     m_engine.masterRenderer.batchRenderer.addModel(vertices.data(), vertices.size(), indices, sizeof(indices)  / sizeof(indices[0]), StaticColor(20, 100, 255));
 }
 
 void Game::movePlayer(InputManager& manager){

@@ -26,7 +26,7 @@ bool World::loadWorld(Settings& settings){
      std::ifstream is;
      is.open("res/worlds/" + std::to_string(settings.currentWorld) + ".txt");
      if(is.fail()){
-          Utils::log(DISK, "Failed to load world: " + std::to_string(settings.currentWorld));
+          Utils::log(DISK, "World: Failed to load world: " + std::to_string(settings.currentWorld));
           return false;
      }
 
@@ -52,8 +52,8 @@ bool World::loadWorld(Settings& settings){
           return true;
      }
 
-     Utils::log(DISK, "Failed to load world: " + std::to_string(settings.currentWorld));
-     Utils::log(DISK, "Wrong file number");
+     Utils::log(DISK, "World: Failed to load world: " + std::to_string(settings.currentWorld));
+     Utils::log(DISK, "World: Wrong file number");
      return false;
 }
 

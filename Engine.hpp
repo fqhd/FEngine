@@ -4,7 +4,6 @@
 #include "Settings.hpp"
 #include "InputManager.hpp"
 #include "Assets.hpp"
-#include "Cubemap.hpp"
 #include "MasterRenderer.hpp"
 #include "Camera3D.hpp"
 
@@ -19,7 +18,6 @@ public:
 
      Assets assets;
      Camera3D camera;
-     Cubemap cubemap;
      MasterRenderer masterRenderer;
 
 private:
