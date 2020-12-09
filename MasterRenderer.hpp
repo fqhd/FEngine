@@ -6,6 +6,7 @@
 #include "Entity.hpp"
 #include "StaticShader.hpp"
 #include "Settings.hpp"
+#include "GBufferShader.hpp"
 
 class MasterRenderer {
 public:
@@ -21,6 +22,7 @@ private:
      void renderEntities(std::vector<Entity>& entities);
 
      StaticShader m_staticShader;
+     GBufferShader m_gbufferShader;
 
 };
 #endif

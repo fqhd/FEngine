@@ -3,6 +3,7 @@
 void MasterRenderer::init(Settings& settings){
      batchRenderer.init();
      m_staticShader.init();
+     m_gbufferShader.init();
 }
 
 void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera){
