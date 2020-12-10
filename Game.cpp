@@ -43,7 +43,7 @@ void Game::loadLevel(Settings& settings){
           }
      }
 
-     m_engine.camera.center = glm::vec3(settings.worldWidth / 2, 0.0f, settings.worldWidth / 2);
+     m_engine.camera.center = glm::vec3(settings.worldWidth / 2, 0.5f, settings.worldWidth / 2);
 
      m_engine.masterRenderer.batchRenderer.begin();
 
@@ -58,15 +58,15 @@ void Game::createSurface(Settings& settings){
 
      float offset = settings.worldWidth;
 
-     vertices.push_back(Vertex(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(0, 1, 0), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(offset, 1, 0), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(offset, 0, 0), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(0, 0, 0), glm::vec3(-1, -1, -1)));
+     vertices.push_back(Vertex(glm::vec3(0, 1, 0), glm::vec3(-1, 1, -1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 1, 0), glm::vec3(1, 1, -1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 0, 0), glm::vec3(1, -1, -1)));
 
-     vertices.push_back(Vertex(glm::vec3(0, 0, offset), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(0, 1, offset), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(offset, 1, offset), glm::vec3(0, 0, 0)));
-     vertices.push_back(Vertex(glm::vec3(offset, 0, offset), glm::vec3(0, 0, 0)));
+     vertices.push_back(Vertex(glm::vec3(0, 1, offset), glm::vec3(-1, 1, 1)));
+     vertices.push_back(Vertex(glm::vec3(0, 0, offset), glm::vec3(-1, -1, 1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 1, offset), glm::vec3(1, 1, 1)));
+     vertices.push_back(Vertex(glm::vec3(offset, 0, offset), glm::vec3(1, -1, 1)));
 
      unsigned int indices[] = { 0, 1, 2, 0, 2, 3, 4, 5, 1, 4, 1, 0, 4, 6, 5, 4, 7, 6, 1, 5, 6, 1, 6, 2, 0, 7, 4, 0, 3, 7, 3, 2, 6, 3, 6, 7  };
 

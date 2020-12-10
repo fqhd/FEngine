@@ -5,9 +5,9 @@ in vec3 pass_position;
 in vec3 pass_normal;
 
 //Outs
-layout (location = 0) out vec3 out_position;
-layout (location = 1) out vec3 out_normal;
-layout (location = 2) out vec3 out_albedo;
+layout (location = 0) out vec4 out_position;
+layout (location = 1) out vec4 out_normal;
+layout (location = 2) out vec4 out_albedo;
 
 //Uniforms
 uniform vec3 color;
@@ -16,8 +16,8 @@ uniform vec3 color;
 void main()
 {
 
-    out_position = pass_position;
-    out_normal = normalize(pass_normal);
-    out_albedo = color;
+    out_position = vec4(pass_position, 1.0f);
+    out_normal = vec4(normalize(pass_normal), 1.0f);
+    out_albedo = vec4(color, 1.0f);
 
 }

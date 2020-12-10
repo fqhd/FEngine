@@ -20,13 +20,13 @@ void Shader::loadShader(const std::string& vs, const std::string& fs){
 	glCompileShader(m_vertexID);
 	glGetShaderiv(m_vertexID, GL_COMPILE_STATUS, &vsCompileStatus);
 	if(!vsCompileStatus){
-		Utils::log(CONSOLE, "Shader: Failed to compile vertex shader: " + vs);
+		Utils::log(DISK, "Shader: Failed to compile vertex shader: " + vs);
 	}
 
 	glCompileShader(m_fragmentID);
 	glGetShaderiv(m_fragmentID, GL_COMPILE_STATUS, &fsCompileStatus);
 	if(!fsCompileStatus){
-		Utils::log(CONSOLE, "Shader: Failed to compile fragment shader: " + fs);
+		Utils::log(DISK, "Shader: Failed to compile fragment shader: " + fs);
 	}
 
 	m_programID = glCreateProgram();

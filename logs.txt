@@ -1,1 +1,1 @@
-Wrong file number
+Shader: Failed to compile fragment shader: res/shaders/gbuffer_fragment_shader.glsl

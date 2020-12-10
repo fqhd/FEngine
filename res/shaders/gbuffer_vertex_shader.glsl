@@ -2,7 +2,7 @@
 
 //Ins
 layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec2 in_normal;
+layout (location = 1) in vec3 in_normal;
 
 //Outs
 out vec3 pass_position;
@@ -16,6 +16,12 @@ uniform mat4 model;
 
 void main(){
 
-     gl_Position = projection * view * model * vec4(in_position, 1.0);
+     vec4 viewPos = view * model * vec4(in_position, 1.0);
+     pass_position = viewPos.xyz;
+
+     mat3 normalMatrix = transpose(inverse(mat3(view * model)));
+     pass_normal = normalMatrix * in_normal;
+
+     gl_Position = projection * viewPos;
 
 }

@@ -2,23 +2,24 @@
 
 void GBuffer::init(unsigned int width, unsigned int height){
 
-
      glGenFramebuffers(1, &m_fboID);
      glBindFramebuffer(GL_FRAMEBUFFER, m_fboID);
 
      // - position color buffer
      glGenTextures(1, &m_positionTextureID);
      glBindTexture(GL_TEXTURE_2D, m_positionTextureID);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, NULL);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_positionTextureID, 0);
      glBindTexture(GL_TEXTURE_2D, 0);
 
      // - normal color buffer
      glGenTextures(1, &m_normalTextureID);
      glBindTexture(GL_TEXTURE_2D, m_normalTextureID);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, width, height, 0, GL_RGB, GL_FLOAT, NULL);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_normalTextureID, 0);
@@ -27,7 +28,7 @@ void GBuffer::init(unsigned int width, unsigned int height){
      // - color + specular color buffer
      glGenTextures(1, &m_albedoTextureID);
      glBindTexture(GL_TEXTURE_2D, m_albedoTextureID);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, m_albedoTextureID, 0);
@@ -68,6 +69,10 @@ void GBuffer::unbind(){
 }
 
 void GBuffer::destroy(){
+     glDeleteTextures(1, &m_positionTextureID);
+     glDeleteTextures(1, &m_albedoTextureID);
+     glDeleteTextures(1, &m_normalTextureID);
+     glDeleteRenderbuffers(1, &m_rboID);
      glDeleteFramebuffers(1, &m_fboID);
 }
 
