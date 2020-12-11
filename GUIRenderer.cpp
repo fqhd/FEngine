@@ -3,172 +3,144 @@
 #include <algorithm>
 
 
-Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, const ColorRGBA8& color) :
-     texture(Texture) {
+Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, float depth, GLuint tID) {
 
-     topLeft.color = color;
+     textureID = tID;
+
      topLeft.setPosition(destRect.x, destRect.y + destRect.w);
      topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+     topLeft.setDepth(depth);
 
-     bottomLeft.color = color;
      bottomLeft.setPosition(destRect.x, destRect.y);
      bottomLeft.setUV(uvRect.x, uvRect.y);
+     bottomLeft.setDepth(depth);
 
-     bottomRight.color = color;
      bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
      bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
+     bottomRight.setDepth(depth);
 
-     topRight.color = color;
      topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
      topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+     topRight.setDepth(depth);
+
 }
 
 
 void GUIRenderer::init() {
-    createVertexArray();
+     glGenVertexArrays(1, &m_vaoID);
+     glBindVertexArray(m_vaoID);
+
+     glGenBuffers(1, &m_vboID);
+     glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
+
+     glEnableVertexAttribArray(0);
+     glEnableVertexAttribArray(1);
+     glEnableVertexAttribArray(2);
+
+     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GUIVertex), (void*)offsetof(GUIVertex, position));
+     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GUIVertex), (void*)offsetof(GUIVertex, uv));
+
+     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+     glBindVertexArray(0);
 }
 
-void GUIRenderer::dispose() {
-    if (_vao != 0) {
-        glDeleteVertexArrays(1, &_vao);
-        _vao = 0;
-    }
-    if (_vbo != 0) {
-        glDeleteBuffers(1, &_vbo);
-        _vbo = 0;
-    }
+void GUIRenderer::destroy() {
+
+     if (m_vaoID != 0) {
+          glDeleteVertexArrays(1, &m_vaoID);
+          m_vaoID = 0;
+     }
+
+     if (m_vboID != 0) {
+          glDeleteBuffers(1, &m_vboID);
+          m_vboID = 0;
+     }
+
 }
 
 void GUIRenderer::begin() {
-    _renderBatches.clear();
+     m_renderBatches.clear();
 
-    // Makes _glpyhs.size() == 0, however it does not free internal memory.
-    // So when we later call emplace_back it doesn't need to internally call new.
-    _glyphs.clear();
+     m_glyphs.clear();
 }
 
 void GUIRenderer::end() {
-    // Set up all pointers for fast sorting
-    _glyphPointers.resize(_glyphs.size());
-    for (size_t i = 0; i < _glyphs.size(); i++) {
-        _glyphPointers[i] = &_glyphs[i];
-    }
 
-    sortGlyphs();
-    createRenderBatches();
+     m_glyphPointers.resize(m_glyphs.size());
+     for (unsigned int i = 0; i < m_glyphs.size(); i++) {
+          m_glyphPointers[i] = &m_glyphs[i];
+     }
+
+     sortGlyphs();
+     createRenderBatches();
 }
 
-void GUIRenderer::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, const ColorRGBA8& color) {
-    _glyphs.emplace_back(destRect, uvRect, texture, color);
+void GUIRenderer::draw(const glm::vec4& destRect, const glm::vec4& uvRect, float depth, GLuint textureID) {
+    m_glyphs.emplace_back(destRect, uvRect, depth, textureID);
 }
 
-void GUIRenderer::renderBatch() {
+void GUIRenderer::render() {
 
-    // Bind our VAO. This sets up the opengl state we need, including the
-    // vertex attribute pointers and it binds the VBO
-    glBindVertexArray(_vao);
+    glBindVertexArray(m_vaoID);
 
-    for (size_t i = 0; i < _renderBatches.size(); i++) {
-        glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
+    for (size_t i = 0; i < m_renderBatches.size(); i++) {
+        glBindTexture(GL_TEXTURE_2D, m_renderBatches[i].textureID);
 
-        glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
+        glDrawArrays(GL_TRIANGLES, m_renderBatches[i].offset, m_renderBatches[i].numVertices);
     }
 
     glBindVertexArray(0);
 }
 
 void GUIRenderer::createRenderBatches() {
-    // This will store all the vertices that we need to upload
-    std::vector <GUIVertex> vertices;
-    // Resize the buffer to the exact size we need so we can treat
-    // it like an array
-    vertices.resize(_glyphPointers.size() * 6);
 
-    if (_glyphPointers.empty()) {
+    std::vector <GUIVertex> vertices;
+    vertices.resize(m_glyphPointers.size() * 6);
+
+    if (m_glyphPointers.empty()) {
         return;
     }
 
-    int offset = 0; // current offset
-    int cv = 0; // current vertex
+    int offset = 0;
+    int cv = 0;
 
-    //Add the first batch
-    _renderBatches.emplace_back(offset, 6, _glyphPointers[0]->texture);
-    vertices[cv++] = _glyphPointers[0]->topLeft;
-    vertices[cv++] = _glyphPointers[0]->bottomLeft;
-    vertices[cv++] = _glyphPointers[0]->bottomRight;
-    vertices[cv++] = _glyphPointers[0]->bottomRight;
-    vertices[cv++] = _glyphPointers[0]->topRight;
-    vertices[cv++] = _glyphPointers[0]->topLeft;
+    m_renderBatches.emplace_back(offset, 6, m_glyphPointers[0]->textureID);
+    vertices[cv++] = m_glyphPointers[0]->topLeft;
+    vertices[cv++] = m_glyphPointers[0]->bottomLeft;
+    vertices[cv++] = m_glyphPointers[0]->bottomRight;
+    vertices[cv++] = m_glyphPointers[0]->bottomRight;
+    vertices[cv++] = m_glyphPointers[0]->topRight;
+    vertices[cv++] = m_glyphPointers[0]->topLeft;
     offset += 6;
 
-    //Add all the rest of the glyphs
-    for (size_t cg = 1; cg < _glyphPointers.size(); cg++) {
+    for (size_t cg = 1; cg < m_glyphPointers.size(); cg++) {
 
-        // Check if this glyph can be part of the current batch
-        if (_glyphPointers[cg]->texture != _glyphPointers[cg - 1]->texture) {
-            // Make a new batch
-            _renderBatches.emplace_back(offset, 6, _glyphPointers[cg]->texture);
+        if (m_glyphPointers[cg]->textureID != m_glyphPointers[cg - 1]->textureID) {
+            m_renderBatches.emplace_back(offset, 6, m_glyphPointers[cg]->textureID);
         } else {
-            // If its part of the current batch, just increase numVertices
-            _renderBatches.back().numVertices += 6;
+            m_renderBatches.back().numVertices += 6;
         }
-        vertices[cv++] = _glyphPointers[cg]->topLeft;
-        vertices[cv++] = _glyphPointers[cg]->bottomLeft;
-        vertices[cv++] = _glyphPointers[cg]->bottomRight;
-        vertices[cv++] = _glyphPointers[cg]->bottomRight;
-        vertices[cv++] = _glyphPointers[cg]->topRight;
-        vertices[cv++] = _glyphPointers[cg]->topLeft;
+        vertices[cv++] = m_glyphPointers[cg]->topLeft;
+        vertices[cv++] = m_glyphPointers[cg]->bottomLeft;
+        vertices[cv++] = m_glyphPointers[cg]->bottomRight;
+        vertices[cv++] = m_glyphPointers[cg]->bottomRight;
+        vertices[cv++] = m_glyphPointers[cg]->topRight;
+        vertices[cv++] = m_glyphPointers[cg]->topLeft;
         offset += 6;
     }
 
-    // Bind our VBO
-    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    // Orphan the buffer (for speed)
+    glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GUIVertex), nullptr, GL_DYNAMIC_DRAW);
-    // Upload the data
     glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(GUIVertex), vertices.data());
-
-    // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }
 
-void GUIRenderer::createVertexArray() {
-
-    // Generate the VAO if it isn't already generated
-    if (_vao == 0) {
-        glGenVertexArrays(1, &_vao);
-    }
-
-    // Bind the VAO. All subsequent opengl calls will modify it's state.
-    glBindVertexArray(_vao);
-
-    //G enerate the VBO if it isn't already generated
-    if (_vbo == 0) {
-        glGenBuffers(1, &_vbo);
-    }
-    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-
-    //Tell opengl what attribute arrays we need
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-    //This is the position attribute pointer
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GUIVertex), (void*)offsetof(GUIVertex, position));
-    //This is the color attribute pointer
-    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(GUIVertex), (void*)offsetof(GUIVertex, color));
-    //This is the UV attribute pointer
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GUIVertex), (void*)offsetof(GUIVertex, uv));
-
-    glBindVertexArray(0);
-
-}
-
 void GUIRenderer::sortGlyphs() {
-    std::stable_sort(_glyphPointers.begin(), _glyphPointers.end(), compareTexture);
+    std::stable_sort(m_glyphPointers.begin(), m_glyphPointers.end(), compareTexture);
 }
 
 bool GUIRenderer::compareTexture(Glyph* a, Glyph* b) {
-    return (a->texture < b->texture);
+    return (a->textureID < b->textureID);
 }

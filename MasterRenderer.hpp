@@ -19,12 +19,17 @@
 #include "SSAOBlurBuffer.hpp"
 #include "SSAOBlurShader.hpp"
 #include "SSAOLightingShader.hpp"
+#include "GUI.hpp"
+#include "GUIRenderer.hpp"
+#include "GUIShader.hpp"
+#include "Camera2D.hpp"
 
 class MasterRenderer {
 public:
 
      void init(Settings& settings);
      void renderScene(std::vector<Entity>& entities, Camera3D& camera, Assets& assets);
+     void renderGUI(GUI& gui, Camera2D& camera);
      void destroy();
 
      BatchRenderer batchRenderer;
@@ -43,14 +48,13 @@ private:
      void renderSSAOLightingQuad();
 
      //Objects
-     std::mt19937 generator;
      GBuffer m_gbuffer;
      Quad m_quad;
      Cube m_cube;
      SSAOTexture m_noiseTexture;
      SSAOBuffer m_ssaoBuffer;
      SSAOBlurBuffer m_blurBuffer;
-
+     GUIRenderer m_guiRenderer;
 
      //Shaders
      GBufferShader m_gbufferShader;
@@ -58,9 +62,11 @@ private:
      SSAOShader m_ssaoShader;
      SSAOBlurShader m_blurShader;
      SSAOLightingShader m_ssaoLightingShader;
+     GUIShader m_guiShader;
 
      //Master Renderer Variables
      std::vector<glm::vec3> m_kernelSamples;
+     std::mt19937 generator;
 
 
 };

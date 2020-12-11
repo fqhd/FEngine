@@ -8,8 +8,6 @@ void Settings::writeToFile(){
 
      os << "ScreenWidth: " << screenWidth << std::endl;
      os << "ScreenHeight: " << screenHeight << std::endl;
-     os << "SliderButtonWidth: " << sliderButtonWidth << std::endl;
-     os << "SliderButtonHeight: " << sliderButtonHeight << std::endl;
      os << "WorldWidth: " << worldWidth << std::endl;
      os << "MouseSensitivty: " << mouseSensitivity << std::endl;
      os << "ZoomSensitivty: " << zoomSensitivity << std::endl;
@@ -29,10 +27,6 @@ void Settings::loadFromFile(){
                is >> screenWidth;
           }else if(name == "ScreenHeight:"){
                is >> screenHeight;
-          }else if(name == "SliderButtonWidth:"){
-               is >> sliderButtonWidth;
-          }else if(name == "SliderButtonHeight:"){
-               is >> sliderButtonHeight;
           }else if(name == "WorldWidth:"){
                is >> worldWidth;
           }else if(name == "MouseSensitivty:"){

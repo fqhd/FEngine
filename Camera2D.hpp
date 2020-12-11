@@ -2,19 +2,18 @@
 #define CAMERA2D_H
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "Settings.hpp"
 
 
 class Camera2D {
 public:
 
-     void createProjectionMatrix(Settings& settings);
+     void init(unsigned int width, unsigned int height);
 
-     const glm::mat4& getProjectionMatrix();
+     const glm::mat4& getMatrix();
 
 private:
 
-     glm::mat4 m_projectionMatrix;
+     glm::mat4 m_matrix;
 
 
 };

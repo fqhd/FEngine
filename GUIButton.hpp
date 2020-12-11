@@ -1,5 +1,5 @@
-#ifndef GUIBUTTON_H
-#define GUIBUTTON_H
+#ifndef GUI_BUTTON_H
+#define GUI_BUTTON_H
 
 #include "GUIRenderer.hpp"
 #include "InputManager.hpp"
@@ -9,18 +9,17 @@
 class GUIButton{
 public:
 
-	GUIButton(const glm::vec4& destRect, const ColorRGBA8& color);
+	GUIButton(const glm::vec4& destRect, GLuint textureID);
 	void update(InputManager& manager);
-	void render(GUIRenderer& renderer, GLuint blankTextureID);
+	void render(GUIRenderer& renderer);
 	bool isPressed();
 
 private:
-	
-	bool m_isPressed = false;
-	ColorRGBA8 m_baseColor;
-	ColorRGBA8 m_currentColor;
+
 	glm::vec4 m_destRect;
-	std::string m_string;
+	bool m_isPressed = false;
+	GLuint m_textureID = 0;
+	unsigned int m_textureIndex = 0;
 
 };
 #endif

@@ -42,7 +42,7 @@ void Game::loadLevel(Settings& settings){
           }
      }
 
-     m_engine.camera.center = glm::vec3(settings.worldWidth / 2, 0.5f, settings.worldWidth / 2);
+     m_engine.camera3D.center = glm::vec3(settings.worldWidth / 2, 0.5f, settings.worldWidth / 2);
 
      m_engine.masterRenderer.batchRenderer.begin();
 

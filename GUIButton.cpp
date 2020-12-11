@@ -1,20 +1,19 @@
 #include "GUIButton.hpp"
 #include "Utils.hpp"
 
-GUIButton::GUIButton(const glm::vec4& destRect, const ColorRGBA8& color){
+GUIButton::GUIButton(const glm::vec4& destRect, GLuint textureID){
 	m_destRect = destRect;
-	m_baseColor = color;
+	m_textureID = textureID;
 }
 
 void GUIButton::update(InputManager& manager){
-
-	m_currentColor = m_baseColor;
+	m_textureIndex = 0;
 	m_isPressed = false;
 
 	if(Utils::isInside(manager.getMousePosition(), m_destRect)){
-		m_currentColor = ColorRGBA8(m_baseColor.r * 0.8f, m_baseColor.g * 0.8f, m_baseColor.b * 0.8f, m_baseColor.a);
+		m_textureIndex = 1;
 		if(manager.isMouseDown(SDL_BUTTON_LEFT)){
-			m_currentColor = ColorRGBA8(m_baseColor.r * 0.6f, m_baseColor.g * 0.6f, m_baseColor.b * 0.6f, m_baseColor.a);
+			m_textureIndex = 2;
 		}else if(manager.isMouseReleased(SDL_BUTTON_LEFT)){
 			m_isPressed = true;
 		}
@@ -22,8 +21,10 @@ void GUIButton::update(InputManager& manager){
 
 }
 
-void GUIButton::render(GUIRenderer& renderer, GLuint blankTextureID){
-	renderer.draw(m_destRect, glm::vec4(0, 0, 1, 1), blankTextureID, m_currentColor);
+void GUIButton::render(GUIRenderer& renderer){
+
+	renderer.draw(m_destRect, glm::vec4(0, m_textureIndex / 3.0f, 1, 1.0f / 3.0f), 1.0f, m_textureID);
+
 }
 
 bool GUIButton::isPressed(){

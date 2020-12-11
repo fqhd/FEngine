@@ -1,11 +1,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Settings.hpp"
 #include "InputManager.hpp"
-#include "Assets.hpp"
 #include "MasterRenderer.hpp"
-#include "Camera3D.hpp"
 
 class Engine {
 public:
@@ -16,13 +13,15 @@ public:
      void render(std::vector<Entity>& entities);
      void destroy();
 
+     GUI gui;
      Assets assets;
-     Camera3D camera;
+     Camera3D camera3D;
+     Camera2D camera2D;
      MasterRenderer masterRenderer;
 
 private:
 
-
+     void updateGUI(InputManager& manager);
 
 
 };

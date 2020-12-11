@@ -16,6 +16,9 @@ void MasterRenderer::init(Settings& settings){
      m_blurShader.init();
      m_ssaoLightingShader.init();
 
+     m_guiRenderer.init();
+     m_guiShader.init();
+
 }
 
 void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera, Assets& assets){
@@ -236,6 +239,23 @@ float MasterRenderer::lerp(float a, float b, float f)
     return a + f * (b - a);
 }
 
+void MasterRenderer::renderGUI(GUI& gui, Camera2D& camera){
+
+     m_guiRenderer.begin();
+     for(auto& i : gui.buttons) i.render(m_guiRenderer);
+     for(auto& i : gui.images) i.render(m_guiRenderer);
+     m_guiRenderer.end();
+
+
+     m_guiShader.bind();
+     m_guiShader.loadMatrix(camera.getMatrix());
+
+     m_guiRenderer.render();
+
+     m_guiShader.unbind();
+
+}
+
 void MasterRenderer::destroy(){
      batchRenderer.destroy();
      m_quad.destroy();
@@ -248,4 +268,6 @@ void MasterRenderer::destroy(){
      m_ssaoBuffer.destroy();
      m_blurShader.destroy();
      m_ssaoLightingShader.destroy();
+     m_guiRenderer.destroy();
+     m_guiShader.destroy();
 }
