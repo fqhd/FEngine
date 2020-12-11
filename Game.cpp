@@ -8,7 +8,6 @@ void Game::init(Settings& settings){
      m_engine.init(settings);
      loadLevel(settings);
 
-
 }
 
 void Game::update(InputManager& manager, Settings& settings, GameStates& state){
@@ -63,8 +62,8 @@ void Game::createSurface(Settings& settings){
      vertices.push_back(Vertex(glm::vec3(offset, 1, 0), glm::vec3(1, 1, -1)));
      vertices.push_back(Vertex(glm::vec3(offset, 0, 0), glm::vec3(1, -1, -1)));
 
-     vertices.push_back(Vertex(glm::vec3(0, 1, offset), glm::vec3(-1, 1, 1)));
      vertices.push_back(Vertex(glm::vec3(0, 0, offset), glm::vec3(-1, -1, 1)));
+     vertices.push_back(Vertex(glm::vec3(0, 1, offset), glm::vec3(-1, 1, 1)));
      vertices.push_back(Vertex(glm::vec3(offset, 1, offset), glm::vec3(1, 1, 1)));
      vertices.push_back(Vertex(glm::vec3(offset, 0, offset), glm::vec3(1, -1, 1)));
 

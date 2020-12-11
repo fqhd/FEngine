@@ -45,6 +45,7 @@ void GBuffer::init(unsigned int width, unsigned int height){
      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
      glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rboID);
 
+
      glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
      if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
@@ -52,7 +53,6 @@ void GBuffer::init(unsigned int width, unsigned int height){
      }
 
      glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 
 }
 

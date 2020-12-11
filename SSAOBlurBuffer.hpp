@@ -13,7 +13,7 @@ public:
      void unbind();
      void destroy();
 
-     GLuint getID();
+     GLuint getTextureID();
 
 
 private:

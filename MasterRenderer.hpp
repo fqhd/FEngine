@@ -18,6 +18,7 @@
 #include "SSAOBuffer.hpp"
 #include "SSAOBlurBuffer.hpp"
 #include "SSAOBlurShader.hpp"
+#include "SSAOLightingShader.hpp"
 
 class MasterRenderer {
 public:
@@ -39,6 +40,7 @@ private:
      void createKernelSamples();
      float lerp(float a, float b, float f);
      void createSSAONoiseTexture(Settings& settings);
+     void renderSSAOLightingQuad();
 
      //Objects
      std::mt19937 generator;
@@ -55,6 +57,7 @@ private:
      CubemapShader m_cubemapShader;
      SSAOShader m_ssaoShader;
      SSAOBlurShader m_blurShader;
+     SSAOLightingShader m_ssaoLightingShader;
 
      //Master Renderer Variables
      std::vector<glm::vec3> m_kernelSamples;

@@ -19,8 +19,19 @@ void SSAOBlurBuffer::init(unsigned int width, unsigned int height){
 
 }
 
+void SSAOBlurBuffer::bind(){
+     glBindFramebuffer(GL_FRAMEBUFFER, m_fboID);
+}
 
-GLuint SSAOBlurBuffer::getID(){
+void SSAOBlurBuffer::clear(){
+     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void SSAOBlurBuffer::unbind(){
+     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+GLuint SSAOBlurBuffer::getTextureID(){
      return m_textureID;
 }
 

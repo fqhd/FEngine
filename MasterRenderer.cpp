@@ -1,6 +1,9 @@
 #include "MasterRenderer.hpp"
 
 void MasterRenderer::init(Settings& settings){
+     createKernelSamples();
+     createSSAONoiseTexture(settings);
+
      batchRenderer.init();
      m_gbuffer.init(settings.screenWidth, settings.screenHeight);
      m_gbufferShader.init();
@@ -11,9 +14,8 @@ void MasterRenderer::init(Settings& settings){
      m_ssaoBuffer.init(settings.screenWidth, settings.screenHeight);
      m_blurBuffer.init(settings.screenWidth, settings.screenHeight);
      m_blurShader.init();
+     m_ssaoLightingShader.init();
 
-     createKernelSamples();
-     createSSAONoiseTexture(settings);
 }
 
 void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera, Assets& assets){
@@ -38,8 +40,8 @@ void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera
      m_blurBuffer.unbind();
 
 
-     //Rendering final ssao lighting pass
-
+     //Rendering final SSAO lighting pass
+     renderSSAOLightingQuad();
 
 
 }
@@ -83,9 +85,19 @@ void MasterRenderer::renderBlurQuad(){
 
      //Binding texture
      glActiveTexture(GL_TEXTURE0);
-     glBindTexture(GL_TEXTURE_2D, m_ssaoBuffer.getID());
+     glBindTexture(GL_TEXTURE_2D, m_ssaoBuffer.getTextureID());
+
+     //Disabling GL States
+     glDisable(GL_DEPTH_TEST);
+     glDisable(GL_CULL_FACE);
+     glDisable(GL_BLEND);
 
      m_quad.render();
+
+     //Restoring GL States
+     glEnable(GL_DEPTH_TEST);
+     glEnable(GL_CULL_FACE);
+     glEnable(GL_BLEND);
 
      //Unbinding texture
      glActiveTexture(GL_TEXTURE0);
@@ -132,6 +144,44 @@ void MasterRenderer::renderSSAOQuad(Camera3D& camera){
 
 }
 
+void MasterRenderer::renderSSAOLightingQuad(){
+     m_ssaoLightingShader.bind();
+
+     //Binding textures
+     glActiveTexture(GL_TEXTURE0);
+     glBindTexture(GL_TEXTURE_2D, m_gbuffer.getPositionTextureID());
+     glActiveTexture(GL_TEXTURE1);
+     glBindTexture(GL_TEXTURE_2D, m_gbuffer.getNormalTextureID());
+     glActiveTexture(GL_TEXTURE2);
+     glBindTexture(GL_TEXTURE_2D, m_gbuffer.getAlbedoTextureID());
+     glActiveTexture(GL_TEXTURE3);
+     glBindTexture(GL_TEXTURE_2D, m_blurBuffer.getTextureID());
+
+     //Disabling GL States
+     glDisable(GL_DEPTH_TEST);
+     glDisable(GL_CULL_FACE);
+     glDisable(GL_BLEND);
+
+     m_quad.render();
+
+     //Restoring GL States
+     glEnable(GL_DEPTH_TEST);
+     glEnable(GL_CULL_FACE);
+     glEnable(GL_BLEND);
+
+     //Unbinding all textures
+     glActiveTexture(GL_TEXTURE0);
+     glBindTexture(GL_TEXTURE_2D, 0);
+     glActiveTexture(GL_TEXTURE1);
+     glBindTexture(GL_TEXTURE_2D, 0);
+     glActiveTexture(GL_TEXTURE2);
+     glBindTexture(GL_TEXTURE_2D, 0);
+     glActiveTexture(GL_TEXTURE3);
+     glBindTexture(GL_TEXTURE_2D, 0);
+
+     m_ssaoLightingShader.unbind();
+}
+
 void MasterRenderer::renderEntities(std::vector<Entity>& entities){
      for(auto& i : entities){
           m_gbufferShader.loadModelMatrix(i.transform.getMatrix());
@@ -159,8 +209,8 @@ void MasterRenderer::createKernelSamples(){
 
           //Adding the sample to the vector of samples
           m_kernelSamples.push_back(sample);
-
      }
+
 }
 
 void MasterRenderer::createSSAONoiseTexture(Settings& settings) {
@@ -197,4 +247,5 @@ void MasterRenderer::destroy(){
      m_noiseTexture.destroy();
      m_ssaoBuffer.destroy();
      m_blurShader.destroy();
+     m_ssaoLightingShader.destroy();
 }
