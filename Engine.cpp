@@ -8,7 +8,7 @@ void Engine::init(Settings& settings){
 }
 
 void Engine::update(InputManager& manager, Settings& settings){
-     camera3D.move(manager, settings);
+     camera3D.move(manager, settings, 0.025);
      updateGUI(manager);
 }
 

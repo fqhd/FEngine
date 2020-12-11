@@ -23,26 +23,26 @@ const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }
 
-void Camera3D::move(InputManager& manager, Settings& settings){
+void Camera3D::move(InputManager& manager, Settings& settings, float deltaTime){
 
      //Calculating variables
      calculatePitch(manager, settings);
      calculateYaw(manager, settings);
      calculateZoom(manager, settings);
-
      float horizDistance = calculateHorizontalDistance();
      float verticDistance = calculateVerticalDistance();
-     calculateCameraPosition(horizDistance, verticDistance);
+     calculateTargetPosition(horizDistance, verticDistance);
+
+     position += (m_targetPosition - position) * deltaTime;
 
 }
 
-void Camera3D::calculateCameraPosition(float horizDistance, float verticDistance) {
-     position.y = center.y + verticDistance;
+void Camera3D::calculateTargetPosition(float horizDistance, float verticDistance) {
+     m_targetPosition.y = center.y + verticDistance;
      float offsetX = (float)(horizDistance * glm::sin(glm::radians(m_yaw)));
      float offsetZ = (float)(horizDistance * glm::cos(glm::radians(m_yaw)));
-     position.x = center.x - offsetX;
-     position.z = center.z - offsetZ;
-
+     m_targetPosition.x = center.x - offsetX;
+     m_targetPosition.z = center.z - offsetZ;
 }
 
 float Camera3D::calculateHorizontalDistance() {
