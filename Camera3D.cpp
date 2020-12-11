@@ -23,7 +23,7 @@ const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }
 
-void Camera3D::move(InputManager& manager, Settings& settings, float deltaTime){
+void Camera3D::move(InputManager& manager, Settings& settings){
 
      //Calculating variables
      calculatePitch(manager, settings);
@@ -33,7 +33,9 @@ void Camera3D::move(InputManager& manager, Settings& settings, float deltaTime){
      float verticDistance = calculateVerticalDistance();
      calculateTargetPosition(horizDistance, verticDistance);
 
-     position += (m_targetPosition - position) * deltaTime;
+     position += (m_targetPosition - position) * settings.cameraSensitivity;
+
+     
 
 }
 

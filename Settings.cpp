@@ -11,6 +11,7 @@ void Settings::writeToFile(){
      os << "MouseSensitivty: " << mouseSensitivity << std::endl;
      os << "ZoomSensitivty: " << zoomSensitivity << std::endl;
      os << "CurrentWorld: " << currentWorld << std::endl;
+     os << "CameraSensitivity: " << cameraSensitivity << std::endl;
 
      os.close();
 
@@ -32,6 +33,8 @@ void Settings::loadFromFile(){
                is >> zoomSensitivity;
           }else if(name == "CurrentWorld:"){
                is >> currentWorld;
+          }else if(name == "CameraSensitivity:"){
+               is >> cameraSensitivity;
           }
      }
      is.close();

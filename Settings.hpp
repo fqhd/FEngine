@@ -14,6 +14,7 @@ public:
      unsigned int currentWorld = 0;
      float mouseSensitivity = 0.5f;
      float zoomSensitivity = 0.5f;
+     float cameraSensitivity = 0.025f;
 
 };
 #endif

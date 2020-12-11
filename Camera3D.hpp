@@ -9,7 +9,7 @@ class Camera3D {
 public:
 
      void init(unsigned int width, unsigned int height);
-     void move(InputManager& manager, Settings& settings, float deltaTime);
+     void move(InputManager& manager, Settings& settings);
      const glm::mat4& getViewMatrix();
 
      const glm::mat4& getProjectionMatrix() const;
