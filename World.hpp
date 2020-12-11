@@ -7,23 +7,24 @@
 
 #include "Utils.hpp"
 #include "Entity.hpp"
-#include "Settings.hpp"
 
 
 class World {
 public:
 
 
-     bool loadWorld(Settings& settings);
-     void update(std::vector<Entity>& entities);
+     bool loadWorld(unsigned int level);
      void destroy();
      char getTile(int x, int z, unsigned int worldWidth);
      void setTile(int x, int z, char tile, unsigned int worldWidth);
+
+     unsigned int getWidth();
 
 
 private:
 
      char* m_tiles = nullptr;
+     unsigned int m_width = 0;
 
 };
 

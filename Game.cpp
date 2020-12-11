@@ -1,12 +1,11 @@
 #include "Game.hpp"
 
-#include <fstream>
 
 void Game::init(Settings& settings){
 
      //Engine Inits
      m_engine.init(settings);
-     loadLevel(settings);
+     loadLevel(settings.currentWorld);
 
 }
 
@@ -30,32 +29,32 @@ void Game::destroy(){
      m_engine.destroy();
 }
 
-void Game::loadLevel(Settings& settings){
-     m_world.loadWorld(settings);
+void Game::loadLevel(unsigned int level){
+     m_world.loadWorld(level);
 
      //Add player entity where player is supposed to be
-     for(unsigned int z = 0; z < settings.worldWidth; z++){
-          for(unsigned int x = 0; x < settings.worldWidth; x++){
-               if(m_world.getTile(x, z, settings.worldWidth) == 'P'){
+     for(unsigned int z = 0; z < m_world.getWidth(); z++){
+          for(unsigned int x = 0; x < m_world.getWidth(); x++){
+               if(m_world.getTile(x, z, m_world.getWidth()) == 'P'){
                     m_entities.emplace_back(Transform(glm::vec3(x + 0.5f, 1.5f, z+0.5f), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1)), m_engine.assets.getPlayerModel(), StaticColor(200, 20, 240));
                }
           }
      }
 
-     m_engine.camera3D.center = glm::vec3(settings.worldWidth / 2, 0.5f, settings.worldWidth / 2);
+     m_engine.camera3D.center = glm::vec3(m_world.getWidth() / 2, 0.5f, m_world.getWidth() / 2);
 
      m_engine.masterRenderer.batchRenderer.begin();
 
-     createSurface(settings);
+     createSurface();
 
      m_engine.masterRenderer.batchRenderer.end();
 
 }
 
-void Game::createSurface(Settings& settings){
+void Game::createSurface(){
      std::vector<Vertex> vertices;
 
-     float offset = settings.worldWidth;
+     float offset = m_world.getWidth();
 
      vertices.push_back(Vertex(glm::vec3(0, 0, 0), glm::vec3(-1, -1, -1)));
      vertices.push_back(Vertex(glm::vec3(0, 1, 0), glm::vec3(-1, 1, -1)));

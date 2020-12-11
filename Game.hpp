@@ -13,14 +13,14 @@ public:
      void render();
      void destroy();
 
-     void loadLevel(Settings& settings);
+     void loadLevel(unsigned int level);
 
 private:
 
 
      //Game functions
      void addEntities();
-     void createSurface(Settings& settings);
+     void createSurface();
      void movePlayer(InputManager& manger);
 
      //Game Objects
@@ -29,6 +29,7 @@ private:
 
      //Game Variables
      std::vector<Entity> m_entities;
+
 
 };
 

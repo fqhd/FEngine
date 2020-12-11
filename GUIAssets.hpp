@@ -7,13 +7,13 @@ public:
 
      void init();
 
-     GLuint getBlankTextureID();
+     GLuint getSpriteSheet();
 
 private:
 
      GLuint loadTexture(const char* path);
 
-     GLuint m_blankTextureID;
+     GLuint m_spriteSheet;
 
 };
 

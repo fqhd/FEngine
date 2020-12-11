@@ -8,7 +8,6 @@ void Settings::writeToFile(){
 
      os << "ScreenWidth: " << screenWidth << std::endl;
      os << "ScreenHeight: " << screenHeight << std::endl;
-     os << "WorldWidth: " << worldWidth << std::endl;
      os << "MouseSensitivty: " << mouseSensitivity << std::endl;
      os << "ZoomSensitivty: " << zoomSensitivity << std::endl;
      os << "CurrentWorld: " << currentWorld << std::endl;
@@ -27,8 +26,6 @@ void Settings::loadFromFile(){
                is >> screenWidth;
           }else if(name == "ScreenHeight:"){
                is >> screenHeight;
-          }else if(name == "WorldWidth:"){
-               is >> worldWidth;
           }else if(name == "MouseSensitivty:"){
                is >> mouseSensitivity;
           }else if(name == "ZoomSensitivty:"){

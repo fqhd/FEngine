@@ -3,11 +3,11 @@
 #include "stb_image.h"
 
 void GUIAssets::init(){
-     m_blankTextureID = loadTexture("res/textures/blank.png");
+     m_spriteSheet = loadTexture("res/textures/gui/gui_sprite_sheet.png");
 }
 
-GLuint GUIAssets::getBlankTextureID(){
-     return m_blankTextureID;
+GLuint GUIAssets::getSpriteSheet(){
+     return m_spriteSheet;
 }
 
 
