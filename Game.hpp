@@ -4,6 +4,7 @@
 #include "Engine.hpp"
 #include "GameStates.hpp"
 #include "World.hpp"
+#include "Timer.hpp"
 
 class Game {
 public:
@@ -26,6 +27,7 @@ private:
      //Game Objects
      Engine m_engine;
      World m_world;
+     Timer m_timer;
 
      //Game Variables
      std::vector<Entity> m_entities;

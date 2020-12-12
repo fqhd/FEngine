@@ -1,5 +1,5 @@
 #ifndef CUBE_H
-#define CUBE_h
+#define CUBE_H
 
 #include <GL/glew.h>
 

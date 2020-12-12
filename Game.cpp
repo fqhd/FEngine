@@ -6,6 +6,7 @@ void Game::init(Settings& settings){
      //Engine Inits
      m_engine.init(settings);
      loadLevel(settings.currentWorld);
+     m_timer.start();
 
 }
 
@@ -77,6 +78,7 @@ void Game::createSurface(){
 void Game::movePlayer(InputManager& manager){
 
      if(manager.isKeyDown(SDLK_LEFT)){
+          Utils::log(CONSOLE, std::to_string(m_timer.getElapsedTime()));
           m_entities[0].transform.move(glm::vec3(1, 0, 0) * 0.01f);
      }
      if(manager.isKeyDown(SDLK_UP)){

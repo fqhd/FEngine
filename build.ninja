@@ -2,10 +2,10 @@ cflags = -std=c++17 -fdiagnostics-color=always -g -O0 $$(pkg-config --cflags sdl
 lflags = -lSDL2 -lGLEW -lGLU -lGL
 
 rule cc
-  command = g++ -c $in -o $out $cflags
+  command = clang++ -c $in -o $out $cflags
 
 rule lnk
-  command = g++ -o out $in $lflags
+  command = clang++ -o out $in $lflags
 
 build main.o: cc main.cpp
 build window.o: cc Window.cpp
@@ -44,5 +44,6 @@ build ssaoblurbuffer.o: cc SSAOBlurBuffer.cpp
 build ssaoblurshader.o: cc SSAOBlurShader.cpp
 build ssaolightingshader.o: cc SSAOLightingShader.cpp
 build guivertex.o: cc GUIVertex.cpp
+build timer.o: cc Timer.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o game.o transform.o camera3d.o entity.o batchrenderer.o gbuffershader.o cubetexture.o assets.o cube.o cubemapshader.o masterrenderer.o engine.o menu.o world.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o
+build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o game.o transform.o camera3d.o entity.o batchrenderer.o gbuffershader.o cubetexture.o assets.o cube.o cubemapshader.o masterrenderer.o engine.o menu.o world.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o
