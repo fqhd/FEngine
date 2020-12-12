@@ -49,3 +49,11 @@ const glm::vec3& Transform::getRotation() const {
 const glm::vec3& Transform::getScale() const {
      return m_scale;
 }
+
+void Transform::move(const glm::vec3& delta){
+     m_position += delta;
+}
+
+void Transform::smoothMove(const glm::vec3& destination, float speed){
+     m_position += (destination - m_position) * speed;
+}
