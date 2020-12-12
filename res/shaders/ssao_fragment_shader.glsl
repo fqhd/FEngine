@@ -12,17 +12,14 @@ uniform sampler2D normalTexture;
 uniform sampler2D noiseTexture;
 uniform vec3 samples[64];
 uniform mat4 projection;
+uniform vec2 noiseScale;
 
-//Constants(Temporary)
-int kernelSize = 64;
-float radius = 0.5;
-float bias = 0.025;
+//Constants
+const int kernelSize = 64;
+const float radius = 0.25;
+const float bias = 0.025;
 
-// tile noise texture over screen based on screen dimensions divided by noise size
-const vec2 noiseScale = vec2(1280.0/4.0, 720.0/4.0);
-
-void main()
-{
+void main() {
     // get input for SSAO algorithm
     vec3 fragPos = texture(positionTexture, pass_uv).xyz;
     vec3 normal = normalize(texture(normalTexture, pass_uv).rgb);

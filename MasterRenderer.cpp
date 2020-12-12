@@ -10,11 +10,11 @@ void MasterRenderer::init(Settings& settings){
      m_cube.init();
      m_cubemapShader.init();
      m_quad.init();
-     m_ssaoShader.init(m_kernelSamples);
+     m_ssaoShader.init(m_kernelSamples, settings.screenWidth, settings.screenHeight);
      m_ssaoBuffer.init(settings.screenWidth, settings.screenHeight);
      m_blurBuffer.init(settings.screenWidth, settings.screenHeight);
      m_blurShader.init();
-     m_ssaoLightingShader.init();
+     m_ssaoLightingShader.init(settings.screenWidth, settings.screenHeight);
 
      m_guiRenderer.init();
      m_guiShader.init();
