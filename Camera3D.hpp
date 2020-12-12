@@ -34,8 +34,8 @@ private:
      glm::mat4 m_viewMatrix;
      glm::vec3 m_targetPosition;
 
-     float m_distanceFromCenter = 20.0f;
-     float m_pitch = 0.0f;
+     float m_distanceFromCenter = 32.0f;
+     float m_pitch = 45.0f;
      float m_yaw = 0.0f;
 
 };

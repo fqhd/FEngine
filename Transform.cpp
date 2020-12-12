@@ -37,7 +37,6 @@ void Transform::setScale(const glm::vec3& scale) {
      m_needsUpdate = true;
 }
 
-
 const glm::vec3& Transform::getPosition() const {
      return m_position;
 }
@@ -56,4 +55,5 @@ void Transform::move(const glm::vec3& delta){
 
 void Transform::smoothMove(const glm::vec3& destination, float speed){
      m_position += (destination - m_position) * speed;
+     m_needsUpdate = true;
 }

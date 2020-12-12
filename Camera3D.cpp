@@ -35,8 +35,6 @@ void Camera3D::move(InputManager& manager, Settings& settings){
 
      position += (m_targetPosition - position) * settings.cameraSensitivity;
 
-     
-
 }
 
 void Camera3D::calculateTargetPosition(float horizDistance, float verticDistance) {
