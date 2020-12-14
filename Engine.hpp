@@ -9,7 +9,7 @@ public:
 
 
      void init(Settings& settings);
-     void update(InputManager& manager, Settings& settings);
+     void update(Settings& settings);
      void render(std::vector<Entity>& entities);
      void destroy();
 
@@ -21,7 +21,7 @@ public:
 
 private:
 
-     void updateGUI(InputManager& manager);
+     void updateGUI();
 
 
 };

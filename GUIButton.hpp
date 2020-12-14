@@ -10,7 +10,7 @@ class GUIButton{
 public:
 
 	GUIButton(const glm::vec4& destRect, GLuint textureID);
-	void update(InputManager& manager);
+	void update();
 	void render(GUIRenderer& renderer);
 	bool isPressed();
 

@@ -10,7 +10,7 @@ class Game {
 public:
 
      void init(Settings& settings);
-     void update(InputManager& manager, Settings& settings, GameStates& state);
+     void update(Settings& settings, GameStates& state);
      void render();
      void destroy();
 
@@ -22,7 +22,7 @@ private:
      //Game functions
      void addEntities();
      void createSurface();
-     void movePlayer(InputManager& manger);
+     void movePlayer();
 
      //Game Objects
      Engine m_engine;

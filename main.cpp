@@ -10,7 +10,6 @@ int main(int argc, char** argv){
 
      //Program Objects
      Window window;
-     InputManager manager;
      Settings settings;
      GameStates state;
      Game game;
@@ -21,25 +20,25 @@ int main(int argc, char** argv){
      window.create(settings);
      state = GameStates::PLAY;
      game.init(settings);
-     menu.init();
+     InputManager::init(window.window);
 
      while(state != GameStates::EXIT){
 
 
           while(state == GameStates::PLAY){
                window.clear();
-               manager.processInput(state, settings);
+               InputManager::processInput(window.window, state, settings);
 
-               game.update(manager, settings, state);
+               game.update(settings, state);
                game.render();
 
                window.update();
           }
           while(state == GameStates::MENU){
                window.clear();
-               manager.processInput(state, settings);
+               InputManager::processInput(window.window, state, settings);
 
-               menu.update(manager, settings, state);
+               menu.update(settings, state);
                menu.render();
 
                window.update();

@@ -9,7 +9,7 @@ class Camera3D {
 public:
 
      void init(unsigned int width, unsigned int height);
-     void move(InputManager& manager, Settings& settings);
+     void move(Settings& settings);
      const glm::mat4& getViewMatrix();
 
      const glm::mat4& getProjectionMatrix() const;
@@ -22,9 +22,9 @@ public:
 
 private:
 
-     void calculatePitch(InputManager& manager, Settings& settings);
-     void calculateYaw(InputManager& manager, Settings& settings);
-     void calculateZoom(InputManager& manager, Settings& settings);
+     void calculatePitch(Settings& settings);
+     void calculateYaw(Settings& settings);
+     void calculateZoom(Settings& settings);
      void calculateTargetPosition(float horizDistance, float verticDistance);
      float calculateHorizontalDistance();
      float calculateVerticalDistance();

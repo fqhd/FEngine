@@ -4,7 +4,7 @@ void Menu::init(){
 
 }
 
-void Menu::update(InputManager& manager, Settings& settings, GameStates& state){
+void Menu::update(Settings& settings, GameStates& state){
 
 }
 

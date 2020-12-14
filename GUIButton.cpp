@@ -6,15 +6,15 @@ GUIButton::GUIButton(const glm::vec4& destRect, GLuint textureID){
 	m_textureID = textureID;
 }
 
-void GUIButton::update(InputManager& manager){
+void GUIButton::update(){
 	m_textureIndex = 0;
 	m_isPressed = false;
 
-	if(Utils::isInside(manager.getMousePosition(), m_destRect)){
+	if(Utils::isInside(InputManager::getMousePosition(), m_destRect)){
 		m_textureIndex = 1;
-		if(manager.isMouseDown(SDL_BUTTON_LEFT)){
+		if(InputManager::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)){
 			m_textureIndex = 2;
-		}else if(manager.isMouseReleased(SDL_BUTTON_LEFT)){
+		}else if(InputManager::isButtonReleased(GLFW_MOUSE_BUTTON_LEFT)){
 			m_isPressed = true;
 		}
 	}

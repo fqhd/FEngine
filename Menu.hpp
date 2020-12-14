@@ -10,7 +10,7 @@ class Menu {
 public:
 
      void init();
-     void update(InputManager& manager, Settings& settings, GameStates& state);
+     void update(Settings& settings, GameStates& state);
      void render();
      void destroy();
 

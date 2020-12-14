@@ -7,9 +7,9 @@ void Engine::init(Settings& settings){
      masterRenderer.init(settings);
 }
 
-void Engine::update(InputManager& manager, Settings& settings){
-     camera3D.move(manager, settings);
-     updateGUI(manager);
+void Engine::update(Settings& settings){
+     camera3D.move(settings);
+     updateGUI();
 }
 
 void Engine::render(std::vector<Entity>& entities){
@@ -17,8 +17,8 @@ void Engine::render(std::vector<Entity>& entities){
      masterRenderer.renderGUI(gui, camera2D);
 }
 
-void Engine::updateGUI(InputManager& manager){
-     for(auto& i : gui.buttons) i.update(manager);
+void Engine::updateGUI(){
+     for(auto& i : gui.buttons) i.update();
 }
 
 void Engine::destroy(){

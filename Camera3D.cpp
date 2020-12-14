@@ -23,12 +23,12 @@ const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }
 
-void Camera3D::move(InputManager& manager, Settings& settings){
+void Camera3D::move(Settings& settings){
 
      //Calculating variables
-     calculatePitch(manager, settings);
-     calculateYaw(manager, settings);
-     calculateZoom(manager, settings);
+     calculatePitch(settings);
+     calculateYaw(settings);
+     calculateZoom(settings);
      float horizDistance = calculateHorizontalDistance();
      float verticDistance = calculateVerticalDistance();
      calculateTargetPosition(horizDistance, verticDistance);
@@ -53,9 +53,9 @@ float Camera3D::calculateVerticalDistance() {
      return (float) (m_distanceFromCenter * glm::sin(glm::radians(m_pitch)));
 }
 
-void Camera3D::calculatePitch(InputManager& manager, Settings& settings){
-     if(manager.isMouseDown(SDL_BUTTON_LEFT)){
-          m_pitch += manager.getDeltaMousePosition().y * settings.mouseSensitivity;
+void Camera3D::calculatePitch(Settings& settings){
+     if(InputManager::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)){
+          m_pitch += InputManager::getDeltaMousePosition().y * settings.mouseSensitivity;
      }
      if(m_pitch < -89.0f){
           m_pitch = -89.0f;
@@ -66,14 +66,14 @@ void Camera3D::calculatePitch(InputManager& manager, Settings& settings){
 
 }
 
-void Camera3D::calculateYaw(InputManager& manager, Settings& settings){
-     if(manager.isMouseDown(SDL_BUTTON_LEFT)){
-          m_yaw += manager.getDeltaMousePosition().x * settings.mouseSensitivity;
+void Camera3D::calculateYaw(Settings& settings){
+     if(InputManager::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)){
+          m_yaw -= InputManager::getDeltaMousePosition().x * settings.mouseSensitivity;
      }
 }
 
-void Camera3D::calculateZoom(InputManager& manager, Settings& settings){
-     m_distanceFromCenter -= manager.getDeltaMouseWheel() * settings.zoomSensitivity;
+void Camera3D::calculateZoom(Settings& settings){
+     m_distanceFromCenter -= InputManager::getDeltaMouseWheel() * settings.zoomSensitivity;
      if(m_distanceFromCenter < 5.0f){
           m_distanceFromCenter = 5.0f;
      }

@@ -1,48 +1,57 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include <SDL2/SDL.h>
-#include <glm/glm.hpp>
-#include <unordered_map>
+#include "Window.hpp"
 #include "GameStates.hpp"
 #include "Settings.hpp"
 
-class InputManager{
+#include <unordered_map>
+
+
+
+class InputManager {
 public:
 
-	void processInput(GameStates& state, Settings& settings);
+	static void init(GLFWwindow* window);
+	static void processInput(GLFWwindow* window, GameStates& state, Settings& settings);
 
-	bool isKeyPressed(unsigned int keyID);
-	bool isKeyReleased(unsigned int keyID);
-	bool isKeyDown(unsigned int keyID);
-	bool wasKeyDown(unsigned int keyID);
+	static bool isKeyPressed(unsigned int keyID);
+	static bool isKeyReleased(unsigned int keyID);
+	static bool isKeyDown(unsigned int keyID);
+	static bool wasKeyDown(unsigned int keyID);
 
-	bool isMousePressed(unsigned int keyID);
-	bool isMouseReleased(unsigned int keyID);
-	bool isMouseDown(unsigned int keyID);
-	bool wasMouseDown(unsigned int keyID);
+	static bool isButtonPressed(unsigned int keyID);
+	static bool isButtonReleased(unsigned int keyID);
+	static bool isButtonDown(unsigned int keyID);
+	static bool wasButtonDown(unsigned int keyID);
 
-	const glm::ivec2& getMousePosition();
-	const glm::ivec2& getDeltaMousePosition();
-	float getDeltaMouseWheel() const ;
+	static const glm::vec2& getMousePosition();
+	static const glm::vec2& getDeltaMousePosition();
+	static float getDeltaMouseWheel();
+
+	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void mousePosCallback(GLFWwindow* window, double xpos, double ypos);
+	static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+	static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+
 
 private:
 
-	void keyPressed(unsigned int keyID);
-	void keyReleased(unsigned int keyID);
-	void mousePressed(unsigned int buttonID);
-	void mouseReleased(unsigned int buttonID);
+	static void keyPressed(unsigned int keyID);
+	static void keyReleased(unsigned int keyID);
+	static void buttonPressed(unsigned int buttonID);
+	static void buttonReleased(unsigned int buttonID);
 
-	SDL_Event m_event;
-	std::unordered_map<unsigned int, bool> m_keymap;
-	std::unordered_map<unsigned int, bool> m_previousKeyMap;
+	static std::unordered_map<unsigned int, bool> m_keymap;
+	static std::unordered_map<unsigned int, bool> m_previousKeyMap;
 
-	std::unordered_map<unsigned int, bool> m_mousemap;
-	std::unordered_map<unsigned int, bool> m_previousMouseMap;
+	static std::unordered_map<unsigned int, bool> m_mousemap;
+	static std::unordered_map<unsigned int, bool> m_previousMouseMap;
 
 
-	glm::ivec2 m_mousePosition;
-	glm::ivec2 m_deltaMousePosition;
-	float m_deltaMouseWheel = 0.0f;
+	static glm::vec2 m_mousePosition;
+	static glm::vec2 m_deltaMousePosition;
+	static float m_deltaMouseWheel;
+
 };
 #endif

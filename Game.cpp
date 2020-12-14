@@ -10,12 +10,12 @@ void Game::init(Settings& settings){
 
 }
 
-void Game::update(InputManager& manager, Settings& settings, GameStates& state){
+void Game::update(Settings& settings, GameStates& state){
      //Engine updates
-     m_engine.update(manager, settings);
+     m_engine.update(settings);
 
      //Game updates
-     movePlayer(manager);
+     movePlayer();
 
 }
 
@@ -75,19 +75,18 @@ void Game::createSurface(){
 
 }
 
-void Game::movePlayer(InputManager& manager){
+void Game::movePlayer(){
 
-     if(manager.isKeyDown(SDLK_LEFT)){
-          Utils::log(CONSOLE, std::to_string(m_timer.getElapsedTime()));
+     if(InputManager::isKeyDown(GLFW_KEY_LEFT)){
           m_entities[0].transform.move(glm::vec3(1, 0, 0) * 0.01f);
      }
-     if(manager.isKeyDown(SDLK_UP)){
+     if(InputManager::isKeyDown(GLFW_KEY_UP)){
           m_entities[0].transform.move(glm::vec3(0, 0, 1) * 0.01f);
      }
-     if(manager.isKeyDown(SDLK_RIGHT)){
+     if(InputManager::isKeyDown(GLFW_KEY_RIGHT)){
           m_entities[0].transform.move(glm::vec3(-1, 0, 0) * 0.01f);
      }
-     if(manager.isKeyDown(SDLK_DOWN)){
+     if(InputManager::isKeyDown(GLFW_KEY_DOWN)){
           m_entities[0].transform.move(glm::vec3(0, 0, -1) * 0.01f);
      }
 

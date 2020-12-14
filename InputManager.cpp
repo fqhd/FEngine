@@ -1,55 +1,55 @@
 #include "InputManager.hpp"
-
 #include "Utils.hpp"
-#include <iostream>
 
-void InputManager::processInput(GameStates& state, Settings& settings){
+std::unordered_map<unsigned int, bool> InputManager::m_keymap;
+std::unordered_map<unsigned int, bool> InputManager::m_previousKeyMap;
+
+std::unordered_map<unsigned int, bool> InputManager::m_mousemap;
+std::unordered_map<unsigned int, bool> InputManager::m_previousMouseMap;
+
+
+glm::vec2 InputManager::m_mousePosition;
+glm::vec2 InputManager::m_deltaMousePosition;
+float InputManager::m_deltaMouseWheel;
+
+void InputManager::init(GLFWwindow* window){
+
+	glfwSetKeyCallback(window, keyCallback);
+	glfwSetCursorPosCallback(window, mousePosCallback);
+	glfwSetScrollCallback(window, scrollCallback);
+	glfwSetMouseButtonCallback(window, mouseButtonCallback);
+
+}
+
+void InputManager::processInput(GLFWwindow* window, GameStates& state, Settings& settings){
+
+	if(glfwWindowShouldClose(window)){
+		state = GameStates::EXIT;
+	}
 
 	m_previousKeyMap = m_keymap;
 	m_previousMouseMap = m_mousemap;
 	m_deltaMouseWheel = 0;
 
-	while(SDL_PollEvent(&m_event)){
-		switch(m_event.type){
-		case SDL_QUIT:
-			state = GameStates::EXIT;
-		break;
-		case SDL_KEYDOWN:
-			keyPressed(m_event.key.keysym.sym);
-		break;
-		case SDL_KEYUP:
-			keyReleased(m_event.key.keysym.sym);
-		break;
-		case SDL_MOUSEBUTTONDOWN:
-			mousePressed(m_event.button.button);
-		break;
-		case SDL_MOUSEBUTTONUP:
-			mouseReleased(m_event.button.button);
-		break;
-		case SDL_MOUSEWHEEL:
-			m_deltaMouseWheel = m_event.wheel.y;
-		break;
-		}
-	}
+	glm::vec2 previousMousePos = m_mousePosition;
 
-	//Updating the mouse position/delta mouse position
-	glm::ivec2 tempPosition;
-	SDL_GetMouseState(&tempPosition.x, &tempPosition.y);
-	tempPosition.y = settings.screenHeight - tempPosition.y;
-	m_deltaMousePosition = m_mousePosition - tempPosition;
-	m_mousePosition = tempPosition;
+	glfwPollEvents();
+
+	m_deltaMousePosition = m_mousePosition - previousMousePos;
 
 }
 
-float InputManager::getDeltaMouseWheel() const {
+
+
+float InputManager::getDeltaMouseWheel() {
 	return m_deltaMouseWheel;
 }
 
-const glm::ivec2& InputManager::getDeltaMousePosition() {
+const glm::vec2& InputManager::getDeltaMousePosition() {
 	return m_deltaMousePosition;
 }
 
-const glm::ivec2& InputManager::getMousePosition() {
+const glm::vec2& InputManager::getMousePosition() {
 	return m_mousePosition;
 }
 
@@ -61,12 +61,12 @@ bool InputManager::isKeyReleased(unsigned int keyID){
 	return (!isKeyDown(keyID) && wasKeyDown(keyID));
 }
 
-bool InputManager::isMousePressed(unsigned int keyID){
-	return (isMouseDown(keyID) && !wasMouseDown(keyID));
+bool InputManager::isButtonPressed(unsigned int keyID){
+	return (isButtonDown(keyID) && !wasButtonDown(keyID));
 }
 
-bool InputManager::isMouseReleased(unsigned int keyID){
-	return (!isMouseDown(keyID) && wasMouseDown(keyID));
+bool InputManager::isButtonReleased(unsigned int keyID){
+	return (!isButtonDown(keyID) && wasButtonDown(keyID));
 }
 
 
@@ -78,7 +78,7 @@ bool InputManager::isKeyDown(unsigned int keyID){
 	return false;
 }
 
-bool InputManager::isMouseDown(unsigned int buttonID){
+bool InputManager::isButtonDown(unsigned int buttonID){
 	auto it = m_mousemap.find(buttonID);
 	if(it != m_mousemap.end()){
 		return it->second;
@@ -94,7 +94,7 @@ bool InputManager::wasKeyDown(unsigned int buttonID){
 	return false;
 }
 
-bool InputManager::wasMouseDown(unsigned int buttonID){
+bool InputManager::wasButtonDown(unsigned int buttonID){
 	auto it = m_previousMouseMap.find(buttonID);
 	if(it != m_previousMouseMap.end()){
 		return it->second;
@@ -102,11 +102,11 @@ bool InputManager::wasMouseDown(unsigned int buttonID){
 	return false;
 }
 
-void InputManager::mousePressed(unsigned int buttonID){
+void InputManager::buttonPressed(unsigned int buttonID){
 	m_mousemap[buttonID] = true;
 }
 
-void InputManager::mouseReleased(unsigned int buttonID){
+void InputManager::buttonReleased(unsigned int buttonID){
 	m_mousemap[buttonID] = false;
 }
 
@@ -116,4 +116,40 @@ void InputManager::keyPressed(unsigned int keyID){
 
 void InputManager::keyReleased(unsigned int keyID){
 	m_keymap[keyID] = false;
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+// ********************************** CALLBACKS ********************************//
+//////////////////////////////////////////////////////////////////////////////////
+
+
+void InputManager::keyCallback(GLFWwindow* window, int key, int scanecode, int action, int mods){
+
+	if(action == GLFW_PRESS){
+		keyPressed(key);
+	} else if (action == GLFW_RELEASE){
+		keyReleased(key);
+	}
+
+}
+
+void InputManager::mousePosCallback(GLFWwindow* window, double xpos, double ypos){
+	m_mousePosition = glm::vec2(xpos, ypos);
+}
+
+void InputManager::scrollCallback(GLFWwindow* window, double xoffset, double yoffset){
+	m_deltaMouseWheel = yoffset;
+}
+
+void InputManager::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods){
+
+	if(action == GLFW_PRESS){
+		buttonPressed(button);
+	}else if(action == GLFW_RELEASE){
+		buttonReleased(button);
+	}
+
 }
