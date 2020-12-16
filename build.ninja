@@ -1,4 +1,4 @@
-cflags = -std=c++17 -fdiagnostics-color=always -g -O0 
+cflags = -std=c++17 -fdiagnostics-color=always -g -O0
 lflags = -lglfw -lGLEW -lGLU -lGL
 
 rule cc
@@ -10,7 +10,6 @@ rule lnk
 build main.o: cc main.cpp
 build window.o: cc Window.cpp
 build inputmanager.o: cc InputManager.cpp
-build settings.o: cc Settings.cpp
 build guirenderer.o: cc GUIRenderer.cpp
 build guiimage.o: cc GUIImage.cpp
 build guishader.o: cc GUIShader.cpp
@@ -21,7 +20,6 @@ build guiassets.o: cc GUIAssets.cpp
 build guibutton.o: cc GUIButton.cpp
 build model.o: cc Model.cpp
 build objmodel.o: cc OBJLoader.cpp
-build game.o: cc Game.cpp
 build transform.o: cc Transform.cpp
 build camera3d.o: cc Camera3D.cpp
 build entity.o: cc Entity.cpp
@@ -32,8 +30,6 @@ build cubetexture.o: cc CubeTexture.cpp
 build cubemapshader.o: cc CubemapShader.cpp
 build masterrenderer.o: cc MasterRenderer.cpp
 build engine.o: cc Engine.cpp
-build menu.o: cc Menu.cpp
-build world.o: cc World.cpp
 build gbuffershader.o: cc GBufferShader.cpp
 build quad.o: cc Quad.cpp
 build gbuffer.o: cc GBuffer.cpp
@@ -45,5 +41,6 @@ build ssaoblurshader.o: cc SSAOBlurShader.cpp
 build ssaolightingshader.o: cc SSAOLightingShader.cpp
 build guivertex.o: cc GUIVertex.cpp
 build timer.o: cc Timer.cpp
+build texture.o: cc Texture.cpp
 
-build out: lnk main.o window.o inputmanager.o settings.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o game.o transform.o camera3d.o entity.o batchrenderer.o gbuffershader.o cubetexture.o assets.o cube.o cubemapshader.o masterrenderer.o engine.o menu.o world.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o
+build out: lnk main.o window.o inputmanager.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o transform.o camera3d.o entity.o batchrenderer.o gbuffershader.o cubetexture.o assets.o cube.o cubemapshader.o masterrenderer.o engine.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o texture.o

@@ -21,10 +21,10 @@ void InputManager::init(GLFWwindow* window){
 
 }
 
-void InputManager::processInput(GLFWwindow* window, GameStates& state, Settings& settings){
+bool InputManager::processInput(GLFWwindow* window){
 
 	if(glfwWindowShouldClose(window)){
-		state = GameStates::EXIT;
+		return true;
 	}
 
 	m_previousKeyMap = m_keymap;
@@ -37,6 +37,7 @@ void InputManager::processInput(GLFWwindow* window, GameStates& state, Settings&
 
 	m_deltaMousePosition = m_mousePosition - previousMousePos;
 
+	return false;
 }
 
 

@@ -1,19 +1,16 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include "Window.hpp"
-#include "GameStates.hpp"
-#include "Settings.hpp"
-
 #include <unordered_map>
 
+#include "Window.hpp"
 
 
 class InputManager {
 public:
 
 	static void init(GLFWwindow* window);
-	static void processInput(GLFWwindow* window, GameStates& state, Settings& settings);
+	static bool processInput(GLFWwindow* window);
 
 	static bool isKeyPressed(unsigned int keyID);
 	static bool isKeyReleased(unsigned int keyID);

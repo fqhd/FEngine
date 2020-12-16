@@ -1,20 +1,21 @@
 #include "MasterRenderer.hpp"
 
-void MasterRenderer::init(Settings& settings){
+void MasterRenderer::init(unsigned int width, unsigned int height){
      createKernelSamples();
-     createSSAONoiseTexture(settings);
+     createSSAONoiseTexture(width, height);
 
      batchRenderer.init();
-     m_gbuffer.init(settings.screenWidth, settings.screenHeight);
+     m_gbuffer.init(width, height);
      m_gbufferShader.init();
      m_cube.init();
      m_cubemapShader.init();
      m_quad.init();
-     m_ssaoShader.init(m_kernelSamples, settings.screenWidth, settings.screenHeight);
-     m_ssaoBuffer.init(settings.screenWidth, settings.screenHeight);
-     m_blurBuffer.init(settings.screenWidth, settings.screenHeight);
+     m_ssaoShader.init(m_kernelSamples, width, height);
+     m_ssaoBuffer.init(width, height);
+     m_blurBuffer.init(width, height);
      m_blurShader.init();
-     m_ssaoLightingShader.init(settings.screenWidth, settings.screenHeight);
+     m_ssaoLightingShader.init(width, height);
+     m_generator.seed(500);
 
      m_guiRenderer.init();
      m_guiShader.init();
@@ -198,12 +199,12 @@ void MasterRenderer::createKernelSamples(){
 
      for (unsigned int i = 0; i < 64; ++i) {
           glm::vec3 sample(
-               randomFloats(generator) * 2.0 - 1.0,
-               randomFloats(generator) * 2.0 - 1.0,
-               randomFloats(generator)
+               randomFloats(m_generator) * 2.0 - 1.0,
+               randomFloats(m_generator) * 2.0 - 1.0,
+               randomFloats(m_generator)
           );
           sample  = glm::normalize(sample);
-          sample *= randomFloats(generator);
+          sample *= randomFloats(m_generator);
 
           //Pushing them closer to the center
           float scale = (float)i / 64.0;
@@ -216,21 +217,21 @@ void MasterRenderer::createKernelSamples(){
 
 }
 
-void MasterRenderer::createSSAONoiseTexture(Settings& settings) {
+void MasterRenderer::createSSAONoiseTexture(unsigned int width, unsigned int height) {
      std::uniform_real_distribution<float> randomFloats(0.0, 1.0);
 
      std::vector<glm::vec3> ssaoNoise;
      for (unsigned int i = 0; i < 16; i++) {
           glm::vec3 noise(
-               randomFloats(generator) * 2.0 - 1.0,
-               randomFloats(generator) * 2.0 - 1.0,
+               randomFloats(m_generator) * 2.0 - 1.0,
+               randomFloats(m_generator) * 2.0 - 1.0,
                0.0f
           );
 
           ssaoNoise.push_back(noise);
      }
 
-     m_noiseTexture.init(settings.screenWidth, settings.screenHeight, ssaoNoise);
+     m_noiseTexture.init(width, height, ssaoNoise);
 
 }
 

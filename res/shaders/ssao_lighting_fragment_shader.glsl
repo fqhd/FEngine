@@ -27,12 +27,11 @@ void main() {
     // retrieve data from gbuffer
     vec3 fragmentPosition = texture(positionTexture, pass_uv).rgb;
     vec3 fragmentNormal = texture(normalTexture, pass_uv).rgb;
-    vec3 fragmentAlbedo = vec3(1, 1, 1);
     float fragmentOcclusion = texture(ssaoTexture, pass_uv).r;
 
     vec2 texCoordOffset = inverseTextureSize.xy;
 
-    vec3 luma = vec3(0.299, 0.587, 0.114);
+    vec3 luma = vec3(1.0, 1.0, 1.0);
     float lumaTL = dot(luma, texture2D(albedoTexture, pass_uv.xy + (vec2(-1.0, -1.0) * texCoordOffset)).xyz);
     float lumaTR = dot(luma, texture2D(albedoTexture, pass_uv.xy + (vec2(1.0, -1.0) * texCoordOffset)).xyz);
     float lumaBL = dot(luma, texture2D(albedoTexture, pass_uv.xy + (vec2(-1.0, 1.0) * texCoordOffset)).xyz);
@@ -61,16 +60,13 @@ void main() {
     float lumaMax = max(lumaM, max(max(lumaTL, lumaTR), max(lumaBL, lumaBR)));
     float lumaResult2 = dot(luma, result2);
 
+    vec3 fragmentAlbedo;
     if(lumaResult2 < lumaMin || lumaResult2 > lumaMax)
          fragmentAlbedo = result1;
     else
          fragmentAlbedo = result2;
 
 
-
     out_color = vec4(fragmentAlbedo * fragmentOcclusion, 1.0f);
-
-
-
 
 }

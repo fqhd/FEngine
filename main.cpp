@@ -1,54 +1,22 @@
-#include "Game.hpp"
-#include "Window.hpp"
-#include "InputManager.hpp"
-#include "Settings.hpp"
-#include "GameStates.hpp"
-#include "Menu.hpp"
+#include "Engine.hpp"
 
 
 int main(int argc, char** argv){
 
-     //Program Objects
-     Window window;
-     Settings settings;
-     GameStates state;
-     Game game;
-     Menu menu;
+     Engine engine;
 
-     //Program Inits
-     settings.loadFromFile();
-     window.create(settings);
-     state = GameStates::PLAY;
-     game.init(settings);
-     InputManager::init(window.window);
-
-     while(state != GameStates::EXIT){
+     engine.init(800, 600, "Window");
 
 
-          while(state == GameStates::PLAY){
-               window.clear();
-               InputManager::processInput(window.window, state, settings);
+     while(!engine.window.isCloseRequested()){
 
-               game.update(settings, state);
-               game.render();
+          engine.processInput();
+          engine.update();
+          engine.render();
 
-               window.update();
-          }
-          while(state == GameStates::MENU){
-               window.clear();
-               InputManager::processInput(window.window, state, settings);
-
-               menu.update(settings, state);
-               menu.render();
-
-               window.update();
-          }
      }
 
-     game.destroy();
-     menu.destroy();
-     window.close();
-
+     engine.destroy();
 
      return 0;
 }

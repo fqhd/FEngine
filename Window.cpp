@@ -1,12 +1,11 @@
 #include "Window.hpp"
 
 
-void Window::create(Settings& settings){
+void Window::create(unsigned int width, unsigned int height, const std::string& name){
 
      if(!glfwInit()){
           Utils::log(DISK, "Failed to initialize GLFW");
      }
-
 
      //Setting Window settings
      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -21,7 +20,7 @@ void Window::create(Settings& settings){
      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
      //Creating the window
-     window = glfwCreateWindow(settings.screenWidth, settings.screenHeight, "Sokuban", NULL, NULL);
+     window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
      if(!window){
           Utils::log(DISK, "Failed to create window");
      }
@@ -62,4 +61,8 @@ void Window::update(){
 void Window::close(){
      glfwDestroyWindow(window);
      glfwTerminate();
+}
+
+bool Window::isCloseRequested(){
+     return m_closeRequested;
 }

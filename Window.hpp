@@ -5,24 +5,27 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Settings.hpp"
 #include "Utils.hpp"
 
 
 
 class Window {
 public:
+     friend class Engine;
 
-     void create(Settings& settings);
+     void create(unsigned int width, unsigned int height, const std::string& name);
      void clear();
      void update();
      void close();
+
+     bool isCloseRequested();
 
      GLFWwindow* window;
 
 
 private:
 
+     bool m_closeRequested = false;
 
 
 };

@@ -6,7 +6,6 @@
 #include "Camera3D.hpp"
 #include "BatchRenderer.hpp"
 #include "Entity.hpp"
-#include "Settings.hpp"
 #include "GBuffer.hpp"
 #include "GBufferShader.hpp"
 #include "Quad.hpp"
@@ -27,7 +26,7 @@
 class MasterRenderer {
 public:
 
-     void init(Settings& settings);
+     void init(unsigned int width, unsigned int height);
      void renderScene(std::vector<Entity>& entities, Camera3D& camera, Assets& assets);
      void renderGUI(GUI& gui, Camera2D& camera);
      void destroy();
@@ -44,7 +43,7 @@ private:
      void renderBlurQuad();
      void createKernelSamples();
      float lerp(float a, float b, float f);
-     void createSSAONoiseTexture(Settings& settings);
+     void createSSAONoiseTexture(unsigned int width, unsigned int height);
      void renderSSAOLightingQuad();
 
      //Objects
@@ -66,7 +65,7 @@ private:
 
      //Master Renderer Variables
      std::vector<glm::vec3> m_kernelSamples;
-     std::mt19937 generator;
+     std::mt19937 m_generator;
 
 
 };
