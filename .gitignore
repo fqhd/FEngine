@@ -3,11 +3,3 @@ Client/.build.ninja.swp
 Client/.ninja_deps
 Client/.ninja_log
 out
-MasterRenderer.hpp
-MasterRenderer.cpp
-Entity.hpp
-Entity.cpp
-Engine.hpp
-Engine.cpp
-main.cpp
-
