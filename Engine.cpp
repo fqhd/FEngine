@@ -23,6 +23,7 @@ void Engine::update(){
 void Engine::render(){
      window.clear();
 
+     masterRenderer.renderScene();
 
      window.update();
 }

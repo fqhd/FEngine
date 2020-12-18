@@ -23,7 +23,7 @@ public:
      MasterRenderer masterRenderer;
      Window window;
 
-
+     
 
 private:
 
