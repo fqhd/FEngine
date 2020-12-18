@@ -3,6 +3,7 @@
 
 #include "Model.hpp"
 #include "CubeTexture.hpp"
+#include "Texture.hpp"
 
 class Assets {
 public:
@@ -14,6 +15,8 @@ public:
 
      //Texture getters
      CubeTexture* getSkyTexture();
+     Texture* getPlayerTexture();
+
 
      void destroy();
 
@@ -34,6 +37,7 @@ private:
 
      //Textures
      CubeTexture m_skyTexture;
+     Texture m_playerTexture;
 
 };
 

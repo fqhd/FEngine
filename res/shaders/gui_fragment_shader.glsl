@@ -14,7 +14,7 @@ void main(){
 
      float transparency = texture2D(ourTexture, pass_uv).w;
 
-     out_color = vec4(255, 255, 255, transparency);
+     out_color = vec4(1.0, 1.0, 1.0, transparency);
 
 
 }

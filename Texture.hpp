@@ -9,6 +9,9 @@ class Texture {
 public:
 
      void init(const std::string& path);
+     void bind();
+     void unbind();
+     void destroy();
 
      GLuint getID();
 

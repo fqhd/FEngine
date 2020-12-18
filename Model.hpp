@@ -6,19 +6,29 @@
 
 #include "Vertex.hpp"
 
+
 class Model {
 public:
-     
+
      void loadFromFile(const std::string& model);
      void render();
      void destroy();
 
+     GLuint getVaoID();
+     GLuint getVboID();
+     GLuint getEboID();
+     GLuint getIboID();
+     GLuint getNumVertices();
+
+
 private:
 
-     GLuint m_numVertices;
-     GLuint m_vaoID;
-     GLuint m_vboID;
-     GLuint m_eboID;
+
+     GLuint m_numVertices = 0;
+     GLuint m_vaoID = 0;
+     GLuint m_vboID = 0;
+     GLuint m_eboID = 0;
+     GLuint m_iboID = 0;
 
 };
 

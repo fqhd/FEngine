@@ -4,7 +4,6 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
      createKernelSamples();
      createSSAONoiseTexture(width, height);
 
-     m_batchRenderer.init();
      m_gbuffer.init(width, height);
      m_gbufferShader.init();
      m_cube.init();
@@ -22,13 +21,22 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
 
 }
 
-void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera, Assets& assets){
+void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera, CubeTexture* texture){
 
      //Populating the G-Buffer
      m_gbuffer.bind();
      m_gbuffer.clear();
-     renderSkybox(camera, assets);
-     renderObjects(entities, camera);
+
+     if(skyboxEnabled){
+          renderSkybox(camera, texture);
+     }
+
+     if(batchRenderingEnabled){
+          renderObjectsInstanced(entities, camera);
+     }else{
+          renderObjects(entities, camera);
+     }
+
      m_gbuffer.unbind();
 
      //Rendering the SSAO Texture
@@ -56,23 +64,86 @@ void MasterRenderer::renderObjects(std::vector<Entity>& entities, Camera3D& came
      m_gbufferShader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_gbufferShader.loadViewMatrix(camera.getViewMatrix());
 
-     m_batchRenderer.render(m_gbufferShader);
-
      for(auto& i : entities){
           m_gbufferShader.loadModelMatrix(i.transform.getMatrix());
-          m_gbufferShader.loadColor(i.color);
+          i.texture->bind();
           i.render();
+          i.texture->unbind();
      }
+
      m_gbufferShader.unbind();
 }
 
-void MasterRenderer::renderSkybox(Camera3D& camera, Assets& assets){
+void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camera3D& camera){
+
+     if(entities.empty()){
+          return;
+     }
+
+     std::stable_sort(entities.begin(), entities.end(), compare);
+
+     std::vector<glm::mat4> matrices;
+     std::vector<BatchedMesh> meshes;
+
+     matrices.push_back(entities[0].transform.getMatrix()); // We push back the first matrix because we need to loop through the rest and compare the second with this first one
+     meshes.emplace_back(entities[0].model, 0, 1);
+
+     for(unsigned int i = 1; i < entities.size(); i++){
+          if(entities[i].model->getVaoID() != entities[i - 1].model->getVaoID()){
+               meshes.emplace_back(entities[i].model, matrices.size(), 0);
+          }
+          meshes.back().count++;
+          matrices.push_back(entities[i].transform.getMatrix());
+     }
+
+     m_gbufferShader.bind();
+
+     m_gbufferShader.loadProjectionMatrix(camera.getProjectionMatrix());
+     m_gbufferShader.loadViewMatrix(camera.getViewMatrix());
+
+     for(auto& i : meshes){
+
+          glBindVertexArray(i.model->getVaoID());
+
+          glBindBuffer(GL_ARRAY_BUFFER, i.model->getIboID());
+          glBufferData(GL_ARRAY_BUFFER, i.count * sizeof(glm::mat4), &matrices[i.offset], GL_STREAM_DRAW);
+          glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+          glEnableVertexAttribArray(3);
+          glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)0);
+          glEnableVertexAttribArray(4);
+          glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(1 * sizeof(glm::vec4)));
+          glEnableVertexAttribArray(5);
+          glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(2 * sizeof(glm::vec4)));
+          glEnableVertexAttribArray(6);
+          glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(3 * sizeof(glm::vec4)));
+
+          glVertexAttribDivisor(3, 1);
+          glVertexAttribDivisor(4, 1);
+          glVertexAttribDivisor(5, 1);
+          glVertexAttribDivisor(6, 1);
+
+          glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i.model->getEboID());
+
+          glDrawElementsInstanced(GL_TRIANGLES, i.model->getNumVertices(), GL_UNSIGNED_INT, 0, i.count);
+
+          glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+          glBindVertexArray(0);
+     }
+
+     m_gbufferShader.unbind();
+
+}
+
+
+void MasterRenderer::renderSkybox(Camera3D& camera, CubeTexture* texture){
      m_cubemapShader.bind();
      m_cubemapShader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_cubemapShader.loadViewMatrix(glm::mat4(glm::mat3(camera.getViewMatrix())));
 
      glActiveTexture(GL_TEXTURE0);
-     glBindTexture(GL_TEXTURE_CUBE_MAP, assets.getSkyTexture()->getID());
+     glBindTexture(GL_TEXTURE_CUBE_MAP, texture->getID());
      glDepthMask(GL_FALSE);
 
      m_cube.render();
@@ -137,11 +208,11 @@ void MasterRenderer::renderSSAOQuad(Camera3D& camera){
      glEnable(GL_BLEND);
 
      //Unbinding all textures
-     glActiveTexture(GL_TEXTURE0);
+     glActiveTexture(GL_TEXTURE2);
      glBindTexture(GL_TEXTURE_2D, 0);
      glActiveTexture(GL_TEXTURE1);
      glBindTexture(GL_TEXTURE_2D, 0);
-     glActiveTexture(GL_TEXTURE2);
+     glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_2D, 0);
 
      m_ssaoShader.unbind();
@@ -174,24 +245,17 @@ void MasterRenderer::renderSSAOLightingQuad(){
      glEnable(GL_BLEND);
 
      //Unbinding all textures
-     glActiveTexture(GL_TEXTURE0);
-     glBindTexture(GL_TEXTURE_2D, 0);
-     glActiveTexture(GL_TEXTURE1);
+
+     glActiveTexture(GL_TEXTURE3);
      glBindTexture(GL_TEXTURE_2D, 0);
      glActiveTexture(GL_TEXTURE2);
      glBindTexture(GL_TEXTURE_2D, 0);
-     glActiveTexture(GL_TEXTURE3);
+     glActiveTexture(GL_TEXTURE1);
+     glBindTexture(GL_TEXTURE_2D, 0);
+     glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_2D, 0);
 
      m_ssaoLightingShader.unbind();
-}
-
-void MasterRenderer::renderEntities(std::vector<Entity>& entities){
-     for(auto& i : entities){
-          m_gbufferShader.loadModelMatrix(i.transform.getMatrix());
-          m_gbufferShader.loadColor(i.color);
-          i.render();
-     }
 }
 
 void MasterRenderer::createKernelSamples(){
@@ -258,7 +322,6 @@ void MasterRenderer::renderGUI(GUI& gui, Camera2D& camera){
 }
 
 void MasterRenderer::destroy(){
-     m_batchRenderer.destroy();
      m_quad.destroy();
      m_cube.destroy();
      m_gbufferShader.destroy();
@@ -271,4 +334,8 @@ void MasterRenderer::destroy(){
      m_ssaoLightingShader.destroy();
      m_guiRenderer.destroy();
      m_guiShader.destroy();
+}
+
+bool MasterRenderer::compare(Entity a, Entity b){
+     return (a.texture->getID() < b.texture->getID());
 }

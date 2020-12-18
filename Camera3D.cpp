@@ -1,12 +1,11 @@
 #include "Camera3D.hpp"
 
-#include <iostream>
 
-
-const float HORIZONTAL_SENSITITY = 0.3f;
-const float VERTICAL_SENSITIVITY = 0.3f;
-const float ZOOM_SENSITIVITY = 0.3f;
-const float CAMERA_SPEED = 0.5f;
+const float HORIZONTAL_SENSITITY = 0.5f;
+const float VERTICAL_SENSITIVITY = 0.5f;
+const float ZOOM_SENSITIVITY = 2.5f;
+const float CAMERA_SPEED = 0.05f;
+const float MIN_DISTANCE = 1.0f;
 
 void Camera3D::init(unsigned int width, unsigned int height){
      m_projectionMatrix = glm::perspective(glm::radians(90.0f), width/(float)height, 0.1f, 1000.0f);
@@ -29,7 +28,7 @@ const glm::mat4& Camera3D::getProjectionMatrix() const{
      return m_projectionMatrix;
 }
 
-void Camera3D::move(){
+void Camera3D::update(){
 
      //Calculating variables
      calculatePitch();
@@ -80,8 +79,8 @@ void Camera3D::calculateYaw(){
 
 void Camera3D::calculateZoom(){
      m_distanceFromCenter -= InputManager::getDeltaMouseWheel() * ZOOM_SENSITIVITY;
-     if(m_distanceFromCenter < 5.0f){
-          m_distanceFromCenter = 5.0f;
+     if(m_distanceFromCenter < MIN_DISTANCE){
+          m_distanceFromCenter = MIN_DISTANCE;
      }
 
 }

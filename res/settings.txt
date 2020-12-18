@@ -1,6 +1,0 @@
-ScreenWidth: 1280
-ScreenHeight: 720
-VerticalSensitivity: 0.3
-HorizontalSensitivity: 0.3
-ZoomSensitivty: 1.5
-CameraSpeed: 0.5

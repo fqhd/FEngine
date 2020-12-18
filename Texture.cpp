@@ -10,7 +10,7 @@ void Texture::init(const std::string& path){
      int numChannels = 0;
 
      //Loading in data
-     unsigned char* data = stbi_load(path.c_str(), &width, &height, &numChannels, 4);
+     unsigned char* imageData = stbi_load(path.c_str(), &width, &height, &numChannels, 4);
 
      //Generating texture
      glGenTextures(1, &m_textureID);
@@ -18,18 +18,31 @@ void Texture::init(const std::string& path){
 
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
      glGenerateMipmap(GL_TEXTURE_2D);
-
-     glTexImage2D(GL_TEXTURE_2D, 1, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
      glBindTexture(GL_TEXTURE_2D, 0);
 
-     stbi_image_free(data);
+     stbi_image_free(imageData);
 
+}
+
+void Texture::bind(){
+     glActiveTexture(GL_TEXTURE0);
+     glBindTexture(GL_TEXTURE_2D, m_textureID);
+}
+
+void Texture::unbind(){
+     glActiveTexture(GL_TEXTURE0);
+     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 GLuint Texture::getID(){
      return m_textureID;
+}
+
+void Texture::destroy() {
+     glDeleteTextures(1, &m_textureID);
 }

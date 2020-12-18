@@ -19,6 +19,10 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
      //Creating the window
      window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
      if(!window){

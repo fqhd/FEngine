@@ -1,9 +1,9 @@
 #include "Entity.hpp"
 
-Entity::Entity(const Transform& t, Model* m, StaticColor c){
-     transform = t;
-     model = m;
-     color = c;
+Entity::Entity(const Transform& transform, Model* model, Texture* texture){
+     this->transform = transform;
+     this->model = model;
+     this->texture = texture;
 }
 
 void Entity::render(){
