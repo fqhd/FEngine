@@ -4,7 +4,7 @@
 void Window::create(unsigned int width, unsigned int height, const std::string& name){
 
      if(!glfwInit()){
-          Utils::log(DISK, "Failed to initialize GLFW");
+          Utils::log("Failed to initialize GLFW");
      }
 
      //Setting Window settings
@@ -26,7 +26,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      //Creating the window
      window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
      if(!window){
-          Utils::log(DISK, "Failed to create window");
+          Utils::log("Failed to create window");
      }
 
      //Settings for window
@@ -37,7 +37,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
 
      //Initializing glew
      if(glewInit() != GLEW_OK){
-          Utils::log(DISK, "Failed to initialize glew");
+          Utils::log("Failed to initialize glew");
      }
 
      //Enabling transparency

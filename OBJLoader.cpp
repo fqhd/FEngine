@@ -52,7 +52,7 @@ OBJModel::OBJModel(const std::string& fileName) {
     }
     else
     {
-        Utils::log(CONSOLE, "Unable to load mesh: " + fileName);
+        Utils::log("Unable to load mesh: " + fileName);
     }
 }
 

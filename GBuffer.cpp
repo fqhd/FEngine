@@ -49,7 +49,7 @@ void GBuffer::init(unsigned int width, unsigned int height){
      glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
      if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-          Utils::log(DISK, "GBuffer: Failed to create Geomtry Buffer");
+          Utils::log("GBuffer: Failed to create Geomtry Buffer");
      }
 
      glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -16,12 +16,11 @@ void CubeTexture::loadFromFile(const std::vector<std::string>& faces) {
      for (unsigned int i = 0; i < faces.size(); i++) {
           unsigned char* imageData = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
           if (!imageData){
-               Utils::log(DISK, "Failed to load in cubemap texture: " + faces[i]);
+               Utils::log("Failed to load in cubemap texture: " + faces[i]);
           }
           glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
           stbi_image_free(imageData);
      }
-
 
 
      glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
@@ -30,6 +29,7 @@ void CubeTexture::loadFromFile(const std::vector<std::string>& faces) {
 
 GLuint CubeTexture::getID(){
      return m_textureID;
+
 }
 
 void CubeTexture::destroy(){

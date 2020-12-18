@@ -30,6 +30,21 @@ void Model::loadFromFile(const std::string& path){
 
      glGenBuffers(1, &m_iboID);
      glBindBuffer(GL_ARRAY_BUFFER, m_iboID);
+
+     glEnableVertexAttribArray(3);
+     glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)0);
+     glEnableVertexAttribArray(4);
+     glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(1 * sizeof(glm::vec4)));
+     glEnableVertexAttribArray(5);
+     glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(2 * sizeof(glm::vec4)));
+     glEnableVertexAttribArray(6);
+     glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(3 * sizeof(glm::vec4)));
+
+     glVertexAttribDivisor(3, 1);
+     glVertexAttribDivisor(4, 1);
+     glVertexAttribDivisor(5, 1);
+     glVertexAttribDivisor(6, 1);
+
      glBindBuffer(GL_ARRAY_BUFFER, 0);
 
      glBindVertexArray(0);

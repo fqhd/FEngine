@@ -7,10 +7,6 @@
 #include <glm/glm.hpp>
 #include <cstdint>
 
-enum LOG_TYPE {
-          CONSOLE, DISK
-};
-
 namespace Utils{
 
      std::string loadShader(const std::string& shaderName);
@@ -18,7 +14,7 @@ namespace Utils{
      bool isInRange(const glm::vec3& a, const glm::vec3& b, float range);
      uint8_t* readFileToBuffer(const std::string& filePath);
      void freeBuffer(uint8_t* buffer);
-     void log(LOG_TYPE type, const std::string& message);
+     void log(const std::string& message);
 
 
 }
