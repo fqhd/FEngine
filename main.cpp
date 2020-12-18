@@ -2,9 +2,8 @@
 #include "MasterRenderer.hpp"
 #include "Window.hpp"
 #include "Camera3D.hpp"
+#include "Settings.hpp"
 
-//Constants
-constexpr unsigned int 
 
 void update();
 void render();
@@ -13,14 +12,16 @@ int main(int argc, char** argv){
 
 
      //Engine Objects
+     Settings settings;
      Window window;
      MasterRenderer renderer;
 
 
 
      //Initing game objects
-     window.create(800, 600, "Game Engine");
-     renderer.init(800, 600, );
+     settings.loadFromFile("res/settings.txt");
+     window.create(settings.screenWidth, settings.screenHeight, "Game Engine");
+     renderer.init(settings.screenWidth, settings.screenHeight);
 
      while(!window.isCloseRequested()){
           window.clear();
@@ -32,6 +33,7 @@ int main(int argc, char** argv){
      }
 
      //Destroying game objects
+     settings.writeToFile("res/settings.txt");
      window.close();
 
 
