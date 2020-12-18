@@ -4,7 +4,7 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
      createKernelSamples();
      createSSAONoiseTexture(width, height);
 
-     batchRenderer.init();
+     m_batchRenderer.init();
      m_gbuffer.init(width, height);
      m_gbufferShader.init();
      m_cube.init();
@@ -56,7 +56,7 @@ void MasterRenderer::renderObjects(std::vector<Entity>& entities, Camera3D& came
      m_gbufferShader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_gbufferShader.loadViewMatrix(camera.getViewMatrix());
 
-     batchRenderer.render(m_gbufferShader);
+     m_batchRenderer.render(m_gbufferShader);
 
      for(auto& i : entities){
           m_gbufferShader.loadModelMatrix(i.transform.getMatrix());
@@ -258,7 +258,7 @@ void MasterRenderer::renderGUI(GUI& gui, Camera2D& camera){
 }
 
 void MasterRenderer::destroy(){
-     batchRenderer.destroy();
+     m_batchRenderer.destroy();
      m_quad.destroy();
      m_cube.destroy();
      m_gbufferShader.destroy();

@@ -31,7 +31,6 @@ public:
      void renderGUI(GUI& gui, Camera2D& camera);
      void destroy();
 
-     BatchRenderer batchRenderer;
 
 private:
 
@@ -54,6 +53,7 @@ private:
      SSAOBuffer m_ssaoBuffer;
      SSAOBlurBuffer m_blurBuffer;
      GUIRenderer m_guiRenderer;
+     BatchRenderer m_batchRenderer;
 
      //Shaders
      GBufferShader m_gbufferShader;

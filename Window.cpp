@@ -48,6 +48,9 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      glEnable(GL_CULL_FACE);
      glCullFace(GL_BACK);
 
+
+     InputManager::init(window);
+
 }
 
 void Window::clear(){
@@ -56,6 +59,7 @@ void Window::clear(){
 
 void Window::update(){
      glfwSwapBuffers(window);
+     m_closeRequested = InputManager::processInput(window);
 }
 
 void Window::close(){

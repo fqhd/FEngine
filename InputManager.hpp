@@ -2,8 +2,9 @@
 #define INPUT_MANAGER_H
 
 #include <unordered_map>
-
-#include "Window.hpp"
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 
 class InputManager {
