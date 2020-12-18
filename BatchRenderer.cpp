@@ -77,13 +77,13 @@ void BatchRenderer::render(GBufferShader& shader){
           if(i == 0){
                glDrawElements(GL_TRIANGLES, m_models[i].numVertices, GL_UNSIGNED_INT, 0);
           }else{
-               glDrawElements(GL_TRIANGLES, m_models[i].numVertices, GL_UNSIGNED_INT, (void*)m_models[i - 1].numVertices);
+               glDrawElements(GL_TRIANGLES, m_models[i].numVertices, GL_UNSIGNED_INT, (void*)((long)m_models[i - 1].numVertices));
           }
      }
 
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
-     
+
 }
 
 void BatchRenderer::destroy(){
