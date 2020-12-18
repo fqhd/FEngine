@@ -1,4 +1,4 @@
-cflags = -std=c++17 -fdiagnostics-color=always -g -O0
+cflags = -std=c++17 -fdiagnostics-color=always -g -O0 -m64
 lflags = -lglfw -lGLEW -lGLU -lGL
 
 rule cc
