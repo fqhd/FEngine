@@ -22,7 +22,6 @@ int main(int argc, char** argv){
      assets.init();
 
      //Initializing engine parameters
-     renderer.batchRenderingEnabled = true;
      renderer.skyboxEnabled = true;
 
 

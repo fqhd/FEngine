@@ -26,54 +26,29 @@ void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera
      //Populating the G-Buffer
      m_gbuffer.bind();
      m_gbuffer.clear();
-
-     if(skyboxEnabled){
-          renderSkybox(camera, texture);
-     }
-
-     if(batchRenderingEnabled){
-          renderObjectsInstanced(entities, camera);
-     }else{
-          renderObjects(entities, camera);
-     }
-
+     renderObjectsInstanced(entities, camera);
+     if (skyboxEnabled) renderSkybox(camera, texture);
      m_gbuffer.unbind();
 
+
+
+
+
+     ////////////////////////////////////////////////////////////////////////////
+     //////////////////////// THE REST OF THE FUNCTION IS SSAO CODE /////////////
+     ////////////////////////////////////////////////////////////////////////////
      //Rendering the SSAO Texture
      m_ssaoBuffer.bind();
      m_ssaoBuffer.clear();
      renderSSAOQuad(camera);
      m_ssaoBuffer.unbind();
-
      //Rendering the SSAO Blurred Texture
      m_blurBuffer.bind();
      m_blurBuffer.clear();
      renderBlurQuad();
      m_blurBuffer.unbind();
-
-
      //Rendering final SSAO lighting pass
      renderSSAOLightingQuad();
-
-
-}
-
-void MasterRenderer::renderObjects(std::vector<Entity>& entities, Camera3D& camera){
-
-     m_gbufferShader.bind();
-
-     m_gbufferShader.loadProjectionMatrix(camera.getProjectionMatrix());
-     m_gbufferShader.loadViewMatrix(camera.getViewMatrix());
-
-     for(auto& i : entities){
-          m_gbufferShader.loadModelMatrix(i.transform.getMatrix());
-          i.texture->bind();
-          i.render();
-          i.texture->unbind();
-     }
-
-     m_gbufferShader.unbind();
-
 }
 
 void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camera3D& camera){
@@ -84,12 +59,13 @@ void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camer
 
      std::stable_sort(entities.begin(), entities.end(), compare);
 
-     std::vector<glm::mat4> matrices;
-     std::vector<BatchedMesh> meshes;
+     std::vector<glm::mat4> matrices; // Matrices for each mesh that will be rendered
+     std::vector<BatchedMesh> meshes; // Batched mesh containing the model information as well as the offsent for the matrices vector and number of instances of that entity drawn to the screen
 
      matrices.push_back(entities[0].transform.getMatrix()); // We push back the first matrix because we need to loop through the rest and compare the second with this first one
      meshes.emplace_back(entities[0].model, entities[0].texture, 0, 1); // We add the model with the offset 0 and a count of 1
 
+     //Looping through entities and creating list of batched meshes for optimized rendering
      for(unsigned int i = 1; i < entities.size(); i++){
           if(entities[i].model->getVaoID() != entities[i - 1].model->getVaoID()){
                meshes.emplace_back(entities[i].model, entities[i].texture, matrices.size(), 0);
@@ -98,6 +74,7 @@ void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camer
           matrices.push_back(entities[i].transform.getMatrix());
      }
 
+     //Binding the shader and loading information (preparing for rendering)
      m_gbufferShader.bind();
 
      m_gbufferShader.loadProjectionMatrix(camera.getProjectionMatrix());
@@ -108,7 +85,7 @@ void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camer
           //Sending matrix data of all instanced models to gpu matrices buffer
           glBindBuffer(GL_ARRAY_BUFFER, i.model->getIboID());
           glBufferData(GL_ARRAY_BUFFER, i.count * sizeof(glm::mat4), &matrices[i.offset], GL_STREAM_DRAW);
-          glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+          glBindBuffer(GL_ARRAY_BUFFER, 0);
 
           //Rendering instanced models
           glBindVertexArray(i.model->getVaoID());
@@ -120,6 +97,10 @@ void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camer
           glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i.model->getEboID());
           glDrawElementsInstanced(GL_TRIANGLES, i.model->getNumVertices(), GL_UNSIGNED_INT, 0, i.count);
           glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+          //Unbinding texture
+          glActiveTexture(GL_TEXTURE0);
+          glBindTexture(GL_TEXTURE_2D, i.texture->getID());
 
           glBindVertexArray(0);
 
@@ -138,9 +119,11 @@ void MasterRenderer::renderSkybox(Camera3D& camera, CubeTexture* texture){
      glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_CUBE_MAP, texture->getID());
      glDepthMask(GL_FALSE);
+     glDepthFunc(GL_LEQUAL);
 
      m_cube.render();
 
+     glDepthFunc(GL_LESS);
      glDepthMask(GL_TRUE);
      glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_CUBE_MAP, 0);

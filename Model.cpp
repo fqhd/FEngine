@@ -69,18 +69,6 @@ GLuint Model::getNumVertices(){
      return m_numVertices;
 }
 
-void Model::render(){
-
-     glBindVertexArray(m_vaoID);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-
-     glDrawElements(GL_TRIANGLES, m_numVertices, GL_UNSIGNED_INT, 0);
-
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-     glBindVertexArray(0);
-
-}
-
 GLuint Model::getVaoID(){
      return m_vaoID;
 }

@@ -33,9 +33,6 @@ public:
      void renderGUI(GUI& gui, Camera2D& camera);
      void destroy();
 
-
-     //Master Renderer Parameters
-     bool batchRenderingEnabled = false;
      bool skyboxEnabled = false;
 
 private:

@@ -5,7 +5,3 @@ Entity::Entity(const Transform& transform, Model* model, Texture* texture){
      this->model = model;
      this->texture = texture;
 }
-
-void Entity::render(){
-     model->render();
-}

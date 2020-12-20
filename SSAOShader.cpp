@@ -1,5 +1,6 @@
 #include "SSAOShader.hpp"
 
+
 void SSAOShader::init(std::vector<glm::vec3>& samples, unsigned int width, unsigned int height){
      loadShader("res/shaders/ssao_vertex_shader.glsl", "res/shaders/ssao_fragment_shader.glsl");
      bind();

@@ -13,7 +13,6 @@ public:
      Entity(const Transform& transform, Model* model, Texture* texture);
 
      void update();
-     void render();
 
      Transform transform;
      Model* model;
