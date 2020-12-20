@@ -1,7 +1,7 @@
 #include "Window.hpp"
 
 
-void Window::create(unsigned int width, unsigned int height, const std::string& name){
+void Window::create(unsigned int width, unsigned int height, const std::string& name, bool resizable, bool decorated){
 
      if(!glfwInit()){
           Utils::log("Failed to initialize GLFW");
@@ -18,6 +18,8 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      glfwWindowHint(GLFW_STENCIL_BITS, 8);
      glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+     if (!resizable) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+     if (!decorated) glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);

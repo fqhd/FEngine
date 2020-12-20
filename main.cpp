@@ -16,7 +16,7 @@ int main(int argc, char** argv){
      Camera3D camera;
 
      //Initializing game objects
-     window.create(SCREEN_WIDTH, SCREEN_HEIGHT, "Game Engine");
+     window.create(SCREEN_WIDTH, SCREEN_HEIGHT, "Game Engine", false, false);
      renderer.init(SCREEN_WIDTH, SCREEN_HEIGHT);
      camera.init(SCREEN_WIDTH, SCREEN_HEIGHT);
      assets.init();
