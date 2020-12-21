@@ -2,6 +2,10 @@
 
 void DynamicEntityRenderer::init(){
      m_shader.init();
+
+     //Generating the matrices buffer
+     glGenBuffers(1, &m_iboID);
+
 }
 
 void DynamicEntityRenderer::render(std::vector<Entity>& entities, Camera& camera){
@@ -34,11 +38,6 @@ void DynamicEntityRenderer::render(std::vector<Entity>& entities, Camera& camera
 
      for(auto& i : meshes){
 
-          //Sending matrix data of all instanced models to gpu matrices buffer
-          glBindBuffer(GL_ARRAY_BUFFER, i.model->getIboID());
-          glBufferData(GL_ARRAY_BUFFER, i.count * sizeof(glm::mat4), &matrices[i.offset], GL_STREAM_DRAW);
-          glBindBuffer(GL_ARRAY_BUFFER, 0);
-
           //Rendering instanced models
           glBindVertexArray(i.model->getVaoID());
 
@@ -46,8 +45,32 @@ void DynamicEntityRenderer::render(std::vector<Entity>& entities, Camera& camera
           glActiveTexture(GL_TEXTURE0);
           glBindTexture(GL_TEXTURE_2D, i.texture->getID());
 
+          //Sending matrix data of all instanced models to gpu matrices buffer
+          glBindBuffer(GL_ARRAY_BUFFER, m_iboID);
+          glBufferData(GL_ARRAY_BUFFER, i.count * sizeof(glm::mat4), &matrices[i.offset], GL_STREAM_DRAW);
+
+          //Telling GPU how to interpret the data
+          glEnableVertexAttribArray(3);
+          glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)0);
+          glEnableVertexAttribArray(4);
+          glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(1 * sizeof(glm::vec4)));
+          glEnableVertexAttribArray(5);
+          glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(2 * sizeof(glm::vec4)));
+          glEnableVertexAttribArray(6);
+          glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(3 * sizeof(glm::vec4)));
+
+          //Setting attribute divisors for instanced rendering
+          glVertexAttribDivisor(3, 1);
+          glVertexAttribDivisor(4, 1);
+          glVertexAttribDivisor(5, 1);
+          glVertexAttribDivisor(6, 1);
+
+          //Rendering the instances of the mesh with indices
           glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i.model->getEboID());
           glDrawElementsInstanced(GL_TRIANGLES, i.model->getNumVertices(), GL_UNSIGNED_INT, 0, i.count);
+          glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+          //Unbinding matrix data buffer
           glBindBuffer(GL_ARRAY_BUFFER, 0);
 
           //Unbinding texture
@@ -67,4 +90,5 @@ bool DynamicEntityRenderer::compare(Entity a, Entity b){
 
 void DynamicEntityRenderer::destroy(){
      m_shader.destroy();
+     glDeleteBuffers(1, &m_iboID);
 }

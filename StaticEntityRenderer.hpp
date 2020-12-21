@@ -1,0 +1,6 @@
+#ifndef STATIC_ENTITY_RENDERER_H
+#define STATIC_ENTITY_RENDERER_H
+
+
+
+#endif

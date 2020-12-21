@@ -17,7 +17,6 @@ public:
      GLuint getVaoID();
      GLuint getVboID();
      GLuint getEboID();
-     GLuint getIboID();
      GLuint getNumVertices();
 
 
@@ -28,7 +27,6 @@ private:
      GLuint m_vaoID = 0;
      GLuint m_vboID = 0;
      GLuint m_eboID = 0;
-     GLuint m_iboID = 0;
 
 };
 

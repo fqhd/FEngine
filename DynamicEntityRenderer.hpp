@@ -23,6 +23,7 @@ private:
      static bool compare(Entity a, Entity b);
 
      GBufferShader m_shader;
+     GLuint m_iboID = 0;
 
 };
 

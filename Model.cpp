@@ -25,31 +25,10 @@ void Model::loadFromFile(const std::string& path){
      for(unsigned int i = 0; i < model.positions.size(); i++){
           vertices.emplace_back(model.positions[i], model.normals[i], model.texCoords[i]);
      }
+
      glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);
      glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-     glGenBuffers(1, &m_iboID);
-     glBindBuffer(GL_ARRAY_BUFFER, m_iboID);
-
-     glEnableVertexAttribArray(3);
-     glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)0);
-     glEnableVertexAttribArray(4);
-     glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(1 * sizeof(glm::vec4)));
-     glEnableVertexAttribArray(5);
-     glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(2 * sizeof(glm::vec4)));
-     glEnableVertexAttribArray(6);
-     glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::vec4), (void*)(3 * sizeof(glm::vec4)));
-
-     glVertexAttribDivisor(3, 1);
-     glVertexAttribDivisor(4, 1);
-     glVertexAttribDivisor(5, 1);
-     glVertexAttribDivisor(6, 1);
-
-     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
      glBindVertexArray(0);
-
-
 
      //Making EBO object
      glGenBuffers(1, &m_eboID);
@@ -57,11 +36,7 @@ void Model::loadFromFile(const std::string& path){
      glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), model.indices.data(), GL_STATIC_DRAW);
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-
-
-
      m_numVertices = model.indices.size();
-
 
 }
 
@@ -81,16 +56,8 @@ GLuint Model::getEboID(){
      return m_eboID;
 }
 
-GLuint Model::getIboID(){
-     return m_iboID;
-}
-
-
-
 void Model::destroy(){
-
      glDeleteVertexArrays(1, &m_vaoID);
      glDeleteBuffers(1, &m_vboID);
      glDeleteBuffers(1, &m_eboID);
-
 }
