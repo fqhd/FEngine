@@ -11,6 +11,7 @@ void Engine::init(unsigned int width, unsigned int height, const std::string& na
 
      //Game Variables
      entities.emplace_back(Transform(glm::vec3(0, 0, 0), glm::vec3(50, 50, 50), glm::vec3(1, 1, 1)), assets.getPlayerModel(), assets.getPlayerTexture());
+     entities.emplace_back(Transform(glm::vec3(2, 0, 0), glm::vec3(50, 50, 50), glm::vec3(1, 1, 1)), assets.getPlayerModel(), assets.getPlayerTexture());
 
      camera.setMode(window.window, CameraMode::THIRD_PERSON);
 

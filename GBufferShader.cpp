@@ -4,7 +4,7 @@ void GBufferShader::init(){
      loadShader("res/shaders/gbuffer_vertex_shader.glsl", "res/shaders/gbuffer_fragment_shader.glsl");
      bind();
      getUniformLocations();
-     loadUniformLocations();
+     loadUniforms();
      unbind();
 }
 
@@ -26,6 +26,6 @@ void GBufferShader::loadViewMatrix(const glm::mat4& matrix){
      glUniformMatrix4fv(m_viewMatrixLocation, 1, GL_FALSE, &matrix[0][0]);
 }
 
-void GBufferShader::loadUniformLocations(){
+void GBufferShader::loadUniforms(){
      glUniform1i(glGetUniformLocation(m_programID, "ourTexture"), 0);
 }

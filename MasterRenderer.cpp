@@ -4,6 +4,7 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
      m_ssao.init(width, height);
      m_skybox.init("res/textures/sky/", "res/textures/sky/");
      m_dynamicEntityRenderer.init();
+     m_staticTerrain.loadFromFile();
 }
 
 void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera& camera){
@@ -12,6 +13,7 @@ void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera& camera){
 
      m_dynamicEntityRenderer.render(entities, camera);
      m_skybox.render(camera);
+     m_staticTerrain.render(camera);
 
      m_ssao.unbind();
 

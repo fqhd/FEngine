@@ -16,7 +16,7 @@ public:
 private:
 
      void getUniformLocations();
-     void loadUniformLocations();
+     void loadUniforms();
 
      //Uniform Locations
      GLint m_projectionMatrixLocation = 0;
