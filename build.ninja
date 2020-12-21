@@ -47,6 +47,7 @@ build camera.o: cc Camera.cpp
 build ssao.o: cc SSAO.cpp
 build skybox.o: cc Skybox.cpp
 build dynamicentityrenderer.o: cc DynamicEntityRenderer.cpp
+build staticentityrenderer.o: cc StaticEntityRenderer.cpp
 
-build out: lnk main.o window.o inputmanager.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o transform.o thirdpersoncamera.o entity.o gbuffershader.o cubemaptexture.o assets.o cube.o skyboxshader.o masterrenderer.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o texture.o camera3d.o firstpersoncamera.o engine.o camera.o ssao.o skybox.o dynamicentityrenderer.o
+build out: lnk main.o window.o inputmanager.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guiassets.o guibutton.o model.o objmodel.o transform.o thirdpersoncamera.o entity.o gbuffershader.o cubemaptexture.o assets.o cube.o skyboxshader.o masterrenderer.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o texture.o camera3d.o firstpersoncamera.o engine.o camera.o ssao.o skybox.o dynamicentityrenderer.o staticentityrenderer.o
 
