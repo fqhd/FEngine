@@ -12,6 +12,12 @@ public:
 
      void update();
      glm::vec3 center;
+     float horizontalSensitivity = 0.5f;
+     float verticalSensitivity = 0.5f;
+     float zoomSensitivity = 2.5f;
+     float speed = 0.05f;
+     float minDistance = 1.0f;
+
 
 
 private:

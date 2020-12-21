@@ -1,11 +1,6 @@
 #include "ThirdPersonCamera.hpp"
 
 
-const float HORIZONTAL_SENSITITY = 0.5f;
-const float VERTICAL_SENSITIVITY = 0.5f;
-const float ZOOM_SENSITIVITY = 2.5f;
-const float CAMERA_SPEED = 0.05f;
-const float MIN_DISTANCE = 1.0f;
 
 void ThirdPersonCamera::init(unsigned int width, unsigned int height, const glm::vec3& center, const glm::vec3& position){
      createProjectionMatrix(width, height);
@@ -25,11 +20,10 @@ void ThirdPersonCamera::update(){
      float verticDistance = calculateVerticalDistance();
      calculateTargetPosition(horizDistance, verticDistance);
 
-     m_position += (m_targetPosition - m_position) * CAMERA_SPEED;
+     m_position += (m_targetPosition - m_position) * speed;
      m_direction = center - m_position;
 
      updateViewMatrix();
-
 
 }
 
@@ -51,7 +45,7 @@ float ThirdPersonCamera::calculateVerticalDistance() {
 
 void ThirdPersonCamera::calculatePitch(){
      if(InputManager::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)){
-          m_pitch += InputManager::getDeltaMousePosition().y * VERTICAL_SENSITIVITY;
+          m_pitch += InputManager::getDeltaMousePosition().y * verticalSensitivity;
      }
      if(m_pitch < -89.0f){
           m_pitch = -89.0f;
@@ -64,14 +58,14 @@ void ThirdPersonCamera::calculatePitch(){
 
 void ThirdPersonCamera::calculateYaw(){
      if(InputManager::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)){
-          m_yaw -= InputManager::getDeltaMousePosition().x * HORIZONTAL_SENSITITY;
+          m_yaw -= InputManager::getDeltaMousePosition().x * horizontalSensitivity;
      }
 }
 
 void ThirdPersonCamera::calculateZoom(){
-     m_distanceFromCenter -= InputManager::getDeltaMouseWheel() * ZOOM_SENSITIVITY;
-     if(m_distanceFromCenter < MIN_DISTANCE){
-          m_distanceFromCenter = MIN_DISTANCE;
+     m_distanceFromCenter -= InputManager::getDeltaMouseWheel() * zoomSensitivity;
+     if(m_distanceFromCenter < minDistance){
+          m_distanceFromCenter = minDistance;
      }
 
 }
