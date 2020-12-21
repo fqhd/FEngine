@@ -61,10 +61,12 @@ void main() {
     float lumaResult2 = dot(luma, result2);
 
     vec3 fragmentAlbedo;
-    if(lumaResult2 < lumaMin || lumaResult2 > lumaMax)
-         fragmentAlbedo = result1;
-    else
-         fragmentAlbedo = result2;
+    if(lumaResult2 < lumaMin || lumaResult2 > lumaMax){
+     fragmentAlbedo = result1;
+    }
+    else{
+     fragmentAlbedo = result2;
+    }
 
 
     out_color = vec4(fragmentAlbedo * fragmentOcclusion, 1.0f);
