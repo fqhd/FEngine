@@ -4,7 +4,7 @@
 #include <random>
 #include <algorithm>
 
-#include "Camera3D.hpp"
+#include "Camera.hpp"
 #include "Entity.hpp"
 #include "GBuffer.hpp"
 #include "GBufferShader.hpp"
@@ -29,19 +29,19 @@ class MasterRenderer {
 public:
 
      void init(unsigned int width, unsigned int height);
-     void renderScene(std::vector<Entity>& entities, Camera3D& camera, CubeTexture* texture);
+     void renderScene(std::vector<Entity>& entities, Camera& camera, CubeTexture* texture);
      void renderGUI(GUI& gui, Camera2D& camera);
      void destroy();
 
-     bool skyboxEnabled = false;
+     bool skyboxEnabled = true;
 
 private:
 
      //Functions
-     void renderSkybox(Camera3D& camera, CubeTexture* assets);
-     void renderObjects(std::vector<Entity>& entities, Camera3D& camera);
-     void renderObjectsInstanced(std::vector<Entity>& entities, Camera3D& camera);
-     void renderSSAOQuad(Camera3D& camera);
+     void renderSkybox(Camera& camera, CubeTexture* assets);
+     void renderObjects(std::vector<Entity>& entities, Camera& camera);
+     void renderObjectsInstanced(std::vector<Entity>& entities, Camera& camera);
+     void renderSSAOQuad(Camera& camera);
      void renderBlurQuad();
      void createKernelSamples();
      float lerp(float a, float b, float f);

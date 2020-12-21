@@ -21,7 +21,7 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
 
 }
 
-void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera, CubeTexture* texture){
+void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera& camera, CubeTexture* texture){
 
      //Populating the G-Buffer
      m_gbuffer.bind();
@@ -51,7 +51,7 @@ void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera3D& camera
      renderSSAOLightingQuad();
 }
 
-void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camera3D& camera){
+void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camera& camera){
 
      if(entities.empty()){
           return;
@@ -111,7 +111,7 @@ void MasterRenderer::renderObjectsInstanced(std::vector<Entity>& entities, Camer
 }
 
 
-void MasterRenderer::renderSkybox(Camera3D& camera, CubeTexture* texture){
+void MasterRenderer::renderSkybox(Camera& camera, CubeTexture* texture){
      m_cubemapShader.bind();
      m_cubemapShader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_cubemapShader.loadViewMatrix(glm::mat4(glm::mat3(camera.getViewMatrix())));
@@ -157,7 +157,7 @@ void MasterRenderer::renderBlurQuad(){
      m_blurShader.unbind();
 }
 
-void MasterRenderer::renderSSAOQuad(Camera3D& camera){
+void MasterRenderer::renderSSAOQuad(Camera& camera){
      m_ssaoShader.bind();
 
      //Loading uniforms
