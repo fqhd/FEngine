@@ -36,8 +36,6 @@ public:
 private:
 
 
-
-
      //Game variables
      Assets assets;
 

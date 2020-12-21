@@ -25,7 +25,7 @@ void Engine::update(){
 void Engine::render(){
      window.clear();
 
-     renderer.renderScene(entities, camera, assets.getSkyTexture());
+     renderer.renderScene(entities, camera);
 
      window.update();
 }

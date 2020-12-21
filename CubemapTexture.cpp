@@ -1,8 +1,19 @@
-#include "CubeTexture.hpp"
+#include "CubemapTexture.hpp"
 #include "stb_image.h"
 #include "Utils.hpp"
 
-void CubeTexture::loadFromFile(const std::vector<std::string>& faces) {
+void CubemapTexture::loadFromDirectory(const std::string& path) {
+
+     std::vector<std::string> faces;
+
+     faces.push_back(path + "bottom.png");
+     faces.push_back(path + "front.png");
+     faces.push_back(path + "top.png");
+     faces.push_back(path + "back.png");
+     faces.push_back(path + "right.png");
+     faces.push_back(path + "left.png");
+
+
      glGenTextures(1, &m_textureID);
      glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 
@@ -27,11 +38,10 @@ void CubeTexture::loadFromFile(const std::vector<std::string>& faces) {
 
 }
 
-GLuint CubeTexture::getID(){
+GLuint CubemapTexture::getID(){
      return m_textureID;
-
 }
 
-void CubeTexture::destroy(){
+void CubemapTexture::destroy(){
      glDeleteTextures(1, &m_textureID);
 }

@@ -1,76 +1,28 @@
 #ifndef MASTER_RENDERER_H
 #define MASTER_RENDERER_H
 
-#include <random>
-#include <algorithm>
-
-#include "Camera.hpp"
-#include "Entity.hpp"
-#include "GBuffer.hpp"
-#include "GBufferShader.hpp"
-#include "Quad.hpp"
-#include "SSAOShader.hpp"
-#include "Cube.hpp"
-#include "CubemapShader.hpp"
-#include "SSAOTexture.hpp"
-#include "SSAOBuffer.hpp"
-#include "SSAOBlurBuffer.hpp"
-#include "SSAOBlurShader.hpp"
-#include "SSAOLightingShader.hpp"
-#include "GUI.hpp"
-#include "GUIRenderer.hpp"
-#include "GUIShader.hpp"
-#include "Camera2D.hpp"
-#include "CubeTexture.hpp"
-#include "BatchedMesh.hpp"
+#include "SSAO.hpp"
+#include "Skybox.hpp"
+#include "DynamicEntityRenderer.hpp"
 
 
 class MasterRenderer {
 public:
 
      void init(unsigned int width, unsigned int height);
-     void renderScene(std::vector<Entity>& entities, Camera& camera, CubeTexture* texture);
-     void renderGUI(GUI& gui, Camera2D& camera);
+     void renderScene(std::vector<Entity>& entities, Camera& camera);
      void destroy();
 
-     bool skyboxEnabled = true;
 
 private:
 
-     //Functions
-     void renderSkybox(Camera& camera, CubeTexture* assets);
-     void renderObjects(std::vector<Entity>& entities, Camera& camera);
-     void renderObjectsInstanced(std::vector<Entity>& entities, Camera& camera);
-     void renderSSAOQuad(Camera& camera);
-     void renderBlurQuad();
-     void createKernelSamples();
-     float lerp(float a, float b, float f);
-     void createSSAONoiseTexture(unsigned int width, unsigned int height);
-     void renderSSAOLightingQuad();
-     static bool compare(Entity a, Entity b);
-
-
      //Objects
-     GBuffer m_gbuffer;
-     Quad m_quad;
-     Cube m_cube;
-     SSAOTexture m_noiseTexture;
-     SSAOBuffer m_ssaoBuffer;
-     SSAOBlurBuffer m_blurBuffer;
-     GUIRenderer m_guiRenderer;
+     SSAO m_ssao;
+     Skybox m_skybox;
+     DynamicEntityRenderer m_dynamicEntityRenderer;
 
-     //Shaders
-     GBufferShader m_gbufferShader;
-     CubemapShader m_cubemapShader;
-     SSAOShader m_ssaoShader;
-     SSAOBlurShader m_blurShader;
-     SSAOLightingShader m_ssaoLightingShader;
-     GUIShader m_guiShader;
-
-     //Master Renderer Variables
-     std::vector<glm::vec3> m_kernelSamples;
-     std::mt19937 m_generator;
 
 
 };
+
 #endif

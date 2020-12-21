@@ -2,7 +2,6 @@
 #define ASSETS_H
 
 #include "Model.hpp"
-#include "CubeTexture.hpp"
 #include "Texture.hpp"
 
 class Assets {
@@ -14,9 +13,7 @@ public:
      Model* getPlayerModel();
 
      //Texture getters
-     CubeTexture* getSkyTexture();
      Texture* getPlayerTexture();
-
 
      void destroy();
 
@@ -36,7 +33,6 @@ private:
      Model m_playerModel;
 
      //Textures
-     CubeTexture m_skyTexture;
      Texture m_playerTexture;
 
 };

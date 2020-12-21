@@ -4,7 +4,7 @@
 #include "Shader.hpp"
 #include <glm/glm.hpp>
 
-class CubemapShader : public Shader {
+class SkyboxShader : public Shader {
 public:
 
      void init();
