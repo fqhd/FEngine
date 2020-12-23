@@ -22,9 +22,9 @@ const float FXAA_REDUCE_MUL = 1.0/8.0;
 void main() {
 
     // retrieve data from gbuffer
-    vec3 fragmentPosition = texture(positionTexture, pass_uv).rgb;
-    vec3 fragmentNormal = texture(normalTexture, pass_uv).rgb;
-    float fragmentOcclusion = texture(ssaoTexture, pass_uv).r;
+    vec3 fragmentPosition = texture2D(positionTexture, pass_uv).rgb;
+    vec3 fragmentNormal = texture2D(normalTexture, pass_uv).rgb;
+    float fragmentOcclusion = texture2D(ssaoTexture, pass_uv).r;
 
     vec2 texCoordOffset = inverseTextureSize.xy;
 

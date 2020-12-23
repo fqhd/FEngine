@@ -11,5 +11,5 @@ uniform samplerCube skybox;
 
 void main()
 {
-    out_color = texture(skybox, pass_uv);
+    out_color = texture3D(skybox, pass_uv);
 }

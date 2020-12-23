@@ -11,6 +11,7 @@ void Assets::initModels(){
 
 void Assets::initTextures(){
      m_playerTexture.init("res/textures/player_texture.jpg");
+     m_grassTexture.init("res/textures/grass.png");
 }
 
 
@@ -23,6 +24,10 @@ Model* Assets::getPlayerModel() {
 //Texture getters
 Texture* Assets::getPlayerTexture(){
      return &m_playerTexture;
+}
+
+Texture* Assets::getGrassTexture(){
+     return &m_grassTexture;
 }
 
 void Assets::destroy(){

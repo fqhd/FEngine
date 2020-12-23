@@ -17,10 +17,6 @@ public:
 private:
 
      //Objects
-     SSAO m_ssao;
-     Skybox m_skybox;
-     DynamicEntityRenderer m_dynamicEntityRenderer;
-     StaticTerrain m_staticTerrain;
 
 
 

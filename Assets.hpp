@@ -14,6 +14,7 @@ public:
 
      //Texture getters
      Texture* getPlayerTexture();
+     Texture* getGrassTexture();
 
      void destroy();
 
@@ -34,6 +35,7 @@ private:
 
      //Textures
      Texture m_playerTexture;
+     Texture m_grassTexture;
 
 };
 

@@ -27,8 +27,12 @@ public:
 
      //Engine Variables
      Window window;
-     MasterRenderer renderer;
      Camera camera;
+     Assets assets;
+     SSAO m_ssao;
+     Skybox m_skybox;
+     DynamicEntityRenderer m_dynamicEntityRenderer;
+     StaticTerrain m_staticTerrain;
 
      //Game variables
      std::vector<Entity> entities;
@@ -37,7 +41,6 @@ private:
 
 
      //Game variables
-     Assets assets;
 
 
 

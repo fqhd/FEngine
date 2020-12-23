@@ -1,9 +1,10 @@
 #include "StaticTerrain.hpp"
 #include "Image.hpp"
-#include "Timer.hpp"
 
 
-void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int precisionFactor, float size, float heightScale){
+void StaticTerrain::loadFromFile(Texture* texture, const std::string& filepath, unsigned int precisionFactor, float size, float heightScale, float textureScale){
+
+     m_texture = texture;
 
      Image image;
      image.loadFromFile(filepath.c_str());
@@ -15,12 +16,6 @@ void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int preci
      float height = image.getHeight() * precision;
 
      Pixel pixel = image.getPixel(0, 0);
-
-     //Creating dataz
-     Timer t;
-
-     t.reset();
-     t.start();
 
      Vertex* vertices = new Vertex[width * height * 4];
 
@@ -35,8 +30,8 @@ void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int preci
                vertices[index].normal.x = 0;
                vertices[index].normal.y = 1;
                vertices[index].normal.z = 0;
-               vertices[index].uv.x = 0;
-               vertices[index].uv.y = 0;
+               vertices[index].uv.x = ((x / width) + (1.0f / width)) * textureScale;
+               vertices[index].uv.y = (z / height) * textureScale;
                index++;
 
                float h2 = image.getPixel(x/(float)width * image.getWidth(), z/(float)height * image.getHeight()).r / 255.0f;
@@ -46,8 +41,8 @@ void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int preci
                vertices[index].normal.x = 0;
                vertices[index].normal.y = 1;
                vertices[index].normal.z = 0;
-               vertices[index].uv.x = 0;
-               vertices[index].uv.y = 0;
+               vertices[index].uv.x = (x / width) * textureScale;
+               vertices[index].uv.y = (z / height) * textureScale;
                index++;
 
                float h3 = image.getPixel(x/(float)width * image.getWidth(), (z/(float)height + 1/(float)height) * image.getHeight()).r / 255.0f;
@@ -57,8 +52,8 @@ void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int preci
                vertices[index].normal.x = 0;
                vertices[index].normal.y = 1;
                vertices[index].normal.z = 0;
-               vertices[index].uv.x = 0;
-               vertices[index].uv.y = 0;
+               vertices[index].uv.x = (x / width) * textureScale;
+               vertices[index].uv.y = ((z / height) + (1.0f / height)) * textureScale;
                index++;
 
                float h4 = image.getPixel((x/(float)width + 1/(float)width) * image.getWidth(), (z/(float)height + 1/(float)height) * image.getHeight()).r / 255.0f;
@@ -68,17 +63,13 @@ void StaticTerrain::loadFromFile(const std::string& filepath, unsigned int preci
                vertices[index].normal.x = 0;
                vertices[index].normal.y = 1;
                vertices[index].normal.z = 0;
-               vertices[index].uv.x = 0;
-               vertices[index].uv.y = 0;
+               vertices[index].uv.x = ((x / width) + (1.0f / width)) * textureScale;
+               vertices[index].uv.y = ((z / height) + (1.0f / height)) * textureScale;
                index++;
 
 
           }
      }
-
-     Utils::log("Generated terrain in: " + std::to_string(t.getElapsedTime() * 1000.0f) + "ms");
-     Utils::log("Num vertices: " + std::to_string(width * height * 4) + " or " + std::to_string(width * height * 4 * sizeof(Vertex)) + " bytes");
-     t.stop();
 
      image.free();
 
@@ -111,6 +102,9 @@ void StaticTerrain::render(Camera& camera){
      //Send camera uniforms to shader
      m_shader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_shader.loadViewMatrix(camera.getViewMatrix());
+
+     glActiveTexture(GL_TEXTURE0);
+     glBindTexture(GL_TEXTURE_2D, m_texture->getID());
 
      //Rendering
      m_terrain.render();

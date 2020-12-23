@@ -21,9 +21,9 @@ const float bias = 0.025;
 
 void main() {
     // get input for SSAO algorithm
-    vec3 fragPos = texture(positionTexture, pass_uv).xyz;
-    vec3 normal = normalize(texture(normalTexture, pass_uv).rgb);
-    vec3 randomVec = normalize(texture(noiseTexture, pass_uv * noiseScale).xyz);
+    vec3 fragPos = texture2D(positionTexture, pass_uv).xyz;
+    vec3 normal = normalize(texture2D(normalTexture, pass_uv).rgb);
+    vec3 randomVec = normalize(texture2D(noiseTexture, pass_uv * noiseScale).xyz);
     // create TBN change-of-basis matrix: from tangent-space to view-space
     vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
     vec3 bitangent = cross(normal, tangent);
@@ -43,7 +43,7 @@ void main() {
         offset.xyz = offset.xyz * 0.5 + 0.5; // transform to range 0.0 - 1.0
 
         // get sample depth
-        float sampleDepth = texture(positionTexture, offset.xy).z; // get depth value of kernel sample
+        float sampleDepth = texture2D(positionTexture, offset.xy).z; // get depth value of kernel sample
 
         // range check & accumulate
         float rangeCheck = smoothstep(0.0, 1.0, radius / abs(fragPos.z - sampleDepth));

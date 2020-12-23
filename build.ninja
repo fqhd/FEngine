@@ -27,7 +27,6 @@ build cube.o: cc Cube.cpp
 build image.o: cc Image.cpp
 build cubemaptexture.o: cc CubemapTexture.cpp
 build skyboxshader.o: cc SkyboxShader.cpp
-build masterrenderer.o: cc MasterRenderer.cpp
 build gbuffershader.o: cc GBufferShader.cpp
 build quad.o: cc Quad.cpp
 build gbuffer.o: cc GBuffer.cpp
@@ -52,5 +51,5 @@ build staticterrain.o: cc StaticTerrain.cpp
 build terrain.o: cc Terrain.cpp
 build staticterrainshader.o: cc StaticTerrainShader.cpp
 
-build out: lnk main.o window.o inputmanager.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guibutton.o model.o objmodel.o transform.o thirdpersoncamera.o entity.o gbuffershader.o cubemaptexture.o assets.o cube.o skyboxshader.o masterrenderer.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o texture.o camera3d.o firstpersoncamera.o engine.o camera.o ssao.o skybox.o dynamicentityrenderer.o staticentityrenderer.o staticterrain.o terrain.o staticterrainshader.o image.o
+build out: lnk main.o window.o inputmanager.o guirenderer.o guishader.o guiimage.o shader.o utils.o camera2d.o guibutton.o model.o objmodel.o transform.o thirdpersoncamera.o entity.o gbuffershader.o cubemaptexture.o assets.o cube.o skyboxshader.o quad.o gbuffer.o ssaoshader.o ssaotexture.o ssaobuffer.o ssaoblurbuffer.o ssaoblurshader.o ssaolightingshader.o guivertex.o timer.o texture.o camera3d.o firstpersoncamera.o engine.o camera.o ssao.o skybox.o dynamicentityrenderer.o staticentityrenderer.o staticterrain.o terrain.o staticterrainshader.o image.o
 

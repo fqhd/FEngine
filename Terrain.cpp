@@ -53,7 +53,7 @@ void Terrain::render(){
      glDrawElements(GL_TRIANGLES, m_numVertices, GL_UNSIGNED_INT, 0);
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
-     
+
      //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 }
