@@ -102,6 +102,7 @@ void StaticTerrain::render(Camera& camera){
      //Send camera uniforms to shader
      m_shader.loadProjectionMatrix(camera.getProjectionMatrix());
      m_shader.loadViewMatrix(camera.getViewMatrix());
+     m_shader.loadModelMatrix(transform.getMatrix());
 
      glActiveTexture(GL_TEXTURE0);
      glBindTexture(GL_TEXTURE_2D, m_texture->getID());

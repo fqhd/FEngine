@@ -14,13 +14,14 @@ out vec2 pass_uv;
 //Uniforms
 uniform mat4 projection;
 uniform mat4 view;
+uniform mat4 model;
 
 void main(){
 
-     vec4 viewPos = view * vec4(in_position, 1.0);
+     vec4 viewPos = view * model * vec4(in_position, 1.0);
      pass_position = viewPos.xyz;
 
-     mat3 normalMatrix = transpose(inverse(mat3(view)));
+     mat3 normalMatrix = transpose(inverse(mat3(view * model)));
      pass_normal = normalMatrix * in_normal;
 
      pass_uv = in_uv;

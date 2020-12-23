@@ -6,7 +6,7 @@
 class Transform {
 public:
 
-     Transform(){}
+     Transform();
      Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
      const glm::mat4& getMatrix();
 

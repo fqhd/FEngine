@@ -19,7 +19,13 @@ void StaticTerrainShader::loadViewMatrix(const glm::mat4& matrix){
 void StaticTerrainShader::loadUniforms(){
      glUniform1i(glGetUniformLocation(m_programID, "ourTexture"), 0);
 }
+
+void StaticTerrainShader::loadModelMatrix(const glm::mat4& matrix){
+     glUniformMatrix4fv(m_modelMatrixLocation, 1, GL_FALSE, &matrix[0][0]);
+}
+
 void StaticTerrainShader::getUniformLocations(){
      m_projectionMatrixLocation = glGetUniformLocation(m_programID, "projection");
      m_viewMatrixLocation = glGetUniformLocation(m_programID, "view");
+     m_modelMatrixLocation = glGetUniformLocation(m_programID, "model");
 }
