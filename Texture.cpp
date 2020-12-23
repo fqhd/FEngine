@@ -1,16 +1,12 @@
 #include "Texture.hpp"
-
-#include "stb_image.h"
+#include "Image.hpp"
 
 
 void Texture::init(const std::string& path){
 
-     int width = 0;
-     int height = 0;
-     int numChannels = 0;
-
      //Loading in data
-     unsigned char* imageData = stbi_load(path.c_str(), &width, &height, &numChannels, 4);
+     Image image;
+     image.loadFromFile(path.c_str());
 
      //Generating texture
      glGenTextures(1, &m_textureID);
@@ -20,12 +16,12 @@ void Texture::init(const std::string& path){
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getData());
      glGenerateMipmap(GL_TEXTURE_2D);
 
      glBindTexture(GL_TEXTURE_2D, 0);
 
-     stbi_image_free(imageData);
+     image.free();
 
 }
 

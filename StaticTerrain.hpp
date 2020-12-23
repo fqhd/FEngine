@@ -12,7 +12,7 @@
 class StaticTerrain {
 public:
 
-     void loadFromFile();
+     void loadFromFile(const std::string& filepath, unsigned int precisionFactor, float size, float heightScale);
      void render(Camera& camera);
      void destroy();
 

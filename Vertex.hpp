@@ -7,6 +7,7 @@
 class Vertex {
 public:
 
+     Vertex(){}
      Vertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& u){
           position = p;
           normal = n;

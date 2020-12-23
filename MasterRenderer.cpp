@@ -4,7 +4,7 @@ void MasterRenderer::init(unsigned int width, unsigned int height){
      m_ssao.init(width, height);
      m_skybox.init("res/textures/sky/", "res/textures/sky/");
      m_dynamicEntityRenderer.init();
-     m_staticTerrain.loadFromFile();
+     m_staticTerrain.loadFromFile("res/textures/heightmap.png", 4, 64.0f, 32.0f);
 }
 
 void MasterRenderer::renderScene(std::vector<Entity>& entities, Camera& camera){

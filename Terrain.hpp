@@ -14,7 +14,7 @@ public:
      void render();
      void destroy();
 
-     void uploadData(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+     void uploadData(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
 
 private:
 

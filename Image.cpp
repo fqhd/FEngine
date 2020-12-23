@@ -10,7 +10,7 @@ void Image::loadFromFile(const std::string& path, int desiredChannels){
 
 Pixel Image::getPixel(unsigned int x, unsigned int y){
      //Range check
-     if(x > m_width || y > m_height) return Pixel();
+     if(x > m_width || y > m_height || x < 0 || y < 0) return Pixel();
      Pixel p;
      p.r = m_imageData[y * m_numChannels * m_width + x * m_numChannels];
      p.g = m_imageData[y * m_numChannels * m_width + x * m_numChannels + 1];

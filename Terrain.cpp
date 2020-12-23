@@ -29,29 +29,32 @@ void Terrain::init(){
 
 }
 
-void Terrain::uploadData(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices){
+void Terrain::uploadData(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices){
 
      //Uploading vertices
      glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vertex), vertices, GL_STATIC_DRAW);
      glBindBuffer(GL_ARRAY_BUFFER, 0);
 
      //Uploading indices
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), GL_STATIC_DRAW);
+     glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), indices, GL_STATIC_DRAW);
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-     m_numVertices = indices.size();
+     m_numVertices = numIndices;
 
 }
 
 void Terrain::render(){
+     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
      glBindVertexArray(m_vaoID);
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
      glDrawElements(GL_TRIANGLES, m_numVertices, GL_UNSIGNED_INT, 0);
      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
+     
+     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 }
 

@@ -23,7 +23,7 @@ public:
 	void start();
 	void reset();
 
-	clock_t getElapsedTime();
+	float getElapsedTime();
 
 private:
 

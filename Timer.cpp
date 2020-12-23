@@ -58,12 +58,12 @@ void Timer::reset() {
 	startedAt = clock();
 }
 
-clock_t Timer::getElapsedTime() {
+float Timer::getElapsedTime() {
 	if( !started )
 		return 0;
 
 	if( paused )
-		return pausedAt - startedAt;
+		return (pausedAt - startedAt) * 0.00001f;
 
-	return clock() - startedAt;
+	return (clock() - startedAt) * 0.00001f;
 }
