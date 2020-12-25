@@ -1,5 +1,4 @@
 *.o
-Client/.build.ninja.swp
-Client/.ninja_deps
-Client/.ninja_log
+.ninja_deps
+.ninja_log
 out
