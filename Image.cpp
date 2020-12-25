@@ -1,12 +1,16 @@
 #include "Image.hpp"
+#include "Utils.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 
 void Image::loadFromFile(const std::string& path, int desiredChannels){
-     m_imageData = stbi_load(path.c_str(), &m_width, &m_height, nullptr, desiredChannels);
-     m_numChannels = desiredChannels;
+     m_imageData = stbi_load(path.c_str(), &m_width, &m_height, &m_numChannels, desiredChannels);
+     if(!m_imageData){
+          Utils::log("Image: Failed to load image: " + path);
+          return;
+     }
 }
 
 Pixel Image::getPixel(unsigned int x, unsigned int y){

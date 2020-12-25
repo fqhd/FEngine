@@ -1,4 +1,5 @@
 #include "Window.hpp"
+#include <string>
 
 
 void Window::create(unsigned int width, unsigned int height, const std::string& name, bool resizable, bool decorated){
@@ -7,9 +8,8 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
           Utils::log("Failed to initialize GLFW");
      }
 
+
      //Setting Window settings
-     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
      glfwWindowHint(GLFW_RED_BITS, 8);
      glfwWindowHint(GLFW_GREEN_BITS, 8);
      glfwWindowHint(GLFW_BLUE_BITS, 8);
@@ -17,13 +17,17 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      glfwWindowHint(GLFW_DEPTH_BITS, 24);
      glfwWindowHint(GLFW_STENCIL_BITS, 8);
      glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
      if (!resizable) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
      if (!decorated) glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
 #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+     if (!resizable) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+     if (!decorated) glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
      //Creating the window
      window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
@@ -57,6 +61,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
 
      InputManager::init(window);
 
+
 }
 
 void Window::clear(){
@@ -66,6 +71,10 @@ void Window::clear(){
 void Window::update(){
      glfwSwapBuffers(window);
      m_closeRequested = InputManager::processInput(window);
+     //optional code exit method
+     if(InputManager::isKeyPressed(GLFW_KEY_ESCAPE)) {
+          m_closeRequested = true;
+     }
 }
 
 void Window::close(){
