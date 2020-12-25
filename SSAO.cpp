@@ -1,10 +1,13 @@
 #include "SSAO.hpp"
 
 void SSAO::init(unsigned int width, unsigned int height){
+
      createKernelSamples();
+
      createSSAONoiseTexture(width, height);
 
      m_gBuffer.init(width, height);
+
      m_quad.init();
      m_ssaoShader.init(m_kernelSamples, width, height);
      m_ssaoBuffer.init(width, height);

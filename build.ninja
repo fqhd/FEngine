@@ -1,11 +1,11 @@
-cflags = -std=c++17 -fdiagnostics-color=always -g -O0 -m64
-lflags = -lglfw -lGLEW -lGLU -lGL
+cflags = -std=c++17 -fdiagnostics-color=always -g -O0 -m64 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew)
+lflags = $$(pkg-config --libs glfw3) $$(pkg-config --libs glew) -framework OpenGL
 
 rule cc
   command = clang++ -c $in -o $out $cflags
 
 rule lnk
-  command = clang++ -o out $in $lflags
+  command = clang++ -o $out $in $lflags
 
 build main.o: cc main.cpp
 build window.o: cc Window.cpp
