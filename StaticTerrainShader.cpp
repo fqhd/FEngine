@@ -1,7 +1,7 @@
 #include "StaticTerrainShader.hpp"
 
 void StaticTerrainShader::init(){
-     loadShader("res/shaders/static_terrain_vertex_shader.glsl", "res/shaders/static_terrain_fragment_shader.glsl");
+     loadShader("res/shaders/static_terrain_vertex_shader.glsl", "res/shaders/terrain_fragment_shader.glsl");
      bind();
      loadUniforms();
      getUniformLocations();

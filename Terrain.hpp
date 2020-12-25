@@ -5,24 +5,23 @@
 #include <GL/glew.h>
 
 #include "Vertex.hpp"
+#include "IndexBuffer.hpp"
 
 
-class Terrain{
+class Terrain {
 public:
 
      void init();
-     void render();
+     void render(IndexBuffer& buffer);
      void destroy();
 
-     void uploadData(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices);
+     void uploadData(Vertex* vertices, unsigned int numVertices);
 
 private:
 
 
-     GLuint m_numVertices = 0;
      GLuint m_vaoID = 0;
      GLuint m_vboID = 0;
-     GLuint m_eboID = 0;
 
 };
 

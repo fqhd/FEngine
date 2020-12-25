@@ -1,11 +1,16 @@
 #include "Utils.hpp"
 
 
-std::string Utils::loadShader(const std::string& shaderName) {
+std::string Utils::readFileToString(const std::string& shaderName) {
 	std::string shaderCode = "";
 	std::string line;
 	std::ifstream is;
 	is.open(shaderName);
+	if(is.fail()){
+		log("Failed to find file: " + shaderName);
+		is.close();
+		return shaderCode;
+	}
 
 	while(std::getline(is, line)) {
 		shaderCode += line + "\n";
@@ -54,4 +59,26 @@ void Utils::freeBuffer(uint8_t* buffer){
 
 void Utils::log(const std::string& message){
 	printf("%s\n", message.c_str());
+}
+
+IndexBuffer Utils::createIndicesBuffer(unsigned int width, unsigned int height){
+	IndexBuffer buffer;
+
+	std::vector<unsigned int> indices;
+     for(unsigned int z = 0; z < height - 1; z++){
+          for(unsigned int x = 0; x < width - 1; x++){
+
+               indices.emplace_back(z * height + x);
+               indices.emplace_back(z * height + x + width);
+               indices.emplace_back(z * height + x + 1);
+               indices.emplace_back(z * height + x + 1);
+               indices.emplace_back(z * height + x + width);
+               indices.emplace_back(z * height + x + width + 1);
+
+          }
+     }
+
+     buffer.init();
+     buffer.uploadIndices(indices.data(), indices.size(), GL_STATIC_DRAW);
+	return buffer;
 }

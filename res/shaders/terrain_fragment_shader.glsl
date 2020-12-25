@@ -17,6 +17,6 @@ void main(){
 
      out_position = vec4(pass_position, 1.0f);
      out_normal = vec4(normalize(pass_normal), 1.0f);
-     out_albedo = texture2D(ourTexture, pass_uv);
+     out_albedo = vec4(0, 1, 0, 1);
 
 }

@@ -5,7 +5,8 @@
 
 
 void Image::loadFromFile(const std::string& path, int desiredChannels){
-     m_imageData = stbi_load(path.c_str(), &m_width, &m_height, &m_numChannels, desiredChannels);
+     m_imageData = stbi_load(path.c_str(), &m_width, &m_height, nullptr, desiredChannels);
+     m_numChannels = desiredChannels;
 }
 
 Pixel Image::getPixel(unsigned int x, unsigned int y){

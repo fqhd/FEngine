@@ -1,4 +1,6 @@
 #include "Terrain.hpp"
+#include "Utils.hpp"
+
 
 void Terrain::init(){
 
@@ -24,42 +26,39 @@ void Terrain::init(){
      glBindBuffer(GL_ARRAY_BUFFER, 0);
      glBindVertexArray(0);
 
-     //Creating buffer to render with indices
-     glGenBuffers(1, &m_eboID);
 
 }
 
-void Terrain::uploadData(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices){
+void Terrain::uploadData(Vertex* vertices, unsigned int numVertices){
+
+     //Error checking
+     if(!vertices){
+          Utils::log("Terrain: null pointer to vertices");
+          return;
+     }
 
      //Uploading vertices
      glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
      glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-     //Uploading indices
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-     glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), indices, GL_STATIC_DRAW);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-     m_numVertices = numIndices;
 
 }
 
-void Terrain::render(){
-     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+void Terrain::render(IndexBuffer& buffer){
+     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
      glBindVertexArray(m_vaoID);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eboID);
-     glDrawElements(GL_TRIANGLES, m_numVertices, GL_UNSIGNED_INT, 0);
-     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+     buffer.bind();
+     glDrawElements(GL_TRIANGLES, buffer.getNumIndices(), GL_UNSIGNED_INT, 0);
+     buffer.unbind();
      glBindVertexArray(0);
 
-     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 }
 
 void Terrain::destroy(){
      glDeleteVertexArrays(1, &m_vaoID);
      glDeleteBuffers(1, &m_vboID);
-     glDeleteBuffers(1, &m_eboID);
 }

@@ -5,10 +5,14 @@
 
 #include "FirstPersonCamera.hpp"
 #include "ThirdPersonCamera.hpp"
-#include "MasterRenderer.hpp"
 #include "Window.hpp"
 #include "Entity.hpp"
 #include "Assets.hpp"
+#include "SSAO.hpp"
+#include "Skybox.hpp"
+#include "DynamicEntityRenderer.hpp"
+#include "StaticTerrain.hpp"
+#include "DynamicTerrain.hpp"
 
 ///////////////////////////////////////////////////////////////////////
 // THIS CLASS IS NOT PART OF THE ENEINGE
@@ -32,7 +36,7 @@ public:
      SSAO m_ssao;
      Skybox m_skybox;
      DynamicEntityRenderer m_dynamicEntityRenderer;
-     StaticTerrain m_staticTerrain;
+     DynamicTerrain m_dynamicTerrain;
 
      //Game variables
      std::vector<Entity> entities;

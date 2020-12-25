@@ -19,7 +19,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
      if (!resizable) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-     if (!decorated) glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+     if (!decorated) glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -28,7 +28,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
      //Creating the window
      window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
      if(!window){
-          Utils::log("Failed to create window");
+          Utils::log("Window: Failed to create window");
      }
 
      //Settings for window
@@ -39,7 +39,7 @@ void Window::create(unsigned int width, unsigned int height, const std::string& 
 
      //Initializing glew
      if(glewInit() != GLEW_OK){
-          Utils::log("Failed to initialize glew");
+          Utils::log("Window: Failed to initialize glew");
      }
 
      //Enabling transparency
