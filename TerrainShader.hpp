@@ -1,10 +1,10 @@
-#ifndef STATIC_TERRAIN_SHADER_H
-#define STATIC_TERRAIN_SHADER_H
+#ifndef TERRAIN_SHADER_H
+#define TERRAIN_SHADER_H
 
 #include "Shader.hpp"
 
 
-class StaticTerrainShader : public Shader {
+class TerrainShader : public Shader {
 public:
 
      void init();

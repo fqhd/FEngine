@@ -22,7 +22,7 @@ void Engine::init(unsigned int width, unsigned int height, const std::string& na
      entities.emplace_back(Transform(glm::vec3(0, 0, 0), glm::vec3(50, 50, 50), glm::vec3(1, 1, 1)), assets.getPlayerModel(), assets.getPlayerTexture());
      entities.emplace_back(Transform(glm::vec3(2, 0, 0), glm::vec3(50, 50, 50), glm::vec3(1, 1, 1)), assets.getPlayerModel(), assets.getPlayerTexture());
 
-     camera.setMode(window.window, CameraMode::FIRST_PERSON);
+     camera.setMode(window.window, CameraMode::THIRD_PERSON);
 
 }
 
@@ -30,7 +30,6 @@ void Engine::update(){
      //Safe exit
      camera.firstPersonCamera.update(0.001f);
      camera.thirdPersonCamera.update();
-     m_dynamicTerrain.update(camera);
 }
 
 void Engine::render(){

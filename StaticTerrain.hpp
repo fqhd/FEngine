@@ -6,7 +6,7 @@
 
 #include "Texture.hpp"
 #include "Terrain.hpp"
-#include "StaticTerrainShader.hpp"
+#include "TerrainShader.hpp"
 #include "Camera.hpp"
 #include "Transform.hpp"
 #include "IndexBuffer.hpp"
@@ -28,7 +28,7 @@ private:
 
      Texture* m_texture = nullptr;
      Terrain m_terrain;
-     StaticTerrainShader m_shader;
+     TerrainShader m_shader;
      IndexBuffer m_indexBuffer;
 
 

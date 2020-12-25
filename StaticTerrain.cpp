@@ -55,6 +55,7 @@ void StaticTerrain::init(Texture* texture, const std::string& filepath, float si
           Utils::log("StaticTerrain: failed to load in image(wrong image format, needs to be square image)");
           return;
      }
+     
      std::vector<Vertex> vertices;
      for(unsigned int z = 0; z < image.getWidth(); z++){
           for(unsigned int x = 0; x < image.getWidth(); x++){
