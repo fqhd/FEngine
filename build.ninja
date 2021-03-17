@@ -1,5 +1,5 @@
 cflags = -std=c++17 -fdiagnostics-color=always -g -O0 -m64 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew)
-lflags = $$(pkg-config --libs glfw3) $$(pkg-config --libs glew) -framework OpenGL
+lflags = $$(pkg-config --libs glfw3) $$(pkg-config --libs glew)
 
 rule cc
   command = clang++ -c $in -o $out $cflags
