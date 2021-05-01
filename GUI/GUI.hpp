@@ -7,7 +7,7 @@
 #include <vector>
 
 
-class GUI{
+class GUI {
 public:
 
 
