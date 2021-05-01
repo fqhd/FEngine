@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Transform.hpp"
+#include "../Utils/Transform.hpp"
 #include "Model.hpp"
 #include "Vertex.hpp"
 #include "Texture.hpp"

@@ -4,8 +4,8 @@
 #include <vector>
 #include <GL/glew.h>
 
-#include "Vertex.hpp"
-#include "IndexBuffer.hpp"
+#include "../Renderer/Vertex.hpp"
+#include "../Utils/IndexBuffer.hpp"
 
 
 class Terrain {

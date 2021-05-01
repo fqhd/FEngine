@@ -1,8 +1,8 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-#include "Model.hpp"
-#include "Texture.hpp"
+#include "../Renderer/Model.hpp"
+#include "../Renderer/Texture.hpp"
 
 class Assets {
 public:

@@ -1,5 +1,5 @@
 #include "Texture.hpp"
-#include "Image.hpp"
+#include "../Utils/Image.hpp"
 
 
 void Texture::init(const std::string& path){

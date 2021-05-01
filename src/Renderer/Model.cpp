@@ -1,5 +1,5 @@
 #include "Model.hpp"
-#include "OBJLoader.hpp"
+#include "../Utils/OBJLoader.hpp"
 
 
 void Model::loadFromFile(const std::string& path){

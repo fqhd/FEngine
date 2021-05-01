@@ -1,8 +1,8 @@
 #ifndef GBUFFER_SHADER_H
 #define GBUFFER_SHADER_H
 
-#include "Shader.hpp"
-#include "Vertex.hpp"
+#include "../Utils/Shader.hpp"
+#include "../Renderer/Vertex.hpp"
 
 
 class GBufferShader : public Shader {

@@ -1,7 +1,7 @@
 #ifndef TERRAIN_SHADER_H
 #define TERRAIN_SHADER_H
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 
 
 class TerrainShader : public Shader {

@@ -1,7 +1,7 @@
 #ifndef CUBEMAP_SHADER_H
 #define CUBEMAP_SHADER_H
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 #include <glm/glm.hpp>
 
 class SkyboxShader : public Shader {

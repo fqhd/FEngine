@@ -1,9 +1,9 @@
 #ifndef FIRST_PERSON_CAMERA_H
 #define FIRST_PERSON_CAMERA_H
 
-#include "Utils.hpp"
+#include "../Utils/Utils.hpp"
 #include "Camera3D.hpp"
-#include "InputManager.hpp"
+#include "../Utils/InputManager.hpp"
 
 
 class FirstPersonCamera : public Camera3D {

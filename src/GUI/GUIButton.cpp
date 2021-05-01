@@ -1,5 +1,5 @@
 #include "GUIButton.hpp"
-#include "Utils.hpp"
+#include "../Utils/Utils.hpp"
 
 GUIButton::GUIButton(const glm::vec4& destRect, GLuint textureID){
 	m_destRect = destRect;

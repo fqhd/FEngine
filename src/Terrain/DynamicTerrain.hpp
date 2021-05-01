@@ -3,11 +3,11 @@
 
 #include <glm/gtc/noise.hpp>
 
-#include "Camera.hpp"
+#include "../Camera/Camera.hpp"
 #include "Terrain.hpp"
-#include "TerrainShader.hpp"
-#include "IndexBuffer.hpp"
-#include "Utils.hpp"
+#include "../Shaders/TerrainShader.hpp"
+#include "../Utils/IndexBuffer.hpp"
+#include "../Utils/Utils.hpp"
 
 
 class DynamicTerrain {

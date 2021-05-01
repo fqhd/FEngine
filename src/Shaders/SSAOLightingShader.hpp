@@ -2,7 +2,7 @@
 #define SSAO_LIGHTING_SHADER_H
 
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 
 
 class SSAOLightingShader : public Shader {

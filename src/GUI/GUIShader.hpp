@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 
 class GUIShader : public Shader {
 public:

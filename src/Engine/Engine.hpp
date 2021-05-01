@@ -3,16 +3,16 @@
 
 #include <vector>
 
-#include "FirstPersonCamera.hpp"
-#include "ThirdPersonCamera.hpp"
-#include "Window.hpp"
-#include "Entity.hpp"
+#include "../Camera/FirstPersonCamera.hpp"
+#include "../Camera/ThirdPersonCamera.hpp"
+#include "../Utils/Window.hpp"
+#include "../Renderer/Entity.hpp"
 #include "Assets.hpp"
-#include "SSAO.hpp"
-#include "Skybox.hpp"
-#include "DynamicEntityRenderer.hpp"
-#include "StaticTerrain.hpp"
-#include "DynamicTerrain.hpp"
+#include "../SSAO/SSAO.hpp"
+#include "../Skybox/Skybox.hpp"
+#include "../Renderer/DynamicEntityRenderer.hpp"
+#include "../Terrain/StaticTerrain.hpp"
+#include "../Terrain/DynamicTerrain.hpp"
 
 ///////////////////////////////////////////////////////////////////////
 // THIS CLASS IS NOT PART OF THE ENEINGE

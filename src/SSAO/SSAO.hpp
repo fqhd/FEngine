@@ -4,13 +4,13 @@
 #include <random>
 
 #include "GBuffer.hpp"
-#include "Quad.hpp"
-#include "SSAOShader.hpp"
-#include "SSAOBlurShader.hpp"
-#include "SSAOLightingShader.hpp"
+#include "../Renderer/Quad.hpp"
+#include "../Shaders/SSAOShader.hpp"
+#include "../Shaders/SSAOBlurShader.hpp"
+#include "../Shaders/SSAOLightingShader.hpp"
 #include "SSAOBlurBuffer.hpp"
 #include "SSAOBuffer.hpp"
-#include "Camera.hpp"
+#include "../Camera/Camera.hpp"
 #include "SSAOTexture.hpp"
 
 

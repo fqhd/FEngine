@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <string>
 
-#include "Utils.hpp"
+#include "../Utils/Utils.hpp"
 
 
 class GBuffer {

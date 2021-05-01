@@ -2,7 +2,7 @@
 #define THIRD_PERSON_CAMERA_H
 
 #include "Camera3D.hpp"
-#include "InputManager.hpp"
+#include "../Utils/InputManager.hpp"
 
 
 class ThirdPersonCamera : public Camera3D {

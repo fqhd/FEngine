@@ -4,14 +4,14 @@
 #include <vector>
 #include <GL/glew.h>
 
-#include "Texture.hpp"
+#include "../Renderer/Texture.hpp"
 #include "Terrain.hpp"
-#include "TerrainShader.hpp"
-#include "Camera.hpp"
-#include "Transform.hpp"
-#include "IndexBuffer.hpp"
-#include "Utils.hpp"
-#include "Image.hpp"
+#include "../Shaders/TerrainShader.hpp"
+#include "../Camera/Camera.hpp"
+#include "../Utils/Transform.hpp"
+#include "../Utils/IndexBuffer.hpp"
+#include "../Utils/Utils.hpp"
+#include "../Utils/Image.hpp"
 
 
 class StaticTerrain {

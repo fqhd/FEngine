@@ -1,7 +1,7 @@
 #ifndef SSAO_SHADER_H
 #define SSAO_SHADER_H
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 
 #include <glm/glm.hpp>
 #include <string>

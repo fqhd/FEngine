@@ -3,10 +3,10 @@
 
 #include <string>
 
-#include "Cube.hpp"
-#include "SkyboxShader.hpp"
+#include "../Renderer/Cube.hpp"
+#include "../Shaders/SkyboxShader.hpp"
 #include "CubemapTexture.hpp"
-#include "Camera.hpp"
+#include "../Camera/Camera.hpp"
 
 
 class Skybox{

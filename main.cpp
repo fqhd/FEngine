@@ -8,7 +8,6 @@ int main(int argc, char** argv){
 
      engine.init(1280, 720, "Engine", false, false);
 
-
      while(!engine.window.isCloseRequested()){
           engine.update();
           engine.render();

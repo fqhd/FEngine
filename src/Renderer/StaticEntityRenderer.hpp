@@ -4,10 +4,10 @@
 #include <algorithm>
 #include <vector>
 
-#include "GBufferShader.hpp"
+#include "../Shaders/GBufferShader.hpp"
 #include "Entity.hpp"
-#include "BatchedMesh.hpp"
-#include "Camera.hpp"
+#include "../Renderer/BatchedMesh.hpp"
+#include "../Camera/Camera.hpp"
 
 
 class StaticEntityRenderer {

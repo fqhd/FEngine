@@ -3,7 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "InputManager.hpp"
+#include "../Utils/InputManager.hpp"
 
 
 class Camera3D {

@@ -1,7 +1,7 @@
 #ifndef SSAO_BLUR_SHADER_H
 #define SSAO_BLUR_SHADER_H
 
-#include "Shader.hpp"
+#include "../Utils/Shader.hpp"
 
 
 class SSAOBlurShader : public Shader {

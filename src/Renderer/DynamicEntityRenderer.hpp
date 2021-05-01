@@ -4,11 +4,10 @@
 #include <vector>
 #include <algorithm>
 
-#include "Camera.hpp"
+#include "../Camera/Camera.hpp"
 #include "Entity.hpp"
-#include "GBufferShader.hpp"
 #include "BatchedMesh.hpp"
-#include "GBufferShader.hpp"
+#include "../Shaders/GBufferShader.hpp"
 
 
 class DynamicEntityRenderer {

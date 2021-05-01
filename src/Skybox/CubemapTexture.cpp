@@ -1,6 +1,6 @@
 #include "CubemapTexture.hpp"
-#include "Utils.hpp"
-#include "Image.hpp"
+#include "../Utils/Utils.hpp"
+#include "../Utils/Image.hpp"
 
 void CubemapTexture::loadFromDirectory(const std::string& path) {
 
