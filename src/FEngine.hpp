@@ -8,6 +8,7 @@ public:
 
     FEngine(const char* title, int width, int height);
     void draw();
+    
     Window window;
     InputManager inputManager;
 };
