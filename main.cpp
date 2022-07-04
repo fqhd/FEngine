@@ -1,19 +1,19 @@
 #include "src/Engine/Engine.hpp"
 #include <stdio.h>
 
+int main(int argc, char **argv) {
 
-int main(int argc, char** argv){
+	Engine engine;
 
-     Engine engine;
+	engine.init(1280, 720, "Engine", false, false);
 
-     engine.init(1280, 720, "Engine", false, false);
+	while (!engine.window.isCloseRequested())
+	{
+		engine.update();
+		engine.render();
+	}
 
-     while(!engine.window.isCloseRequested()){
-          engine.update();
-          engine.render();
-     }
+	engine.destroy();
 
-     engine.destroy();
-
-     return 0;
+	return 0;
 }
