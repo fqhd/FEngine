@@ -1,93 +1,9 @@
-cflags = -std=c++17
-lflags = -framework OpenGL
+lflags = -framework OpenGL $$(pkg-config --libs glfw3) $$(pkg-config --libs glew)
 rule cxx
-  command = g++ -c $in -o $out $cflags
+  command = g++ -c $in -o $out -std=c++17 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew)
+rule cc
+  command = gcc -c $in -o $out $includeFlags
 rule lnk
   command = g++ -o $out $in $lflags
-build obj/Entity.o: cxx ./src/FEngine/Renderer/Entity.cpp
-build obj/Texture.o: cxx ./src/FEngine/Renderer/Texture.cpp
-build obj/Quad.o: cxx ./src/FEngine/Renderer/Quad.cpp
-build obj/Model.o: cxx ./src/FEngine/Renderer/Model.cpp
-build obj/Cube.o: cxx ./src/FEngine/Renderer/Cube.cpp
-build obj/DynamicEntityRenderer.o: cxx ./src/FEngine/Renderer/DynamicEntityRenderer.cpp
-build obj/StaticEntityRenderer.o: cxx ./src/FEngine/Renderer/StaticEntityRenderer.cpp
-build obj/Camera.o: cxx ./src/FEngine/Camera/Camera.cpp
-build obj/ThirdPersonCamera.o: cxx ./src/FEngine/Camera/ThirdPersonCamera.cpp
-build obj/Camera3D.o: cxx ./src/FEngine/Camera/Camera3D.cpp
-build obj/FirstPersonCamera.o: cxx ./src/FEngine/Camera/FirstPersonCamera.cpp
-build obj/Camera2D.o: cxx ./src/FEngine/Camera/Camera2D.cpp
-build obj/Utils.o: cxx ./src/FEngine/Utils/Utils.cpp
-build obj/Image.o: cxx ./src/FEngine/Utils/Image.cpp
-build obj/OBJLoader.o: cxx ./src/FEngine/Utils/OBJLoader.cpp
-build obj/Window.o: cxx ./src/FEngine/Utils/Window.cpp
-build obj/Timer.o: cxx ./src/FEngine/Utils/Timer.cpp
-build obj/Shader.o: cxx ./src/FEngine/Utils/Shader.cpp
-build obj/InputManager.o: cxx ./src/FEngine/Utils/InputManager.cpp
-build obj/Transform.o: cxx ./src/FEngine/Utils/Transform.cpp
-build obj/IndexBuffer.o: cxx ./src/FEngine/Utils/IndexBuffer.cpp
-build obj/GUIImage.o: cxx ./src/FEngine/GUI/GUIImage.cpp
-build obj/GUIRenderer.o: cxx ./src/FEngine/GUI/GUIRenderer.cpp
-build obj/GUIButton.o: cxx ./src/FEngine/GUI/GUIButton.cpp
-build obj/GUIShader.o: cxx ./src/FEngine/GUI/GUIShader.cpp
-build obj/GUIVertex.o: cxx ./src/FEngine/GUI/GUIVertex.cpp
-build obj/StaticTerrain.o: cxx ./src/FEngine/Terrain/StaticTerrain.cpp
-build obj/DynamicTerrain.o: cxx ./src/FEngine/Terrain/DynamicTerrain.cpp
-build obj/Terrain.o: cxx ./src/FEngine/Terrain/Terrain.cpp
-build obj/SSAOBlurShader.o: cxx ./src/FEngine/Shaders/SSAOBlurShader.cpp
-build obj/TerrainShader.o: cxx ./src/FEngine/Shaders/TerrainShader.cpp
-build obj/SkyboxShader.o: cxx ./src/FEngine/Shaders/SkyboxShader.cpp
-build obj/StaticShader.o: cxx ./src/FEngine/Shaders/StaticShader.cpp
-build obj/SSAOShader.o: cxx ./src/FEngine/Shaders/SSAOShader.cpp
-build obj/SSAOLightingShader.o: cxx ./src/FEngine/Shaders/SSAOLightingShader.cpp
-build obj/GBufferShader.o: cxx ./src/FEngine/Shaders/GBufferShader.cpp
-build obj/SSAOBlurBuffer.o: cxx ./src/FEngine/SSAO/SSAOBlurBuffer.cpp
-build obj/SSAOTexture.o: cxx ./src/FEngine/SSAO/SSAOTexture.cpp
-build obj/SSAOBuffer.o: cxx ./src/FEngine/SSAO/SSAOBuffer.cpp
-build obj/GBuffer.o: cxx ./src/FEngine/SSAO/GBuffer.cpp
-build obj/SSAO.o: cxx ./src/FEngine/SSAO/SSAO.cpp
-build obj/Skybox.o: cxx ./src/FEngine/Skybox/Skybox.cpp
-build obj/CubemapTexture.o: cxx ./src/FEngine/Skybox/CubemapTexture.cpp
-build obj/Assets.o: cxx ./src/FEngine/Engine/Assets.cpp
-build obj/Engine.o: cxx ./src/FEngine/Engine/Engine.cpp
-build obj/gl.o: cxx ./src/GLAD/glad.c
-build obj/cocoa_joysti.o: cxx ./src/GLFW/cocoa_joystick.m
-build obj/posix_ti.o: cxx ./src/GLFW/posix_time.c
-build obj/monit.o: cxx ./src/GLFW/monitor.c
-build obj/cocoa_in.o: cxx ./src/GLFW/cocoa_init.m
-build obj/null_in.o: cxx ./src/GLFW/null_init.c
-build obj/win32_thre.o: cxx ./src/GLFW/win32_thread.c
-build obj/wgl_conte.o: cxx ./src/GLFW/wgl_context.c
-build obj/null_joysti.o: cxx ./src/GLFW/null_joystick.c
-build obj/wl_monit.o: cxx ./src/GLFW/wl_monitor.c
-build obj/in.o: cxx ./src/GLFW/init.c
-build obj/win32_in.o: cxx ./src/GLFW/win32_init.c
-build obj/wl_wind.o: cxx ./src/GLFW/wl_window.c
-build obj/x11_in.o: cxx ./src/GLFW/x11_init.c
-build obj/win32_modu.o: cxx ./src/GLFW/win32_module.c
-build obj/win32_monit.o: cxx ./src/GLFW/win32_monitor.c
-build obj/wl_in.o: cxx ./src/GLFW/wl_init.c
-build obj/platfo.o: cxx ./src/GLFW/platform.c
-build obj/osmesa_conte.o: cxx ./src/GLFW/osmesa_context.c
-build obj/x11_wind.o: cxx ./src/GLFW/x11_window.c
-build obj/vulk.o: cxx ./src/GLFW/vulkan.c
-build obj/null_monit.o: cxx ./src/GLFW/null_monitor.c
-build obj/inp.o: cxx ./src/GLFW/input.c
-build obj/posix_thre.o: cxx ./src/GLFW/posix_thread.c
-build obj/win32_ti.o: cxx ./src/GLFW/win32_time.c
-build obj/null_wind.o: cxx ./src/GLFW/null_window.c
-build obj/cocoa_wind.o: cxx ./src/GLFW/cocoa_window.m
-build obj/egl_conte.o: cxx ./src/GLFW/egl_context.c
-build obj/win32_joysti.o: cxx ./src/GLFW/win32_joystick.c
-build obj/conte.o: cxx ./src/GLFW/context.c
-build obj/cocoa_ti.o: cxx ./src/GLFW/cocoa_time.c
-build obj/nsgl_conte.o: cxx ./src/GLFW/nsgl_context.m
-build obj/posix_po.o: cxx ./src/GLFW/posix_poll.c
-build obj/posix_modu.o: cxx ./src/GLFW/posix_module.c
-build obj/xkb_unico.o: cxx ./src/GLFW/xkb_unicode.c
-build obj/win32_wind.o: cxx ./src/GLFW/win32_window.c
-build obj/x11_monit.o: cxx ./src/GLFW/x11_monitor.c
-build obj/glx_conte.o: cxx ./src/GLFW/glx_context.c
-build obj/linux_joysti.o: cxx ./src/GLFW/linux_joystick.c
-build obj/cocoa_monit.o: cxx ./src/GLFW/cocoa_monitor.m
-build obj/wind.o: cxx ./src/GLFW/window.c
-build out: lnk obj/Entity.o obj/Texture.o obj/Quad.o obj/Model.o obj/Cube.o obj/DynamicEntityRenderer.o obj/StaticEntityRenderer.o obj/Camera.o obj/ThirdPersonCamera.o obj/Camera3D.o obj/FirstPersonCamera.o obj/Camera2D.o obj/Utils.o obj/Image.o obj/OBJLoader.o obj/Window.o obj/Timer.o obj/Shader.o obj/InputManager.o obj/Transform.o obj/IndexBuffer.o obj/GUIImage.o obj/GUIRenderer.o obj/GUIButton.o obj/GUIShader.o obj/GUIVertex.o obj/StaticTerrain.o obj/DynamicTerrain.o obj/Terrain.o obj/SSAOBlurShader.o obj/TerrainShader.o obj/SkyboxShader.o obj/StaticShader.o obj/SSAOShader.o obj/SSAOLightingShader.o obj/GBufferShader.o obj/SSAOBlurBuffer.o obj/SSAOTexture.o obj/SSAOBuffer.o obj/GBuffer.o obj/SSAO.o obj/Skybox.o obj/CubemapTexture.o obj/Assets.o obj/Engine.o obj/gl.o obj/cocoa_joysti.o obj/posix_ti.o obj/monit.o obj/cocoa_in.o obj/null_in.o obj/win32_thre.o obj/wgl_conte.o obj/null_joysti.o obj/wl_monit.o obj/in.o obj/win32_in.o obj/wl_wind.o obj/x11_in.o obj/win32_modu.o obj/win32_monit.o obj/wl_in.o obj/platfo.o obj/osmesa_conte.o obj/x11_wind.o obj/vulk.o obj/null_monit.o obj/inp.o obj/posix_thre.o obj/win32_ti.o obj/null_wind.o obj/cocoa_wind.o obj/egl_conte.o obj/win32_joysti.o obj/conte.o obj/cocoa_ti.o obj/nsgl_conte.o obj/posix_po.o obj/posix_modu.o obj/xkb_unico.o obj/win32_wind.o obj/x11_monit.o obj/glx_conte.o obj/linux_joysti.o obj/cocoa_monit.o obj/wind.o
+build obj/main.o: cxx ./src/main.cpp
+build out: lnk obj/main.o

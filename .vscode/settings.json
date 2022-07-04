@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"internal.h": "c",
+		"algorithm": "cpp",
+		"vector": "cpp"
+	}
+}
