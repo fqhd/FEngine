@@ -5,5 +5,7 @@ rule cc
   command = gcc -c $in -o $out $includeFlags
 rule lnk
   command = g++ -o $out $in $lflags
+build obj/Window.o: cxx ./src/Window.cpp
+build obj/FEngine.o: cxx ./src/FEngine.cpp
 build obj/main.o: cxx ./src/main.cpp
-build out: lnk obj/main.o
+build out: lnk obj/Window.o obj/FEngine.o obj/main.o
