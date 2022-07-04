@@ -45,6 +45,9 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
         std::cout << "Failed to initialize GLEW" << std::endl;
     }
 
+    // Vsync
+    glfwSwapInterval(1);
+
     // Enabling transparency
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -70,7 +70,7 @@ def createBuildScript(lFlags, cFlags, sourceDir):
 
 
 def main():
-    createBuildScript("-framework OpenGL $$(pkg-config --libs glfw3) $$(pkg-config --libs glew)", "-std=c++17 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew)", "./src")
+    createBuildScript("-framework OpenGL $$(pkg-config --libs glfw3) $$(pkg-config --libs glew)", "-std=c++17 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew) $$(pkg-config --cflags glm)", "./src")
 
 
 main()

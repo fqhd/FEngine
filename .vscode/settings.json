@@ -1,7 +1,8 @@
 {
 	"files.associations": {
-		"internal.h": "c",
-		"algorithm": "cpp",
-		"vector": "cpp"
-	}
+        "internal.h": "c",
+        "algorithm": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp"
+    }
 }

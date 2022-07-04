@@ -6,7 +6,7 @@ int main(){
     // FObject object = renderer.loadObject("res/cube")
     
     while(engine.window.isOpen()){
-        
+
         engine.draw();
     }
 

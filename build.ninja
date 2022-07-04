@@ -1,11 +1,12 @@
 lflags = -framework OpenGL $$(pkg-config --libs glfw3) $$(pkg-config --libs glew)
 rule cxx
-  command = g++ -c $in -o $out -std=c++17 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew)
+  command = g++ -c $in -o $out -std=c++17 $$(pkg-config --cflags glfw3) $$(pkg-config --cflags glew) $$(pkg-config --cflags glm)
 rule cc
   command = gcc -c $in -o $out $includeFlags
 rule lnk
   command = g++ -o $out $in $lflags
 build obj/Window.o: cxx ./src/Window.cpp
 build obj/FEngine.o: cxx ./src/FEngine.cpp
+build obj/InputManager.o: cxx ./src/InputManager.cpp
 build obj/main.o: cxx ./src/main.cpp
-build out: lnk obj/Window.o obj/FEngine.o obj/main.o
+build out: lnk obj/Window.o obj/FEngine.o obj/InputManager.o obj/main.o
