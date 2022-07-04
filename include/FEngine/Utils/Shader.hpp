@@ -1,5 +1,5 @@
 #pragma once
-#include <GL/glew.h>
+#include <GL/glad.h>
 #include <string>
 #include <fstream>
 

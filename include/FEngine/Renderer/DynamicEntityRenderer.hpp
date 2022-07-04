@@ -1,5 +1,4 @@
-#ifndef DYNAMIC_ENTITY_RENDERER_H
-#define DYNAMIC_ENTITY_RENDERER_H
+#pragma once
 
 #include <vector>
 #include <algorithm>

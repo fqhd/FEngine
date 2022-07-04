@@ -1,14 +1,13 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+#pragma once
 
 #include <vector>
 
-#include "Camera/FirstPersonCamera.hpp"
+#include "FEngine/Camera/FirstPersonCamera.hpp"
 #include "Camera/ThirdPersonCamera.hpp"
-#include "../Utils/Window.hpp"
-#include "../Renderer/Entity.hpp"
+#include "Fengine/Utils/Window.hpp"
+#include "FEngine/Renderer/Entity.hpp"
 #include "Assets.hpp"
-#include "../SSAO/SSAO.hpp"
+#include "FEngine/SSAO/SSAO.hpp"
 #include "../Skybox/Skybox.hpp"
 #include "../Renderer/DynamicEntityRenderer.hpp"
 #include "../Terrain/StaticTerrain.hpp"
@@ -44,10 +43,6 @@ public:
 private:
 
 
-     //Game variables
-
 
 
 };
-
-#endif

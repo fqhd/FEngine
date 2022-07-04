@@ -1,7 +1,6 @@
-#ifndef INDEX_BUFFER_H
-#define INDEX_BUFFER_H
+#pragma once
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 
 class IndexBuffer {
@@ -21,5 +20,3 @@ private:
      GLuint m_eboID = 0;
 
 };
-
-#endif

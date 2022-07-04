@@ -1,7 +1,6 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 
-#include "../Utils/Transform.hpp"
+#include "Fengine/Utils/Transform.hpp"
 #include "Model.hpp"
 #include "Vertex.hpp"
 #include "Texture.hpp"
@@ -25,5 +24,3 @@ private:
 
 
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -7,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <cstdint>
 
-#include "IndexBuffer.hpp"
+#include "FEngine/Utils/IndexBuffer.hpp"
 
 
 namespace Utils{
@@ -22,5 +21,3 @@ namespace Utils{
 
 
 }
-
-#endif

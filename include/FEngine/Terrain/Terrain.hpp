@@ -2,7 +2,7 @@
 #define TERRAIN_H
 
 #include <vector>
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 #include "../Renderer/Vertex.hpp"
 #include "../Utils/IndexBuffer.hpp"

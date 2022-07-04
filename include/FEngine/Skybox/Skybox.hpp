@@ -1,5 +1,4 @@
-#ifndef SKYBOX_H
-#define SKYBOX_H
+#pragma once
 
 #include <string>
 
@@ -24,5 +23,3 @@ private:
      SkyboxShader m_shader;
 
 };
-
-#endif

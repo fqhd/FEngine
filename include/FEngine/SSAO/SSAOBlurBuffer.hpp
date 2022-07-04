@@ -1,7 +1,5 @@
-#ifndef SSAO_BLUE_BUFFER_H
-#define SSAO_BLUE_BUFFER_H
-
-#include <GL/glew.h>
+#pragma once
+#include <GL/glad.h>
 
 
 class SSAOBlurBuffer {
@@ -23,5 +21,3 @@ private:
 
 
 };
-
-#endif

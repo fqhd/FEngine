@@ -1,7 +1,7 @@
 #ifndef SSAO_BUFFER_H
 #define SSAO_BUFFER_H
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 
 class SSAOBuffer {

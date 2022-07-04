@@ -1,7 +1,6 @@
-#ifndef FRAMEBUFFER_H
-#define FRAMEBUFFER_H
+#pragma once
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 #include <string>
 
 #include "../Utils/Utils.hpp"
@@ -33,5 +32,3 @@ private:
 
 
 };
-
-#endif

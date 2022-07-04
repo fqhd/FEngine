@@ -1,7 +1,6 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 #include "Utils.hpp"
 #include "InputManager.hpp"
@@ -26,4 +25,3 @@ private:
 
 
 };
-#endif

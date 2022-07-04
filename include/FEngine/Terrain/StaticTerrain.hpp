@@ -1,8 +1,7 @@
-#ifndef STATIC_TERRAIN_H
-#define STATIC_TERRAIN_H
+#pragma once
 
 #include <vector>
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 #include "../Renderer/Texture.hpp"
 #include "Terrain.hpp"
@@ -34,5 +33,3 @@ private:
 
 
 };
-
-#endif

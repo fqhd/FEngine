@@ -1,9 +1,8 @@
-#ifndef FIRST_PERSON_CAMERA_H
-#define FIRST_PERSON_CAMERA_H
+#pragma once
 
-#include "UTils/Utils.hpp"
-#include "Camera3D.hpp"
-#include "../Utils/InputManager.hpp"
+#include "FEngine/Utils/Utils.hpp"
+#include "FEngine/Camera/Camera3D.hpp"
+#include "Fengine/Utils/InputManager.hpp"
 
 
 class FirstPersonCamera : public Camera3D {
@@ -24,5 +23,3 @@ private:
 
 
 };
-
-#endif

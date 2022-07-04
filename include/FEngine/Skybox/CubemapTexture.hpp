@@ -1,8 +1,7 @@
-#ifndef CUBE_MAP_TEXTURE_H
-#define CUBE_MAP_TEXTURE_H
+#pragma once
 
 #include <string>
-#include <GL/glew.h>
+#include <GL/glad.h>
 #include <vector>
 
 class CubemapTexture {
@@ -18,4 +17,3 @@ private:
 
 };
 
-#endif

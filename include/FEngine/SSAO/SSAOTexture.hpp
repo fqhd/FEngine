@@ -1,7 +1,7 @@
 #ifndef SSAO_TEXTURE_H
 #define SSAO_TEXTURE_H
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 #include <vector>
 #include <glm/glm.hpp>
 

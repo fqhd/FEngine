@@ -1,10 +1,9 @@
-#ifndef BATCHED_MESH_H
-#define BATCHED_MESH_H
+#pragma once
 
 #include "Model.hpp"
 #include "Texture.hpp"
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 
 
 class BatchedMesh {
@@ -25,5 +24,3 @@ public:
 
 
 };
-
-#endif

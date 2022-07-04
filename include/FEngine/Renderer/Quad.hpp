@@ -1,7 +1,7 @@
 #ifndef QUAD_H
 #define QUAD_H
 
-#include <GL/glew.h>
+#include <GL/glad.h>
 #include <glm/glm.hpp>
 
 
