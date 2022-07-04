@@ -1,7 +1,7 @@
 #ifndef FIRST_PERSON_CAMERA_H
 #define FIRST_PERSON_CAMERA_H
 
-#include "../Utils/Utils.hpp"
+#include "UTils/Utils.hpp"
 #include "Camera3D.hpp"
 #include "../Utils/InputManager.hpp"
 

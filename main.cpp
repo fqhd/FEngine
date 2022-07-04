@@ -1,4 +1,4 @@
-#include "src/Engine/Engine.hpp"
+#include <FEngine/Engine/Engine.hpp>
 #include <stdio.h>
 
 int main(int argc, char **argv) {

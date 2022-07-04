@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "../Camera/FirstPersonCamera.hpp"
-#include "../Camera/ThirdPersonCamera.hpp"
+#include "Camera/FirstPersonCamera.hpp"
+#include "Camera/ThirdPersonCamera.hpp"
 #include "../Utils/Window.hpp"
 #include "../Renderer/Entity.hpp"
 #include "Assets.hpp"
