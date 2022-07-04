@@ -1,6 +1,6 @@
 #include "Camera.hpp"
 
-Camera::Camera(unsigned int width, unsigned int height, float f){
+void Camera::init(unsigned int width, unsigned int height, float f){
     ar = width / (float)height;
 	position = glm::vec3(0);
     fov = f;
