@@ -33,9 +33,9 @@ void FEngine::draw()
     window.update();
 }
 
-FObject FEngine::loadObject(const std::string &path)
+FObject FEngine::loadObject(const std::string &path, Color color)
 {
-    return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg");
+    return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg", color);
 }
 
 void FEngine::destroy(){

@@ -1,9 +1,9 @@
 #include "Texture.hpp"
 #include "Image.hpp"
 
-void Texture::init(const std::string &aPath, const std::string &nPath, const std::string &sPath)
+void Texture::init(const std::string &aPath, const std::string &nPath, const std::string &sPath, Color color)
 {
-    albedo.init(aPath.c_str(), Color(255, 255, 255));
+    albedo.init(aPath.c_str(), color);
     normal.init(nPath.c_str(), Color(255, 255, 255));
     specular.init(sPath.c_str(), Color(255, 255, 255));
 }

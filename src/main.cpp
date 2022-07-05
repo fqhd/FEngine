@@ -4,9 +4,13 @@
 int main()
 {
     FEngine engine("Window", 800, 600);
-    FObject cube = engine.loadObject("res/cube");
+    FObject cube = engine.loadObject("res/cube", Color(255, 255, 255));
+    FObject plane = engine.loadObject("res/plane", Color(170, 180, 190));
 
-    engine.objects.emplace_back(cube);
+    engine.objects.push_back(cube);
+    engine.objects.push_back(plane);
+
+    engine.objects[0].transform.position.y = 2;
 
     engine.camera.position.z = -10;
     engine.camera.position.y = 5;

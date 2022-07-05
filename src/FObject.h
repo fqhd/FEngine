@@ -5,9 +5,9 @@
 
 class FObject {
 public:
-    FObject(const std::string& modelPath, const std::string& albedoPath, const std::string& normalPath, const std::string& specularPath){
+    FObject(const std::string& modelPath, const std::string& albedoPath, const std::string& normalPath, const std::string& specularPath, Color color){
         model.init(modelPath);
-        texture.init(albedoPath, normalPath, specularPath);
+        texture.init(albedoPath, normalPath, specularPath, color);
     }
     Texture texture;
     Model model;

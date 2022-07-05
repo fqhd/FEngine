@@ -7,7 +7,6 @@
 int Image::loadFromFile(const std::string& path, int desiredChannels){
 	m_imageData = stbi_load(path.c_str(), &m_width, &m_height, &m_numChannels, desiredChannels);
 	if(!m_imageData){
-		std::cout << "Image: Failed to load image" << std::endl;
 		return -1;
 	}
     return 1;
