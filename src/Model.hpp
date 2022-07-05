@@ -8,7 +8,7 @@ class Model {
 public:
 
 	void init(const std::string& path);
-	void render() const;
+	void draw() const;
 	void destroy();
 
 private:

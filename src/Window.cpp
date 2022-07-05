@@ -48,10 +48,6 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
     // Vsync
     glfwSwapInterval(1);
 
-    // Enabling transparency
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     // Enabling depth
     glEnable(GL_DEPTH_TEST);
     glClearDepth(1.0);
@@ -62,12 +58,6 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
 
     // Enabling MSAA
     glEnable(GL_MULTISAMPLE);
-
-    // Enabling point size
-    glEnable(GL_PROGRAM_POINT_SIZE);
-
-    // Changing the line width(for block outline)
-    glLineWidth(1.0f);
 }
 
 GLFWwindow *Window::getWindowPtr()
@@ -83,9 +73,6 @@ bool Window::isOpen()
 void Window::clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    int w, h;
-    glfwGetFramebufferSize(m_window, &w, &h);
-    glViewport(0, 0, w, h);
 }
 
 void Window::update()

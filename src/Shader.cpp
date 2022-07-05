@@ -1,5 +1,4 @@
 #include "Shader.hpp"
-#include <GL/glew.h>
 #include <iostream>
 
 std::string readFileToString(const std::string& shaderName) {

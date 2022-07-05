@@ -1,4 +1,5 @@
 #include "Camera.hpp"
+#include <iostream>
 
 void Camera::init(unsigned int width, unsigned int height, float f){
     ar = width / (float)height;
