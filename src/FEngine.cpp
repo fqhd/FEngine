@@ -9,6 +9,7 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
     shader.set("texSpecular", 2);
+    textureManager.init();
 }
 
 void FEngine::draw()
@@ -20,7 +21,7 @@ void FEngine::draw()
     shader.set("view", camera.getView());
     for (const auto& object : objects)
     {
-        object.texture.bind();
+        textureManager.bindTexture(object.texture);
         shader.set("model", object.transform.getMatrix());
         object.model.draw();
     }
@@ -32,13 +33,16 @@ void FEngine::draw()
 
 FObject FEngine::loadObject(const std::string &path)
 {
-    return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg");
+    FObject object;
+    object.texture = textureManager.loadTexture(path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg");
+    object.model.init(path + "/model.obj");
+    return object;
 }
 
 void FEngine::destroy(){
     for(auto& object : objects){
         object.model.destroy();
-        object.texture.destroy();
+        textureManager.destroyTexture(object.texture);
     }
     shader.destroy();
     window.close();

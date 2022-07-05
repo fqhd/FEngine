@@ -6,7 +6,7 @@ int main()
     FEngine engine("Window", 800, 600);
     FObject cube = engine.loadObject("res/cube");
 
-    engine.objects.emplace_back(cube);
+    engine.objects.push_back(cube);
 
     engine.camera.position.z = -10;
     engine.camera.position.y = 5;

@@ -7,9 +7,9 @@
 class GLTexture
 {
 public:
-    void init(const char* path);
+    void init(const char* path, GLuint defaultTexture);
     void bind(GLenum loc) const;
-    void unbind(GLenum loc);
+    void unbind(GLenum loc) const;
     void destroy();
 
     GLuint id = 0;

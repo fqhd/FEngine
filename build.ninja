@@ -11,10 +11,10 @@ build obj/Camera.o: cxx ./src/Camera.cpp
 build obj/OBJLoader.o: cxx ./src/OBJLoader.cpp
 build obj/Window.o: cxx ./src/Window.cpp
 build obj/FEngine.o: cxx ./src/FEngine.cpp
-build obj/Texture.o: cxx ./src/Texture.cpp
 build obj/Shader.o: cxx ./src/Shader.cpp
 build obj/InputManager.o: cxx ./src/InputManager.cpp
 build obj/Transform.o: cxx ./src/Transform.cpp
+build obj/TextureManager.o: cxx ./src/TextureManager.cpp
 build obj/Model.o: cxx ./src/Model.cpp
 build obj/main.o: cxx ./src/main.cpp
-build out: lnk obj/GLTexture.o obj/Image.o obj/Camera.o obj/OBJLoader.o obj/Window.o obj/FEngine.o obj/Texture.o obj/Shader.o obj/InputManager.o obj/Transform.o obj/Model.o obj/main.o
+build out: lnk obj/GLTexture.o obj/Image.o obj/Camera.o obj/OBJLoader.o obj/Window.o obj/FEngine.o obj/Shader.o obj/InputManager.o obj/Transform.o obj/TextureManager.o obj/Model.o obj/main.o
