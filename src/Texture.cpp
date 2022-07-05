@@ -3,9 +3,9 @@
 
 void Texture::init(const std::string &aPath, const std::string &nPath, const std::string &sPath)
 {
-    albedo.init(aPath.c_str());
-    normal.init(nPath.c_str());
-    specular.init(sPath.c_str());
+    albedo.init(aPath.c_str(), Color(255, 255, 255));
+    normal.init(nPath.c_str(), Color(255, 255, 255));
+    specular.init(sPath.c_str(), Color(255, 255, 255));
 }
 
 void Texture::bind() const

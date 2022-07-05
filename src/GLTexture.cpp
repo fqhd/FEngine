@@ -1,11 +1,8 @@
 #include "GLTexture.hpp"
 #include "Image.hpp"
 
-void GLTexture::init(const char *path)
+void GLTexture::init(const char *path, Color color)
 {
-    // Loading in data
-    Image image;
-    image.loadFromFile(path);
 
     // Generating texture
     glGenTextures(1, &id);
@@ -15,8 +12,18 @@ void GLTexture::init(const char *path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getData());
-    glGenerateMipmap(GL_TEXTURE_2D);
+
+    // Loading in data
+    Image image;
+    if (image.loadFromFile(path) == 1)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getData());
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, &color);
+    }
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
