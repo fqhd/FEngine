@@ -5,15 +5,17 @@ FEngine::FEngine(const char *title, int width, int height)
     window.create(width, height, title);
     inputManager.init(window.getWindowPtr());
     camera.init(width, height, 70.0f);
-    shader.init("./res/shaders/modelShader/vertex.glsl", "./res/shaders/modelShader/fragment.glsl");
+    shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
     shader.set("texSpecular", 2);
+    skybox.init();
 }
 
 void FEngine::draw()
 {
     window.clear();
+    inputManager.processInput();
 
     shader.bind();
     shader.set("projection", camera.getProjection());
@@ -25,7 +27,8 @@ void FEngine::draw()
         object.model.draw();
     }
     shader.unbind();
-    inputManager.processInput();
+
+    skybox.render(camera.getProjection(), camera.getView());
 
     window.update();
 }

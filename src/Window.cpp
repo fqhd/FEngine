@@ -58,6 +58,9 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
 
     // Enabling MSAA
     glEnable(GL_MULTISAMPLE);
+
+    // We need to do this for the skybox to work
+    glDepthFunc(GL_LEQUAL);
 }
 
 GLFWwindow *Window::getWindowPtr()

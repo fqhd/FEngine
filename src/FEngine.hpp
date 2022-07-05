@@ -5,6 +5,7 @@
 #include "Camera.hpp"
 #include "FObject.h"
 #include "Shader.hpp"
+#include "Skybox.hpp"
 
 class FEngine {
 public:
@@ -14,6 +15,7 @@ public:
     void draw();
     void destroy();
     
+    Skybox skybox;
     Shader shader;
     Window window;
     InputManager inputManager;
