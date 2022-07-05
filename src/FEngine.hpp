@@ -11,10 +11,12 @@ public:
 
     FEngine(const char* title, int width, int height);
     FObject loadObject(const std::string& path);
-    void draw(const FObject* objects, int numEntities);
+    void draw();
+    void destroy();
     
     Shader shader;
     Window window;
     InputManager inputManager;
     Camera camera;
+    std::vector<FObject> objects;
 };

@@ -4,7 +4,10 @@
 int main()
 {
     FEngine engine("Window", 800, 600);
-    FObject object = engine.loadObject("res/cube");
+    FObject cube = engine.loadObject("res/cube");
+
+    engine.objects.emplace_back(cube);
+
     engine.camera.position.z = -10;
     engine.camera.position.y = 5;
     engine.camera.yaw = 90;
@@ -12,10 +15,12 @@ int main()
 
     while (engine.window.isOpen())
     {
-        object.transform.rotation.x += 1;
-        object.transform.rotation.z += 1;
-        engine.draw(&object, 1);
+        engine.objects[0].transform.rotation.x += 1;
+        engine.objects[0].transform.rotation.z += 1;
+        engine.draw();
     }
+
+    engine.destroy();
 
     return 0;
 }

@@ -11,18 +11,18 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("texSpecular", 2);
 }
 
-void FEngine::draw(const FObject *objects, int numEntities)
+void FEngine::draw()
 {
     window.clear();
 
     shader.bind();
     shader.set("projection", camera.getProjection());
     shader.set("view", camera.getView());
-    for (int i = 0; i < numEntities; i++)
+    for (const auto& object : objects)
     {
-        objects[i].texture.bind();
-        shader.set("model", objects[i].transform.getMatrix());
-        objects[i].model.draw();
+        object.texture.bind();
+        shader.set("model", object.transform.getMatrix());
+        object.model.draw();
     }
     shader.unbind();
     inputManager.processInput();
@@ -33,4 +33,13 @@ void FEngine::draw(const FObject *objects, int numEntities)
 FObject FEngine::loadObject(const std::string &path)
 {
     return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg");
+}
+
+void FEngine::destroy(){
+    for(auto& object : objects){
+        object.model.destroy();
+        object.texture.destroy();
+    }
+    shader.destroy();
+    window.close();
 }
