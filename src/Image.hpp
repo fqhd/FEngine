@@ -15,7 +15,7 @@ public:
 class Image {
 public:
 
-	int loadFromFile(const std::string& path, int desiredChannels = 4);
+	void loadFromFile(const std::string& path, int desiredChannels = 4);
 	unsigned char* getData();
 	Pixel getPixel(unsigned int x, unsigned int y);
 	int getWidth();

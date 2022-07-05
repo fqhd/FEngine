@@ -3,9 +3,8 @@
 #include "Window.hpp"
 #include "InputManager.hpp"
 #include "Camera.hpp"
-#include "FObject.hpp"
+#include "FObject.h"
 #include "Shader.hpp"
-#include "TextureManager.hpp"
 
 class FEngine {
 public:
@@ -19,6 +18,5 @@ public:
     Window window;
     InputManager inputManager;
     Camera camera;
-    TextureManager textureManager;
     std::vector<FObject> objects;
 };

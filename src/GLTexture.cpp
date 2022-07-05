@@ -1,14 +1,11 @@
 #include "GLTexture.hpp"
 #include "Image.hpp"
 
-void GLTexture::init(const char *path, GLuint defaultTexture)
+void GLTexture::init(const char *path)
 {
     // Loading in data
     Image image;
-    if(image.loadFromFile(path) == -1){
-        id = defaultTexture;
-        return;
-    }
+    image.loadFromFile(path);
 
     // Generating texture
     glGenTextures(1, &id);
@@ -32,7 +29,7 @@ void GLTexture::bind(GLenum loc) const
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void GLTexture::unbind(GLenum loc) const
+void GLTexture::unbind(GLenum loc)
 {
     glActiveTexture(loc);
     glBindTexture(GL_TEXTURE_2D, 0);

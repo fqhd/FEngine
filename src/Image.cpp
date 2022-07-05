@@ -4,13 +4,12 @@
 #include <iostream>
 
 
-int Image::loadFromFile(const std::string& path, int desiredChannels){
+void Image::loadFromFile(const std::string& path, int desiredChannels){
 	m_imageData = stbi_load(path.c_str(), &m_width, &m_height, &m_numChannels, desiredChannels);
 	if(!m_imageData){
 		std::cout << "Image: Failed to load image" << std::endl;
-		return -1;
+		return;
 	}
-    return 1;
 }
 
 Pixel Image::getPixel(unsigned int x, unsigned int y){
