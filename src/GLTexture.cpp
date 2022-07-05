@@ -23,7 +23,7 @@ void GLTexture::init(const char *path)
     image.free();
 }
 
-void GLTexture::bind(GLenum loc)
+void GLTexture::bind(GLenum loc) const
 {
     glActiveTexture(loc);
     glBindTexture(GL_TEXTURE_2D, id);

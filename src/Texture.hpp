@@ -8,7 +8,7 @@ class Texture
 {
 public:
     void init(const std::string &aPath, const std::string &nPath, const std::string &sPath);
-    void bind();
+    void bind() const;
     void unbind();
     void destroy();
 

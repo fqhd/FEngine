@@ -6,6 +6,9 @@ FEngine::FEngine(const char *title, int width, int height)
     inputManager.init(window.getWindowPtr());
     camera.init(width, height, 70.0f);
     shader.init("./res/shaders/modelShader/vertex.glsl", "./res/shaders/modelShader/fragment.glsl");
+    shader.set("texAlbedo", 0);
+    shader.set("texNormal", 1);
+    shader.set("texSpecular", 2);
 }
 
 void FEngine::draw(const FObject *objects, int numEntities)
@@ -17,6 +20,7 @@ void FEngine::draw(const FObject *objects, int numEntities)
     shader.set("view", camera.getView());
     for (int i = 0; i < numEntities; i++)
     {
+        objects[i].texture.bind();
         shader.set("model", objects[i].transform.getMatrix());
         objects[i].model.draw();
     }

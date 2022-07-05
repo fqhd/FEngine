@@ -8,7 +8,7 @@ void Texture::init(const std::string &aPath, const std::string &nPath, const std
     specular.init(sPath.c_str());
 }
 
-void Texture::bind()
+void Texture::bind() const
 {
     albedo.bind(GL_TEXTURE0);
     normal.bind(GL_TEXTURE1);
