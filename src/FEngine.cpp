@@ -10,6 +10,9 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
     shader.set("texSpecular", 2);
+    shader.set("cascade1", 3);
+    shader.set("cascade2", 4);
+    shader.set("cascade3", 5);
     skybox.init();
     debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
     quad.init();
@@ -22,19 +25,23 @@ void FEngine::draw()
     inputManager.processInput();
 
     glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.fbo);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glViewport(0, 0, 1024, 1024);
 
-    // Draw to depth texture
-    depthShader.bind();
-    depthShader.set("projection", camera.getProjection());
-    depthShader.set("view", camera.getView());
-    for (const auto& object : objects)
+    for (int i = 0; i < 3; i++)
     {
-        depthShader.set("model", object.transform.getMatrix());
-        object.model.draw();
+        shadowMap.bindForWriting(i);
+        glClear(GL_DEPTH_BUFFER_BIT);
+        // Draw to depth texture
+        depthShader.bind();
+        depthShader.set("projection", camera.getProjection());
+        depthShader.set("view", camera.getView());
+        for (const auto &object : objects)
+        {
+            depthShader.set("model", object.transform.getMatrix());
+            object.model.draw();
+        }
+        depthShader.unbind();
     }
-    depthShader.unbind();
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -43,7 +50,7 @@ void FEngine::draw()
     shader.bind();
     shader.set("projection", camera.getProjection());
     shader.set("view", camera.getView());
-    for (const auto& object : objects)
+    for (const auto &object : objects)
     {
         object.texture.bind();
         shader.set("model", object.transform.getMatrix());
@@ -55,7 +62,7 @@ void FEngine::draw()
 
     debugShader.bind();
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[0]);
+    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[2]);
     glDisable(GL_CULL_FACE);
     quad.draw();
     glEnable(GL_CULL_FACE);
@@ -69,8 +76,10 @@ FObject FEngine::loadObject(const std::string &path, Color color)
     return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg", color);
 }
 
-void FEngine::destroy(){
-    for(auto& object : objects){
+void FEngine::destroy()
+{
+    for (auto &object : objects)
+    {
         object.model.destroy();
         object.texture.destroy();
     }

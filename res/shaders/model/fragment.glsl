@@ -5,6 +5,9 @@ in vec2 vUV;
 uniform sampler2D texAlbedo;
 uniform sampler2D texNormal;
 uniform sampler2D texSpecular;
+uniform sampler2D cascade1;
+uniform sampler2D cascade2;
+uniform sampler2D cascade3;
 
 out vec4 outColor;
 

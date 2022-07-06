@@ -33,3 +33,20 @@ void CascadeShadowMap::init()
         printf("FB error, status: 0x%x\n", Status);
     }
 }
+
+void CascadeShadowMap::bindForWriting(int index)
+{
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[index], 0);
+}
+
+void CascadeShadowMap::bindForReading()
+{
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, shadowMap[0]);
+
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, shadowMap[1]);
+
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, shadowMap[2]);
+}
