@@ -10,6 +10,8 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("texNormal", 1);
     shader.set("texSpecular", 2);
     skybox.init();
+    debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
+    quad.init();
 }
 
 void FEngine::draw()
@@ -29,6 +31,13 @@ void FEngine::draw()
     shader.unbind();
 
     skybox.render(camera.getProjection(), camera.getView());
+
+    debugShader.bind();
+    objects[0].texture.bind();
+    glDisable(GL_CULL_FACE);
+    quad.draw();
+    glEnable(GL_CULL_FACE);
+    debugShader.unbind();
 
     window.update();
 }

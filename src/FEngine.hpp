@@ -6,6 +6,7 @@
 #include "FObject.h"
 #include "Shader.hpp"
 #include "Skybox.hpp"
+#include "Quad.hpp"
 
 class FEngine {
 public:
@@ -15,10 +16,12 @@ public:
     void draw();
     void destroy();
     
+    Shader debugShader;
     Skybox skybox;
     Shader shader;
     Window window;
     InputManager inputManager;
     Camera camera;
+    Quad quad;
     std::vector<FObject> objects;
 };
