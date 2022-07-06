@@ -76,7 +76,6 @@ bool Window::isOpen()
 void Window::clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glViewport(0, 0, 1600, 1200);
 }
 
 void Window::update()

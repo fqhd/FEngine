@@ -26,5 +26,7 @@ public:
     CascadeShadowMap shadowMap;
     Camera camera;
     Quad quad;
+    glm::vec3 lightDirection;
+    float m_cascadeEnd[4];
     std::vector<FObject> objects;
 };

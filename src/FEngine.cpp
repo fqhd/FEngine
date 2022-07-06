@@ -1,4 +1,5 @@
 #include "FEngine.hpp"
+#include <limits>
 
 FEngine::FEngine(const char *title, int width, int height)
 {
@@ -17,6 +18,11 @@ FEngine::FEngine(const char *title, int width, int height)
     debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
     quad.init();
     shadowMap.init();
+    lightDirection = glm::normalize(glm::vec3(-1.0));
+    m_cascadeEnd[0] = 0.1;
+    m_cascadeEnd[1] = 45.0f,
+    m_cascadeEnd[2] = 120.0f,
+    m_cascadeEnd[3] = 250.0;
 }
 
 void FEngine::draw()
@@ -27,14 +33,68 @@ void FEngine::draw()
     glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.fbo);
     glViewport(0, 0, 1024, 1024);
 
+    // Get lightSpaceMatrices
+    glm::mat4 lightSpaceMatrices[3];
+    glm::mat4 CamInv = glm::inverse(camera.getView());
+    glm::mat4 LightM = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), lightDirection, glm::vec3(0.0, 1.0, 0.0));
+
+    float ar = 800.0f / 600.0f;
+    float tanHalfHFOV = tanf(glm::radians(camera.fov / 2.0f));
+    float tanHalfVFOV = tanf(glm::radians((camera.fov * ar) / 2.0f));
+
+    for (int i = 0; i < 3; i++)
+    {
+        float xn = m_cascadeEnd[i] * tanHalfHFOV;
+        float xf = m_cascadeEnd[i + 1] * tanHalfHFOV;
+        float yn = m_cascadeEnd[i] * tanHalfVFOV;
+        float yf = m_cascadeEnd[i + 1] * tanHalfVFOV;
+
+        glm::vec4 frustumCorners[8] = {
+            // near face
+            glm::vec4(xn, yn, m_cascadeEnd[i], 1.0),
+            glm::vec4(-xn, yn, m_cascadeEnd[i], 1.0),
+            glm::vec4(xn, -yn, m_cascadeEnd[i], 1.0),
+            glm::vec4(-xn, -yn, m_cascadeEnd[i], 1.0),
+
+            // far face
+            glm::vec4(xf, yf, m_cascadeEnd[i + 1], 1.0),
+            glm::vec4(-xf, yf, m_cascadeEnd[i + 1], 1.0),
+            glm::vec4(xf, -yf, m_cascadeEnd[i + 1], 1.0),
+            glm::vec4(-xf, -yf, m_cascadeEnd[i + 1], 1.0)};
+        glm::vec4 frustumCornersL[8];
+
+        float minX = std::numeric_limits<float>::max();
+        float maxX = std::numeric_limits<float>::min();
+        float minY = std::numeric_limits<float>::max();
+        float maxY = std::numeric_limits<float>::min();
+        float minZ = std::numeric_limits<float>::max();
+        float maxZ = std::numeric_limits<float>::min();
+
+        for (int j = 0 ; j < 8 ; j++) {
+
+            // Transform the frustum coordinate from view to world space
+            glm::vec4 vW = CamInv * frustumCorners[j];
+
+            // Transform the frustum coordinate from world to light space
+            frustumCornersL[j] = LightM * vW;
+
+            minX = std::min(minX, frustumCornersL[j].x);
+            maxX = std::max(maxX, frustumCornersL[j].x);
+            minY = std::min(minY, frustumCornersL[j].y);
+            maxY = std::max(maxY, frustumCornersL[j].y);
+            minZ = std::min(minZ, frustumCornersL[j].z);
+            maxZ = std::max(maxZ, frustumCornersL[j].z);
+        }
+        lightSpaceMatrices[i] = glm::ortho(minX, maxX, minY, maxY, minZ, maxZ) * LightM;
+    }
+
     for (int i = 0; i < 3; i++)
     {
         shadowMap.bindForWriting(i);
         glClear(GL_DEPTH_BUFFER_BIT);
         // Draw to depth texture
         depthShader.bind();
-        depthShader.set("projection", camera.getProjection());
-        depthShader.set("view", camera.getView());
+        depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
         for (const auto &object : objects)
         {
             depthShader.set("model", object.transform.getMatrix());

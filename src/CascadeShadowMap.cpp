@@ -32,6 +32,7 @@ void CascadeShadowMap::init()
     {
         printf("FB error, status: 0x%x\n", Status);
     }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void CascadeShadowMap::bindForWriting(int index)
