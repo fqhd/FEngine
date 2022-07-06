@@ -7,6 +7,7 @@
 #include "Shader.hpp"
 #include "Skybox.hpp"
 #include "Quad.hpp"
+#include "CascadeShadowMap.hpp"
 
 class FEngine {
 public:
@@ -19,8 +20,10 @@ public:
     Shader debugShader;
     Skybox skybox;
     Shader shader;
+    Shader depthShader;
     Window window;
     InputManager inputManager;
+    CascadeShadowMap shadowMap;
     Camera camera;
     Quad quad;
     std::vector<FObject> objects;

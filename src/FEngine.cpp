@@ -5,6 +5,7 @@ FEngine::FEngine(const char *title, int width, int height)
     window.create(width, height, title);
     inputManager.init(window.getWindowPtr());
     camera.init(width, height, 70.0f);
+    depthShader.init("./res/shaders/depth/vertex.glsl", "./res/shaders/depth/fragment.glsl");
     shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
@@ -12,12 +13,32 @@ FEngine::FEngine(const char *title, int width, int height)
     skybox.init();
     debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
     quad.init();
+    shadowMap.init();
 }
 
 void FEngine::draw()
 {
     window.clear();
     inputManager.processInput();
+
+    glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.fbo);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glViewport(0, 0, 1024, 1024);
+
+    // Draw to depth texture
+    depthShader.bind();
+    depthShader.set("projection", camera.getProjection());
+    depthShader.set("view", camera.getView());
+    for (const auto& object : objects)
+    {
+        depthShader.set("model", object.transform.getMatrix());
+        object.model.draw();
+    }
+    depthShader.unbind();
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glViewport(0, 0, 1024, 1024);
 
     shader.bind();
     shader.set("projection", camera.getProjection());
@@ -33,7 +54,8 @@ void FEngine::draw()
     skybox.render(camera.getProjection(), camera.getView());
 
     debugShader.bind();
-    objects[0].texture.bind();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[0]);
     glDisable(GL_CULL_FACE);
     quad.draw();
     glEnable(GL_CULL_FACE);
