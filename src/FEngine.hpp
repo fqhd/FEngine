@@ -17,7 +17,6 @@ public:
     void draw();
     void destroy();
     glm::mat4 getLightSpaceMatrix(const float nearPlane, const float farPlane);
-    std::vector<glm::mat4> getLightSpaceMatrices();
     
     Shader debugShader;
     Skybox skybox;

@@ -104,27 +104,6 @@ glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPla
     return lightProjection * lightView;
 }
 
-std::vector<glm::mat4> FEngine::getLightSpaceMatrices()
-{
-    std::vector<glm::mat4> ret;
-    for (size_t i = 0; i < 3 + 1; ++i)
-    {
-        if (i == 0)
-        {
-            ret.push_back(getLightSpaceMatrix(0.1f, m_cascadeEnd[i]));
-        }
-        else if (i < 3)
-        {
-            ret.push_back(getLightSpaceMatrix(m_cascadeEnd[i - 1], m_cascadeEnd[i]));
-        }
-        else
-        {
-            ret.push_back(getLightSpaceMatrix(m_cascadeEnd[i - 1], 500.0f));
-        }
-    }
-    return ret;
-}
-
 void FEngine::draw()
 {
     window.clear();
@@ -133,7 +112,11 @@ void FEngine::draw()
     glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.fbo);
     glViewport(0, 0, 1024, 1024);
 
-    std::vector<glm::mat4> lightSpaceMatrices = getLightSpaceMatrices();
+    glm::mat4 lightSpaceMatrices[3] = {
+        getLightSpaceMatrix(m_cascadeEnd[0], m_cascadeEnd[1]),
+        getLightSpaceMatrix(m_cascadeEnd[1], m_cascadeEnd[2]),
+        getLightSpaceMatrix(m_cascadeEnd[2], m_cascadeEnd[3]),
+    };
 
     for (int i = 0; i < 3; i++)
     {
