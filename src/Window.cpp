@@ -78,6 +78,13 @@ void Window::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+glm::ivec2 Window::getFramebufferSize(){
+    int x, y;
+    glfwGetFramebufferSize(m_window, &x, &y);
+    return glm::ivec2(x, y);
+}
+
+
 void Window::update()
 {
     glfwSwapBuffers(m_window);

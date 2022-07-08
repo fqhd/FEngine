@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class Window {
 public:
@@ -13,6 +14,7 @@ public:
 	void update();
 	void close();
     bool isOpen();
+    glm::ivec2 getFramebufferSize();
 	GLFWwindow* getWindowPtr();
 
 private:

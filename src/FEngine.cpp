@@ -127,8 +127,8 @@ void FEngine::draw()
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    glViewport(0, 0, 1024, 1024);
+    glm::ivec2 size = window.getFramebufferSize();
+    glViewport(0, 0, size.x, size.y);
 
     shader.bind();
     shader.set("projection", camera.getProjection());
