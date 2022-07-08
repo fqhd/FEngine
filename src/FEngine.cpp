@@ -1,16 +1,12 @@
 #include "FEngine.hpp"
 #include <limits>
 
-float cameraNearPlane = 0.1f;
-float cameraFarPlane = 1000.0f;
-
-std::vector<float> shadowCascadeLevels{cameraFarPlane / 20.0f, cameraFarPlane / 10.0f, cameraFarPlane / 5.0f, cameraFarPlane / 2.0f};
 
 FEngine::FEngine(const char *title, int width, int height)
 {
     window.create(width, height, title);
     inputManager.init(window.getWindowPtr());
-    camera.init(width, height, 70.0f);
+    camera.init(width, height, 70.0f, 0.1, 1000.0f);
     depthShader.init("./res/shaders/depth/vertex.glsl", "./res/shaders/depth/fragment.glsl");
     shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
     shader.bind();
@@ -25,6 +21,10 @@ FEngine::FEngine(const char *title, int width, int height)
     quad.init();
     shadowMap.init();
     lightDirection = glm::normalize(glm::vec3(1.0));
+    m_cascadeEnd[0] = camera.near;
+    m_cascadeEnd[1] = camera.far / 20.0f;
+    m_cascadeEnd[2] = camera.far / 10.0f;
+    m_cascadeEnd[3] = camera.far / 5.0f;
 }
 
 std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4 &projview)
@@ -107,19 +107,19 @@ glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPla
 std::vector<glm::mat4> FEngine::getLightSpaceMatrices()
 {
     std::vector<glm::mat4> ret;
-    for (size_t i = 0; i < shadowCascadeLevels.size() + 1; ++i)
+    for (size_t i = 0; i < 3 + 1; ++i)
     {
         if (i == 0)
         {
-            ret.push_back(getLightSpaceMatrix(0.1f, shadowCascadeLevels[i]));
+            ret.push_back(getLightSpaceMatrix(0.1f, m_cascadeEnd[i]));
         }
-        else if (i < shadowCascadeLevels.size())
+        else if (i < 3)
         {
-            ret.push_back(getLightSpaceMatrix(shadowCascadeLevels[i - 1], shadowCascadeLevels[i]));
+            ret.push_back(getLightSpaceMatrix(m_cascadeEnd[i - 1], m_cascadeEnd[i]));
         }
         else
         {
-            ret.push_back(getLightSpaceMatrix(shadowCascadeLevels[i - 1], 500.0f));
+            ret.push_back(getLightSpaceMatrix(m_cascadeEnd[i - 1], 500.0f));
         }
     }
     return ret;
@@ -160,7 +160,7 @@ void FEngine::draw()
     shader.set("projection", camera.getProjection());
     shader.set("view", camera.getView());
     shader.set("viewPos", camera.position);
-    shader.set("farPlane", cameraFarPlane);
+    shader.set("farPlane", camera.far);
     shader.set("lightDir", lightDirection);
 
     // Upload light space matrices
@@ -169,9 +169,9 @@ void FEngine::draw()
         shader.set("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
     }
     // Upload cascade plane distances
-    for (int i = 0; i < shadowCascadeLevels.size(); i++)
+    for (int i = 0; i < 3; i++)
     {
-        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels[i]);
+        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", m_cascadeEnd[i]);
     }
 
     // Bind the cascades

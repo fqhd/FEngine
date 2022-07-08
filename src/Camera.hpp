@@ -5,13 +5,15 @@
 class Camera {
 public:
 
-	void init(unsigned int width, unsigned int height, float fov);
+	void init(unsigned int width, unsigned int height, float fov, float near, float far);
     glm::mat4 getProjection() const;
     glm::mat4 getView() const;
     glm::vec3 position;
     float pitch;
     float yaw;
     float fov;
+    float near;
+    float far;
 
 private:
     float ar;

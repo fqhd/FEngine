@@ -1,10 +1,12 @@
 #include "Camera.hpp"
 #include <iostream>
 
-void Camera::init(unsigned int width, unsigned int height, float f){
+void Camera::init(unsigned int width, unsigned int height, float f, float n, float farPlane){
     ar = width / (float)height;
 	position = glm::vec3(0);
     fov = f;
+    near = n;
+    far = farPlane;
 }
 
 glm::mat4 Camera::getProjection() const {
