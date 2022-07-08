@@ -14,8 +14,7 @@ public:
     float fov;
     float near;
     float far;
-
-private:
-    float ar;
+    float width;
+    float height;
 
 };

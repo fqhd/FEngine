@@ -1,7 +1,6 @@
 #include "FEngine.hpp"
 #include <limits>
 
-
 FEngine::FEngine(const char *title, int width, int height)
 {
     window.create(width, height, title);
@@ -30,7 +29,7 @@ FEngine::FEngine(const char *title, int width, int height)
 glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPlane)
 {
     const auto proj = glm::perspective(
-        glm::radians(70.0f), 800.0f / 600.0f, nearPlane,
+        glm::radians(camera.fov), camera.width / camera.height, nearPlane,
         farPlane);
     const glm::mat4 projview = proj * camera.getView();
 

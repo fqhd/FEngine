@@ -1,8 +1,9 @@
 #include "Camera.hpp"
 #include <iostream>
 
-void Camera::init(unsigned int width, unsigned int height, float f, float n, float farPlane){
-    ar = width / (float)height;
+void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPlane){
+    width = (float) w;
+    height = (float) h;
 	position = glm::vec3(0);
     fov = f;
     near = n;
@@ -10,7 +11,7 @@ void Camera::init(unsigned int width, unsigned int height, float f, float n, flo
 }
 
 glm::mat4 Camera::getProjection() const {
-	return glm::perspective(glm::radians(fov), ar, 0.1f, 1000.0f);
+	return glm::perspective(glm::radians(fov), width / height, 0.1f, 1000.0f);
 }
 
 glm::mat4 Camera::getView() const {
