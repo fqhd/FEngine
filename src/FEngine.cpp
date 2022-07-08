@@ -27,11 +27,15 @@ FEngine::FEngine(const char *title, int width, int height)
     m_cascadeEnd[3] = camera.far / 5.0f;
 }
 
-std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4 &projview)
+glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPlane)
 {
-    const auto inv = glm::inverse(projview);
+    const auto proj = glm::perspective(
+        glm::radians(70.0f), 800.0f / 600.0f, nearPlane,
+        farPlane);
+    const glm::mat4 projview = proj * camera.getView();
 
-    std::vector<glm::vec4> frustumCorners;
+    std::vector<glm::vec4> corners;
+    const auto inv = glm::inverse(projview);
     for (unsigned int x = 0; x < 2; ++x)
     {
         for (unsigned int y = 0; y < 2; ++y)
@@ -39,20 +43,10 @@ std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4 &projview)
             for (unsigned int z = 0; z < 2; ++z)
             {
                 const glm::vec4 pt = inv * glm::vec4(2.0f * x - 1.0f, 2.0f * y - 1.0f, 2.0f * z - 1.0f, 1.0f);
-                frustumCorners.push_back(pt / pt.w);
+                corners.push_back(pt / pt.w);
             }
         }
     }
-
-    return frustumCorners;
-}
-
-glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPlane)
-{
-    const auto proj = glm::perspective(
-        glm::radians(70.0f), 800.0f / 600.0f, nearPlane,
-        farPlane);
-    const auto corners = getFrustumCornersWorldSpace(proj * camera.getView());
 
     glm::vec3 center = glm::vec3(0, 0, 0);
     for (const auto &v : corners)
