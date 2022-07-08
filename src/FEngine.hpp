@@ -6,7 +6,6 @@
 #include "FObject.h"
 #include "Shader.hpp"
 #include "Skybox.hpp"
-#include "Quad.hpp"
 #include "CascadeShadowMap.hpp"
 
 class FEngine {
@@ -18,7 +17,6 @@ public:
     void destroy();
     glm::mat4 getLightSpaceMatrix(const float nearPlane, const float farPlane);
     
-    Shader debugShader;
     Skybox skybox;
     Shader shader;
     Shader depthShader;
@@ -26,7 +24,6 @@ public:
     InputManager inputManager;
     CascadeShadowMap shadowMap;
     Camera camera;
-    Quad quad;
     glm::vec3 lightDirection;
     float m_cascadeEnd[4];
     std::vector<FObject> objects;

@@ -16,8 +16,6 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("gShadowMap[1]", 4);
     shader.set("gShadowMap[2]", 5);
     skybox.init();
-    debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
-    quad.init();
     shadowMap.init();
     lightDirection = glm::normalize(glm::vec3(1.0));
     m_cascadeEnd[0] = camera.near;
@@ -168,14 +166,6 @@ void FEngine::draw()
     }
     shader.unbind();
     skybox.render(camera.getProjection(), camera.getView());
-
-    debugShader.bind();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[2]);
-    glDisable(GL_CULL_FACE);
-    // quad.draw();
-    glEnable(GL_CULL_FACE);
-    debugShader.unbind();
 
     window.update();
 }
