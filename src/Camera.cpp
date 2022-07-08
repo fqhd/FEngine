@@ -11,7 +11,7 @@ void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPla
 }
 
 glm::mat4 Camera::getProjection() const {
-	return glm::perspective(glm::radians(fov), width / height, 0.1f, 1000.0f);
+	return glm::perspective(glm::radians(fov), width / height, near, far);
 }
 
 glm::mat4 Camera::getView() const {

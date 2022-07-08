@@ -55,29 +55,17 @@ float ShadowCalculation(vec3 fragPosWorldSpace)
     {
         return 0.0;
     }
-    // calculate bias (based on depth map resolution and slope)
-    vec3 normal = normalize(vNormal);
-    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
-    const float biasModifier = 0.5f;
-    if (layer == cascadeCount)
-    {
-        bias *= 1 / (farPlane * biasModifier);
-    }
-    else
-    {
-        bias *= 1 / (cascadePlaneDistances[layer] * biasModifier);
-    }
 
     // PCF
     float shadow = 0.0;
 
-    float texelSize = 1.0 / 1024.0;
+    float texelSize = 1.0 / 2048.0;
     for(int x = -1; x <= 1; ++x)
     {
         for(int y = -1; y <= 1; ++y)
         {
             float pcfDepth = texture(gShadowMap[layer], projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += (currentDepth - bias) > pcfDepth ? 0.5 : 0.0;
+            shadow += currentDepth > pcfDepth ? 0.5 : 0.0;
         }    
     }
     shadow /= 9.0;

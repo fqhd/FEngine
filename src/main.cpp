@@ -10,18 +10,18 @@ int main()
     engine.objects.push_back(cube);
     engine.objects.push_back(plane);
 
-    engine.objects[0].transform.position.y = 2;
+    engine.objects[0].transform.position.y = 1;
+    engine.objects[1].transform.scale = glm::vec3(10000);
 
-    engine.camera.position.z = -30;
-    engine.camera.position.y = 8;
+    engine.camera.position.z = -5;
+    engine.camera.position.y = 3;
     engine.camera.yaw = 90;
-    engine.camera.pitch = -20;
+    engine.camera.pitch = -10;
 
     while (engine.window.isOpen())
     {
-        engine.camera.position.z -= 0.1;
-        engine.objects[0].transform.rotation.x += 1;
-        engine.objects[0].transform.rotation.z += 1;
+        engine.objects[0].transform.rotation.y += 1;
+        // engine.objects[0].transform.position.z += 0.5;
         engine.draw();
     }
 

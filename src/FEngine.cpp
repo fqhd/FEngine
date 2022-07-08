@@ -5,7 +5,7 @@ FEngine::FEngine(const char *title, int width, int height)
 {
     window.create(width, height, title);
     inputManager.init(window.getWindowPtr());
-    camera.init(width, height, 70.0f, 0.1, 1000.0f);
+    camera.init(width, height, 70.0f, 0.1, 450.0f);
     depthShader.init("./res/shaders/depth/vertex.glsl", "./res/shaders/depth/fragment.glsl");
     shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
     shader.bind();
@@ -19,9 +19,9 @@ FEngine::FEngine(const char *title, int width, int height)
     shadowMap.init();
     lightDirection = glm::normalize(glm::vec3(1.0));
     m_cascadeEnd[0] = camera.near;
-    m_cascadeEnd[1] = camera.far / 20.0f;
-    m_cascadeEnd[2] = camera.far / 10.0f;
-    m_cascadeEnd[3] = camera.far / 5.0f;
+    m_cascadeEnd[1] = 25.0f;
+    m_cascadeEnd[2] = 100.0f;
+    m_cascadeEnd[3] = camera.far;
 }
 
 glm::mat4 FEngine::getLightSpaceMatrix(const float nearPlane, const float farPlane)
@@ -101,7 +101,7 @@ void FEngine::draw()
     inputManager.processInput();
 
     glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.fbo);
-    glViewport(0, 0, 1024, 1024);
+    glViewport(0, 0, 2048, 2048);
 
     glm::mat4 lightSpaceMatrices[3] = {
         getLightSpaceMatrix(m_cascadeEnd[0], m_cascadeEnd[1]),
@@ -119,9 +119,7 @@ void FEngine::draw()
         for (unsigned int i = 0; i < objects.size(); i++)
         {
             depthShader.set("model", objects[i].transform.getMatrix());
-            glDisable(GL_CULL_FACE);
             objects[i].model.draw();
-            glEnable(GL_CULL_FACE);
         }
         depthShader.unbind();
     }
@@ -145,7 +143,7 @@ void FEngine::draw()
     // Upload cascade plane distances
     for (int i = 0; i < 3; i++)
     {
-        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", m_cascadeEnd[i]);
+        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", m_cascadeEnd[i + 1]);
     }
 
     // Bind the cascades
@@ -160,9 +158,7 @@ void FEngine::draw()
     {
         object.texture.bind();
         shader.set("model", object.transform.getMatrix());
-        glDisable(GL_CULL_FACE);
         object.model.draw();
-        glEnable(GL_CULL_FACE);
     }
     shader.unbind();
     skybox.render(camera.getProjection(), camera.getView());
