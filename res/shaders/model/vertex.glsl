@@ -9,8 +9,14 @@ uniform mat4 projection;
 uniform mat4 view;
 
 out vec2 vUV;
+out vec3 vNormal;
+out vec3 WorldPos;
 
 void main(){
     vUV = aUV;
+    
+    WorldPos = (model * vec4(aPosition, 1.0)).xyz;
+    vNormal = (model * vec4(aNormal, 0.0)).xyz;
+
     gl_Position = projection * view * model * vec4(aPosition, 1.0);
 }

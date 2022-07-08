@@ -2,9 +2,9 @@
 #include <limits>
 
 float cameraNearPlane = 0.1f;
-float cameraFarPlane = 500.0f;
+float cameraFarPlane = 1000.0f;
 
-std::vector<float> shadowCascadeLevels{cameraFarPlane / 50.0f, cameraFarPlane / 25.0f, cameraFarPlane / 10.0f, cameraFarPlane / 2.0f};
+std::vector<float> shadowCascadeLevels{cameraFarPlane / 20.0f, cameraFarPlane / 10.0f, cameraFarPlane / 5.0f, cameraFarPlane / 2.0f};
 
 FEngine::FEngine(const char *title, int width, int height)
 {
@@ -13,21 +13,18 @@ FEngine::FEngine(const char *title, int width, int height)
     camera.init(width, height, 70.0f);
     depthShader.init("./res/shaders/depth/vertex.glsl", "./res/shaders/depth/fragment.glsl");
     shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
+    shader.bind();
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
     shader.set("texSpecular", 2);
-    shader.set("cascade1", 3);
-    shader.set("cascade2", 4);
-    shader.set("cascade3", 5);
+    shader.set("gShadowMap[0]", 3);
+    shader.set("gShadowMap[1]", 4);
+    shader.set("gShadowMap[2]", 5);
     skybox.init();
     debugShader.init("./res/shaders/quad/vertex.glsl", "./res/shaders/quad/fragment.glsl");
     quad.init();
     shadowMap.init();
     lightDirection = glm::normalize(glm::vec3(1.0));
-    m_cascadeEnd[0] = 0.1;
-    m_cascadeEnd[1] = 45.0f,
-    m_cascadeEnd[2] = 120.0f,
-    m_cascadeEnd[3] = 250.0;
 }
 
 std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4 &projview)
@@ -162,6 +159,29 @@ void FEngine::draw()
     shader.bind();
     shader.set("projection", camera.getProjection());
     shader.set("view", camera.getView());
+    shader.set("viewPos", camera.position);
+    shader.set("farPlane", cameraFarPlane);
+    shader.set("lightDir", lightDirection);
+
+    // Upload light space matrices
+    for (int i = 0; i < 3; i++)
+    {
+        shader.set("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
+    }
+    // Upload cascade plane distances
+    for (int i = 0; i < shadowCascadeLevels.size(); i++)
+    {
+        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", shadowCascadeLevels[i]);
+    }
+
+    // Bind the cascades
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[0]);
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[1]);
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[2]);
+
     for (const auto &object : objects)
     {
         object.texture.bind();
@@ -171,14 +191,13 @@ void FEngine::draw()
         glEnable(GL_CULL_FACE);
     }
     shader.unbind();
-
     skybox.render(camera.getProjection(), camera.getView());
 
     debugShader.bind();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[2]);
     glDisable(GL_CULL_FACE);
-    quad.draw();
+    // quad.draw();
     glEnable(GL_CULL_FACE);
     debugShader.unbind();
 
