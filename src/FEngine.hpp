@@ -19,12 +19,9 @@ public:
     
     Skybox skybox;
     Shader shader;
-    Shader depthShader;
     Window window;
     InputManager inputManager;
     CascadeShadowMap shadowMap;
     Camera camera;
-    glm::vec3 lightDirection;
-    float m_cascadeEnd[4];
     std::vector<FObject> objects;
 };

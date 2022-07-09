@@ -8,6 +8,7 @@ void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPla
     fov = f;
     near = n;
     far = farPlane;
+    lightDirection = glm::normalize(glm::vec3(1.0));
 }
 
 glm::mat4 Camera::getProjection() const {

@@ -16,5 +16,6 @@ public:
     float far;
     float width;
     float height;
+    glm::vec3 lightDirection;
 
 };
