@@ -6,7 +6,7 @@
 #include "FObject.h"
 #include "Shader.hpp"
 #include "Skybox.hpp"
-#include "CascadeShadowMap.hpp"
+#include "ModelRenderer.hpp"
 
 class FEngine {
 public:
@@ -15,13 +15,11 @@ public:
     FObject loadObject(const std::string& path, Color color);
     void draw();
     void destroy();
-    glm::mat4 getLightSpaceMatrix(const float nearPlane, const float farPlane);
     
     Skybox skybox;
-    Shader shader;
     Window window;
     InputManager inputManager;
-    CascadeShadowMap shadowMap;
     Camera camera;
+    ModelRenderer modelRenderer;
     std::vector<FObject> objects;
 };
