@@ -115,16 +115,18 @@ void FEngine::draw()
     for (int i = 0; i < 3; i++)
     {
         shadowMap.bindForWriting(i);
-        glClear(GL_DEPTH_BUFFER_BIT);
+        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         // Draw to depth texture
         depthShader.bind();
         depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
+        glCullFace(GL_FRONT);
         for (unsigned int i = 0; i < objects.size(); i++)
         {
             depthShader.set("objectID", (int)i+1);
             depthShader.set("model", objects[i].transform.getMatrix());
             objects[i].model.draw();
         }
+        glCullFace(GL_BACK);
         depthShader.unbind();
     }
 
