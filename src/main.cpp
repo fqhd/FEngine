@@ -11,17 +11,17 @@ int main()
     engine.objects.push_back(plane);
 
     engine.objects[0].transform.position.y = 1;
-    engine.objects[1].transform.scale = glm::vec3(10000);
+    engine.objects[0].transform.position.z = 5;
+    engine.objects[1].transform.scale = glm::vec3(1000);
 
     engine.camera.position.z = -5;
-    engine.camera.position.y = 3;
+    engine.camera.position.y = 5;
     engine.camera.yaw = 90;
-    engine.camera.pitch = -10;
-
+    engine.camera.pitch = -15;
+    
     while (engine.window.isOpen())
     {
         engine.objects[0].transform.rotation.y += 1;
-        // engine.objects[0].transform.position.z += 0.5;
         engine.draw();
     }
 
