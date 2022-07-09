@@ -21,7 +21,6 @@ int main()
     
     while (engine.window.isOpen())
     {
-        // engine.objects[0].transform.position.z += 0.1;
         engine.objects[0].transform.rotation.y += 1;
         engine.objects[0].transform.rotation.x += 1;
         engine.draw();

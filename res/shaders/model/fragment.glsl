@@ -70,7 +70,7 @@ float ShadowCalculation(vec3 fragPosWorldSpace)
             float pcfDepth = texture(gShadowMap[layer], projCoords.xy + vec2(x, y) * texelSize).r;
             float r = texture(idTexture[layer], projCoords.xy + vec2(x, y) * texelSize).r;
             if(currentDepth > pcfDepth && objectID != r){
-                shadow += 0.5;
+                shadow += 0.3;
             }
         }    
     }
