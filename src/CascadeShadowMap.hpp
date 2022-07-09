@@ -10,4 +10,5 @@ public:
 
     GLuint fbo;
     GLuint shadowMap[3];
+    GLuint IDTexture[3];
 };

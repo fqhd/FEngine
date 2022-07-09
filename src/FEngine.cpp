@@ -118,6 +118,7 @@ void FEngine::draw()
         depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
         for (unsigned int i = 0; i < objects.size(); i++)
         {
+            depthShader.set("objectID", (int)i);
             depthShader.set("model", objects[i].transform.getMatrix());
             objects[i].model.draw();
         }
