@@ -13,6 +13,7 @@ public:
     void generateShadowMap(FObject* objects, int size);
     void bindForReading();
     void bindForWriting(int index);
+    void destroy();
     glm::mat4 getLightSpaceMatrix(const float nearPlane, const float farPlane);
     Camera* camera;
     Shader depthShader;

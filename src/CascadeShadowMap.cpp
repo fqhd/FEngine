@@ -182,3 +182,10 @@ glm::mat4 CascadeShadowMap::getLightSpaceMatrix(const float nearPlane, const flo
 
     return lightProjection * lightView;
 }
+
+void CascadeShadowMap::destroy(){
+    depthShader.destroy();
+    glDeleteTextures(3, shadowMap);
+    glDeleteTextures(3, IDTexture);
+    glDeleteFramebuffers(1, &fbo);
+}

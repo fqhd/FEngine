@@ -28,6 +28,8 @@ FObject FEngine::loadObject(const std::string &path, Color color)
 
 void FEngine::destroy()
 {
+    skybox.destroy();
+    modelRenderer.destroy();
     for (auto &object : objects)
     {
         object.model.destroy();

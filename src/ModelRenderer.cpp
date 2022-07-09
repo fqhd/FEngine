@@ -50,3 +50,8 @@ void ModelRenderer::drawObjects(FObject *objects, int size)
     }
     shader.unbind();
 }
+
+void ModelRenderer::destroy(){
+    shadowMap.destroy();
+    shader.destroy();
+}
