@@ -2,8 +2,8 @@
 
 uniform int objectID;
 
-out vec4 outColor;
+out uvec4 outColor;
 
 void main(){
-    outColor = vec4(float(objectID), 0.0, 0.0, 0.0);
+    outColor = uvec4(float(objectID), 0.0, 0.0, 0.0);
 }

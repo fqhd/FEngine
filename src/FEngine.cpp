@@ -15,6 +15,9 @@ FEngine::FEngine(const char *title, int width, int height)
     shader.set("gShadowMap[0]", 3);
     shader.set("gShadowMap[1]", 4);
     shader.set("gShadowMap[2]", 5);
+    shader.set("idTexture[0]", 6);
+    shader.set("idTexture[1]", 7);
+    shader.set("idTexture[2]", 8);
     skybox.init();
     shadowMap.init();
     lightDirection = glm::normalize(glm::vec3(1.0));
@@ -118,7 +121,7 @@ void FEngine::draw()
         depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
         for (unsigned int i = 0; i < objects.size(); i++)
         {
-            depthShader.set("objectID", (int)i);
+            depthShader.set("objectID", (int)i+1);
             depthShader.set("model", objects[i].transform.getMatrix());
             objects[i].model.draw();
         }
@@ -148,18 +151,14 @@ void FEngine::draw()
     }
 
     // Bind the cascades
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[0]);
-    glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[1]);
-    glActiveTexture(GL_TEXTURE5);
-    glBindTexture(GL_TEXTURE_2D, shadowMap.shadowMap[2]);
+    shadowMap.bindForReading();
 
-    for (const auto &object : objects)
+    for (unsigned int i = 0; i < objects.size(); i++)
     {
-        object.texture.bind();
-        shader.set("model", object.transform.getMatrix());
-        object.model.draw();
+        objects[i].texture.bind();
+        shader.set("objectID", (int)i+1);
+        shader.set("model", objects[i].transform.getMatrix());
+        objects[i].model.draw();
     }
     shader.unbind();
     skybox.render(camera.getProjection(), camera.getView());
