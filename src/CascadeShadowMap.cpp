@@ -25,14 +25,12 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         cascadeSplits[0] = camera->near;
         cascadeSplits[1] = 25.0f;
-        cascadeSplits[2] = 100.0f;
+        cascadeSplits[2] = 90.0f;
         cascadeSplits[3] = camera->far;
-        width /= 2;
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[0], 0);
-    width = 4096;
     for (int i = 0; i < 3; i++)
     {
         glBindTexture(GL_TEXTURE_2D, IDTexture[i]);
@@ -42,7 +40,6 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        width /= 2;
     }
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, IDTexture[0], 0);
@@ -109,7 +106,6 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
         }
         glCullFace(GL_BACK);
         depthShader.unbind();
-        width /= 2;
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
