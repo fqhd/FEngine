@@ -60,8 +60,13 @@ float ShadowCalculation(vec3 fragPosWorldSpace)
 
     // PCF
     float shadow = 0.0;
-
-    float texelSize = 1.0 / 2048.0;
+    float width = 4096.0;
+    if(layer == 1){
+        width = 2048.0;
+    }else if(layer == 2){
+        width = 1024.0;
+    }
+    float texelSize = 1.0 / width;
     for(int x = -1; x <= 1; ++x)
     {
         for(int y = -1; y <= 1; ++y)
