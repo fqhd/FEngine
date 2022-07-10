@@ -6,7 +6,6 @@ void DeferredRenderer::init(Camera* cam, Window* window){
     shader.init("res/shaders/deferred");
     shader.bind();
     shader.set("albedoTexture", 0);
-    shader.set("specularTexture", 2);
     skybox.init();
     camera = cam;
 }
@@ -19,6 +18,7 @@ void DeferredRenderer::draw(FObject* objects, int size){
     shader.set("view", camera->getView());
     for(int i = 0; i < size; i++){
         shader.set("model", objects[i].transform.getMatrix());
+        shader.set("objectID", i+1);
         objects[i].texture.bind();
         objects[i].model.draw();
     }

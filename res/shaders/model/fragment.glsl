@@ -5,7 +5,7 @@ const int cascadeCount = 3;
 
 in vec2 vUV;
 
-uniform sampler2D texAlbedo;
+uniform usampler2D texAlbedo;
 uniform sampler2D texNormal;
 uniform sampler2D texSpecular;
 uniform sampler2D texPosition;
@@ -17,12 +17,11 @@ uniform mat4 view;
 uniform float farPlane;
 uniform vec3 lightDir;
 uniform vec3 viewPos;
-uniform int objectID;
 
 
 out vec4 outColor;
 
-float ShadowCalculation(vec3 fragPosWorldSpace)
+float ShadowCalculation(vec3 fragPosWorldSpace, int objectID)
 {
     // select cascade layer
     vec4 fragPosViewSpace = view * vec4(fragPosWorldSpace, 1.0);
@@ -84,9 +83,11 @@ float ShadowCalculation(vec3 fragPosWorldSpace)
 }
 
 void main(){
-    vec3 albedo = texture(texAlbedo, vUV).rgb;
+    uvec4 albedo = texture(texAlbedo, vUV);
+    vec3 diffuse = albedo.rgb / 255.0;
+    vec3 worldPos = texture(texPosition, vUV).rgb;
 
-    // float factor = ShadowCalculation(WorldPos);
+    float factor = ShadowCalculation(worldPos, int(albedo.a));
 
-    outColor = vec4(albedo, 1.0);
+    outColor = vec4(diffuse * factor, 1.0);
 }

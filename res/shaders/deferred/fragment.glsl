@@ -9,11 +9,11 @@ in vec3 vNormal;
 in vec2 vUV;
 
 uniform sampler2D albedoTexture;
-uniform sampler2D specularTexture;
+uniform int objectID;
 
 void main(){
     fPosition = vPosition;
     fNormal = vNormal;
     fAlbedo.rgb = texture(albedoTexture, vUV).rgb;
-    fAlbedo.a = texture(specularTexture, vUV).r;
+    fAlbedo.a = objectID / 255.0;
 }
