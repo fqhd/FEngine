@@ -7,7 +7,7 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
 {
     window = win;
     camera = cam;
-    depthShader.init("./res/shaders/depth/vertex.glsl", "./res/shaders/depth/fragment.glsl");
+    depthShader.init("./res/shaders/depth");
     glGenFramebuffers(1, &fbo);
 
     // Create the depth buffer

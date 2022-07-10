@@ -7,6 +7,8 @@
 #include "Shader.hpp"
 #include "Skybox.hpp"
 #include "ModelRenderer.hpp"
+#include "GBuffer.hpp"
+#include "DeferredRenderer.hpp"
 
 class FEngine {
 public:
@@ -21,5 +23,6 @@ public:
     InputManager inputManager;
     Camera camera;
     ModelRenderer modelRenderer;
+    DeferredRenderer deferredRenderer;
     std::vector<FObject> objects;
 };

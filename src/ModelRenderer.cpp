@@ -3,7 +3,7 @@
 void ModelRenderer::init(Camera *cam, Window *window)
 {
     camera = cam;
-    shader.init("./res/shaders/model/vertex.glsl", "./res/shaders/model/fragment.glsl");
+    shader.init("./res/shaders/model");
     shader.bind();
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);

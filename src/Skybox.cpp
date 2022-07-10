@@ -3,7 +3,7 @@
 
 void Skybox::init() {
 	cube.init();
-	shader.init("res/shaders/skybox/vertex.glsl", "res/shaders/skybox/fragment.glsl");
+	shader.init("res/shaders/skybox");
 }
 
 void Skybox::render(const glm::mat4& projection, glm::mat4 view) {

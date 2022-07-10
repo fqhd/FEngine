@@ -7,12 +7,15 @@ FEngine::FEngine(const char *title, int width, int height)
     camera.init(width, height, 70.0f, 0.1, 450.0f);
     modelRenderer.init(&camera, &window);
     skybox.init();
+    deferredRenderer.init(&camera);
 }
 
 void FEngine::draw()
 {
     window.clear();
     inputManager.processInput();
+
+    deferredRenderer.draw(objects.data(), objects.size());
 
     modelRenderer.drawObjects(objects.data(), objects.size());
 

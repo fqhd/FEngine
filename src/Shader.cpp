@@ -20,12 +20,12 @@ std::string readFileToString(const std::string& shaderName) {
 	return shaderCode;
 }
 
-void Shader::init(const char* vs, const char* fs){
+void Shader::init(const std::string& dirPath){
 	m_vertexID = glCreateShader(GL_VERTEX_SHADER);
 	m_fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 
-	std::string vsCode = readFileToString(vs);
-	std::string fsCode = readFileToString(fs);
+	std::string vsCode = readFileToString(dirPath + "/vertex.glsl");
+	std::string fsCode = readFileToString(dirPath + "/fragment.glsl");
 
 	const char* vs_pointer = vsCode.c_str();
 	const char* fs_pointer = fsCode.c_str();
@@ -39,13 +39,13 @@ void Shader::init(const char* vs, const char* fs){
 	glCompileShader(m_vertexID);
 	glGetShaderiv(m_vertexID, GL_COMPILE_STATUS, &vsCompileStatus);
 	if(!vsCompileStatus){
-		printf("Failed to compile vertex shader: %s\n", vs);
+        std::cout << "Failed to compile vertex shader: " << dirPath + "/vertex.glsl" << std::endl;
 	}
 
 	glCompileShader(m_fragmentID);
 	glGetShaderiv(m_fragmentID, GL_COMPILE_STATUS, &fsCompileStatus);
 	if(!fsCompileStatus){
-		printf("Failed to compile fragment shader: %s\n", fs);
+        std::cout << "Failed to compile fragment shader: " << dirPath + "/fragment.glsl" << std::endl;
 	}
 
 	m_programID = glCreateProgram();
