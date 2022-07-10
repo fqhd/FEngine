@@ -56,14 +56,10 @@ void GBuffer::init(unsigned int width, unsigned int height)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void GBuffer::clear()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 void GBuffer::bind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void GBuffer::unbind()

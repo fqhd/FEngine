@@ -18,7 +18,6 @@ public:
     void draw();
     void destroy();
     
-    Skybox skybox;
     Window window;
     InputManager inputManager;
     Camera camera;

@@ -8,11 +8,11 @@ void Quad::init(){
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
 
     float vertices[] = {
-        -1.0, -1.0,
         -1.0, 1.0,
-        1.0, 1.0,
         -1.0, -1.0,
         1.0, 1.0,
+        1.0, 1.0,
+        -1.0, -1.0,
         1.0, -1.0,
     };
 

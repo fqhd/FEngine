@@ -10,7 +10,6 @@ public:
     void bind();
     void unbind();
     void destroy();
-    void clear();
 
     GLuint fboID = 0;
     GLuint rboID = 0;

@@ -4,7 +4,7 @@
 in vec3 textureCoords;
 
 //Outs
-out vec4 out_color;
+layout (location = 2) out vec4 out_color;
 
 //Constants
 const float upperLimit = 0.2;
