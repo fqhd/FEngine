@@ -1,14 +1,14 @@
 #version 330 core
 
 const int NUM_CASCADES = 3;
+const int cascadeCount = 3;
 
 in vec2 vUV;
-in vec3 WorldPos;
-in vec3 vNormal;
 
 uniform sampler2D texAlbedo;
 uniform sampler2D texNormal;
 uniform sampler2D texSpecular;
+uniform sampler2D texPosition;
 uniform sampler2D gShadowMap[NUM_CASCADES];
 uniform usampler2D idTexture[NUM_CASCADES];
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
@@ -19,7 +19,6 @@ uniform vec3 lightDir;
 uniform vec3 viewPos;
 uniform int objectID;
 
-const int cascadeCount = 3;
 
 out vec4 outColor;
 
@@ -84,22 +83,10 @@ float ShadowCalculation(vec3 fragPosWorldSpace)
     return 1.0 - shadow;
 }
 
-vec3 getShadowColor(int CascadeIndex, vec4 lPos)
-{
-    if(CascadeIndex == 0){
-        return vec3(0.0, 0.0, 1.0);
-    }else if(CascadeIndex == 1){
-        return vec3(0.0, 1.0, 0.0);
-    }else{
-        return vec3(1.0, 0.0, 0.0);
-    }
-}
-
-
 void main(){
     vec3 albedo = texture(texAlbedo, vUV).rgb;
 
-    float factor = ShadowCalculation(WorldPos);
+    // float factor = ShadowCalculation(WorldPos);
 
-    outColor = vec4(albedo * factor, 1.0);
+    outColor = vec4(albedo, 1.0);
 }

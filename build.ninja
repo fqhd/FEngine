@@ -8,13 +8,13 @@ rule lnk
 build obj/SSAOBlurBuffer.o: cxx ./src/SSAOBlurBuffer.cpp
 build obj/GLTexture.o: cxx ./src/GLTexture.cpp
 build obj/Image.o: cxx ./src/Image.cpp
+build obj/MasterRenderer.o: cxx ./src/MasterRenderer.cpp
 build obj/Camera.o: cxx ./src/Camera.cpp
 build obj/OBJLoader.o: cxx ./src/OBJLoader.cpp
 build obj/Window.o: cxx ./src/Window.cpp
 build obj/FEngine.o: cxx ./src/FEngine.cpp
 build obj/Texture.o: cxx ./src/Texture.cpp
 build obj/Quad.o: cxx ./src/Quad.cpp
-build obj/ModelRenderer.o: cxx ./src/ModelRenderer.cpp
 build obj/SSAOBuffer.o: cxx ./src/SSAOBuffer.cpp
 build obj/Shader.o: cxx ./src/Shader.cpp
 build obj/InputManager.o: cxx ./src/InputManager.cpp
@@ -26,4 +26,4 @@ build obj/DeferredRenderer.o: cxx ./src/DeferredRenderer.cpp
 build obj/Cube.o: cxx ./src/Cube.cpp
 build obj/CascadeShadowMap.o: cxx ./src/CascadeShadowMap.cpp
 build obj/main.o: cxx ./src/main.cpp
-build out: lnk obj/SSAOBlurBuffer.o obj/GLTexture.o obj/Image.o obj/Camera.o obj/OBJLoader.o obj/Window.o obj/FEngine.o obj/Texture.o obj/Quad.o obj/ModelRenderer.o obj/SSAOBuffer.o obj/Shader.o obj/InputManager.o obj/Skybox.o obj/Transform.o obj/GBuffer.o obj/Model.o obj/DeferredRenderer.o obj/Cube.o obj/CascadeShadowMap.o obj/main.o
+build out: lnk obj/SSAOBlurBuffer.o obj/GLTexture.o obj/Image.o obj/MasterRenderer.o obj/Camera.o obj/OBJLoader.o obj/Window.o obj/FEngine.o obj/Texture.o obj/Quad.o obj/SSAOBuffer.o obj/Shader.o obj/InputManager.o obj/Skybox.o obj/Transform.o obj/GBuffer.o obj/Model.o obj/DeferredRenderer.o obj/Cube.o obj/CascadeShadowMap.o obj/main.o

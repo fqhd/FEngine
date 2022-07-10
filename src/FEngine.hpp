@@ -6,7 +6,7 @@
 #include "FObject.h"
 #include "Shader.hpp"
 #include "Skybox.hpp"
-#include "ModelRenderer.hpp"
+#include "MasterRenderer.hpp"
 #include "GBuffer.hpp"
 #include "DeferredRenderer.hpp"
 
@@ -22,7 +22,7 @@ public:
     Window window;
     InputManager inputManager;
     Camera camera;
-    ModelRenderer modelRenderer;
+    MasterRenderer masterRenderer;
     DeferredRenderer deferredRenderer;
     std::vector<FObject> objects;
 };

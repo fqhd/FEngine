@@ -12,14 +12,9 @@ public:
     void destroy();
     void clear();
 
-    GLuint getPositionTextureID();
-    GLuint getAlbedoTextureID();
-    GLuint getNormalTextureID();
-
-private:
-    GLuint m_fboID = 0;
-    GLuint m_rboID = 0;
-    GLuint m_positionTextureID = 0;
-    GLuint m_albedoTextureID = 0;
-    GLuint m_normalTextureID = 0;
+    GLuint fboID = 0;
+    GLuint rboID = 0;
+    GLuint positionTextureID = 0;
+    GLuint albedoTextureID = 0;
+    GLuint normalTextureID = 0;
 };
