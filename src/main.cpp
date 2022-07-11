@@ -10,7 +10,7 @@ int main()
     engine.objects.push_back(cube);
     engine.objects.push_back(plane);
 
-    engine.objects[0].transform.position.y = 1;
+    engine.objects[0].transform.position.y = 2;
     engine.objects[0].transform.position.z = 5;
     engine.objects[1].transform.scale = glm::vec3(1000);
 
@@ -21,6 +21,7 @@ int main()
     
     while (engine.window.isOpen())
     {
+        engine.objects[0].transform.rotation.y += 1;
         engine.draw();
     }
 
