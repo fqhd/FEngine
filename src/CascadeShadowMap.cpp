@@ -48,7 +48,7 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
 
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "FB error, status: 0x" << Status << std::endl;
+        std::cout << "Failed to compile ShadowMap Framebuffer with Error 0x" << Status << std::endl;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

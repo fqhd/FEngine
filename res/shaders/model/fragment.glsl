@@ -88,7 +88,7 @@ void main(){
     float ssao = texture(ssaoTexture, vUV).r;
     vec3 worldPos = texture(texPosition, vUV).rgb;
 
-    float factor = ShadowCalculation(worldPos, int(albedo.a));
+    float shadowFactor = ShadowCalculation(worldPos, int(albedo.a));
 
-    outColor = vec4(ssao, ssao, ssao, 1.0);
+    outColor = vec4(diffuse * shadowFactor * ssao, 1.0);
 }

@@ -30,7 +30,7 @@ void SSAO::init(Window *win)
 
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "FB error, status: 0x" << Status << std::endl;
+        std::cout << "Failed to create SSAO Framebuffer with error: 0x" << Status << std::endl;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

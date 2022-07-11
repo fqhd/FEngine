@@ -4,6 +4,7 @@
 #include "Quad.hpp"
 #include "DeferredRenderer.hpp"
 #include "SSAO.hpp"
+#include "SSAOBlur.hpp"
 
 class MasterRenderer {
 public:
@@ -14,5 +15,6 @@ public:
     Quad quad;
     Shader shader;
     Camera* camera;
+    SSAOBlur ssaoBlur;
     CascadeShadowMap shadowMap;
 };
