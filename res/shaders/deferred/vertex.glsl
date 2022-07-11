@@ -13,10 +13,10 @@ uniform mat4 view;
 uniform mat4 projection;
 
 void main(){
-    vec4 worldPosition = model * vec4(aPosition, 1.0);
-    gl_Position = projection * view * worldPosition;
+    vec4 worldViewPosition = view * model * vec4(aPosition, 1.0);
+    gl_Position = projection * worldViewPosition;
 
-    vPosition = worldPosition.xyz;
+    vPosition = worldViewPosition.xyz;
     vNormal = (model * vec4(aNormal, 0.0)).xyz;
     vUV = aUV;
 }

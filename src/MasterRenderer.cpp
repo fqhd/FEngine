@@ -14,13 +14,16 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shader.set("idTexture[0]", 6);
     shader.set("idTexture[1]", 7);
     shader.set("idTexture[2]", 8);
+    shader.set("ssaoTexture", 9);
     shadowMap.init(camera, window);
     quad.init();
+    ssao.init(window);
 }
 
 void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& renderer)
 {
     shadowMap.generateShadowMap(objects, size);
+    ssao.draw(renderer, camera);
     shader.bind();
     shader.set("projection", camera->getProjection());
     shader.set("view", camera->getView());
@@ -48,6 +51,8 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.normalTextureID);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.positionTextureID);
+    glActiveTexture(GL_TEXTURE9);
+    glBindTexture(GL_TEXTURE_2D, ssao.textureID);
     quad.draw();
     shader.unbind();
 }

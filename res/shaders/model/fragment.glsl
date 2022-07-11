@@ -11,6 +11,7 @@ uniform sampler2D texSpecular;
 uniform sampler2D texPosition;
 uniform sampler2D gShadowMap[NUM_CASCADES];
 uniform usampler2D idTexture[NUM_CASCADES];
+uniform sampler2D ssaoTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
 uniform mat4 view;
@@ -21,10 +22,9 @@ uniform vec3 viewPos;
 
 out vec4 outColor;
 
-float ShadowCalculation(vec3 fragPosWorldSpace, int objectID)
+float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
 {
     // select cascade layer
-    vec4 fragPosViewSpace = view * vec4(fragPosWorldSpace, 1.0);
     float depthValue = abs(fragPosViewSpace.z);
 
     int layer = -1;
@@ -40,7 +40,7 @@ float ShadowCalculation(vec3 fragPosWorldSpace, int objectID)
     {
         layer = cascadeCount;
     }
-
+    vec3 fragPosWorldSpace = (inverse(view) * vec4(fragPosViewSpace, 1.0)).xyz;
     vec4 fragPosLightSpace = lightSpaceMatrices[layer] * vec4(fragPosWorldSpace, 1.0);
     // perform perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -85,9 +85,10 @@ float ShadowCalculation(vec3 fragPosWorldSpace, int objectID)
 void main(){
     uvec4 albedo = texture(texAlbedo, vUV);
     vec3 diffuse = albedo.rgb / 255.0;
+    float ssao = texture(ssaoTexture, vUV).r;
     vec3 worldPos = texture(texPosition, vUV).rgb;
 
     float factor = ShadowCalculation(worldPos, int(albedo.a));
 
-    outColor = vec4(diffuse * factor, 1.0);
+    outColor = vec4(ssao, ssao, ssao, 1.0);
 }
