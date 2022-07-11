@@ -49,6 +49,10 @@ void SSAO::init(Window *win)
         sample *= scale;
         ssaoKernel.push_back(sample);
     }
+    for (unsigned int i = 0; i < ssaoKernel.size(); i++)
+    {
+        shader.set("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
+    }
 }
 
 void SSAO::draw(DeferredRenderer &renderer, Camera *camera)
@@ -67,10 +71,6 @@ void SSAO::draw(DeferredRenderer &renderer, Camera *camera)
     shader.set("view", camera->getView());
     shader.set("kernelSize", (int)ssaoKernel.size());
     shader.set("projection", camera->getProjection());
-    for (unsigned int i = 0; i < ssaoKernel.size(); i++)
-    {
-        shader.set("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
-    }
     quad.draw();
     shader.unbind();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
