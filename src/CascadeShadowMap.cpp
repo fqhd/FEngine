@@ -92,8 +92,9 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
 glm::mat4 CascadeShadowMap::getLightSpaceMatrix(const float nearPlane, const float farPlane)
 {
     const auto proj = glm::perspective(
-        glm::radians(camera->fov), camera->width / camera->height, nearPlane,
+        glm::radians(camera->fov), camera->ar, nearPlane,
         farPlane);
+
     const glm::mat4 projview = proj * camera->getView();
 
     std::vector<glm::vec4> corners;

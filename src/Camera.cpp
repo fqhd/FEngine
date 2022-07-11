@@ -2,8 +2,7 @@
 #include <iostream>
 
 void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPlane){
-    width = (float) w;
-    height = (float) h;
+    ar = w / (float)h;
 	position = glm::vec3(0);
     fov = f;
     near = n;
@@ -11,14 +10,26 @@ void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPla
     lightDirection = glm::normalize(glm::vec3(0.5, 1.0, -0.7));
 }
 
-glm::mat4 Camera::getProjection() const {
-	return glm::perspective(glm::radians(fov), width / height, near, far);
+void Camera::update(){
+    if(pitch != previousPitch || yaw != previousYaw || position != previousPosition){
+        previousPitch = pitch;
+        previousYaw = yaw;
+        previousPosition = position;
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.y = sin(glm::radians(pitch));
+        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        view = glm::lookAt(position, position + direction, glm::vec3(0, 1, 0));
+    }
+    if(fov != previousFov){
+        projection = glm::perspective(glm::radians(fov), ar, near, far);
+    }
 }
 
-glm::mat4 Camera::getView() const {
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	return glm::lookAt(position, position + direction, glm::vec3(0, 1, 0));
+const glm::mat4& Camera::getProjection() const {
+    return projection;
+}
+
+const glm::mat4& Camera::getView() const {
+    return view;
 }

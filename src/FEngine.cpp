@@ -13,6 +13,7 @@ void FEngine::draw()
 {
     window.clear();
     inputManager.processInput();
+    camera.update();
 
     deferredRenderer.draw(objects.data(), objects.size());
 
