@@ -19,6 +19,7 @@ public:
 
 private:
 
+    glm::ivec2 framebufferSize;
 	GLFWwindow* m_window;
 
 };

@@ -61,6 +61,11 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
 
     // We need to do this for the skybox to work
     glDepthFunc(GL_LEQUAL);
+
+    // Caching the framebuffer size
+    int x, y;
+    glfwGetFramebufferSize(m_window, &x, &y);
+    framebufferSize = glm::ivec2(x, y);
 }
 
 GLFWwindow *Window::getWindowPtr()
@@ -79,9 +84,7 @@ void Window::clear()
 }
 
 glm::ivec2 Window::getFramebufferSize(){
-    int x, y;
-    glfwGetFramebufferSize(m_window, &x, &y);
-    return glm::ivec2(x, y);
+    return framebufferSize;
 }
 
 
