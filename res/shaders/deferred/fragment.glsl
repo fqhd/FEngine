@@ -9,11 +9,10 @@ in vec3 vNormal;
 in vec2 vUV;
 
 uniform sampler2D albedoTexture;
-uniform int objectID;
 
 void main(){
     fPosition = vPosition;
     fNormal = normalize(vNormal);
     fAlbedo.rgb = texture(albedoTexture, vUV).rgb;
-    fAlbedo.a = objectID / 255.0;
+    fAlbedo.a = 1.0;
 }

@@ -20,7 +20,6 @@ public:
     Window* window;
     GLuint fbo;
     GLuint shadowMap[3];
-    GLuint IDTexture[3];
     glm::mat4 lightSpaceMatrices[3];
     float cascadeSplits[4];
 };

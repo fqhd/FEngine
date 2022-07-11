@@ -5,12 +5,11 @@ const int cascadeCount = 3;
 
 in vec2 vUV;
 
-uniform usampler2D texAlbedo;
+uniform sampler2D texAlbedo;
 uniform sampler2D texNormal;
 uniform sampler2D texSpecular;
 uniform sampler2D texPosition;
 uniform sampler2D gShadowMap[NUM_CASCADES];
-uniform usampler2D idTexture[NUM_CASCADES];
 uniform sampler2D ssaoTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
@@ -22,7 +21,7 @@ uniform vec3 viewPos;
 
 out vec4 outColor;
 
-float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
+float ShadowCalculation(vec3 fragPosViewSpace)
 {
     // select cascade layer
     float depthValue = abs(fragPosViewSpace.z);
@@ -66,7 +65,6 @@ float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
         for(int y = -kernelSize; y <= kernelSize; ++y)
         {
             float pcfDepth = texture(gShadowMap[layer], projCoords.xy + vec2(x, y) * texelSize).r;
-            float r = texture(idTexture[layer], projCoords.xy + vec2(x, y) * texelSize).r;
             if(currentDepth > pcfDepth){
                 shadow += 0.6;
             }
@@ -83,15 +81,14 @@ float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
 }
 
 void main(){
-    uvec4 albedo = texture(texAlbedo, vUV);
-    vec3 diffuse = albedo.rgb / 255.0;
+    vec3 albedo = texture(texAlbedo, vUV).rgb;
     float ssao = texture(ssaoTexture, vUV).r;
     vec3 worldPos = texture(texPosition, vUV).rgb;
 
-    float shadowFactor = ShadowCalculation(worldPos, int(albedo.a));
+    float shadowFactor = ShadowCalculation(worldPos);
     vec3 normal = texture(texNormal, vUV).rgb;
     float brightness = max(dot(normal, lightDir), 0.4);
     brightness = min(shadowFactor, brightness);
 
-    outColor = vec4(diffuse * ssao * brightness, 1.0);
+    outColor = vec4(albedo * ssao * brightness, 1.0);
 }

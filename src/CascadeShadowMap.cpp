@@ -12,7 +12,6 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
 
     // Create the depth buffer
     glGenTextures(3, shadowMap);
-    glGenTextures(3, IDTexture);
     int width = 4096;
     for (int i = 0; i < 3; i++)
     {
@@ -31,18 +30,6 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[0], 0);
-    for (int i = 0; i < 3; i++)
-    {
-        glBindTexture(GL_TEXTURE_2D, IDTexture[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_R16UI, width, width, 0, GL_RED_INTEGER, GL_UNSIGNED_SHORT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    }
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, IDTexture[0], 0);
 
     GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
@@ -56,7 +43,6 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
 void CascadeShadowMap::bindForWriting(int index)
 {
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[index], 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, IDTexture[index], 0);
 }
 
 void CascadeShadowMap::bindForReading()
@@ -69,15 +55,6 @@ void CascadeShadowMap::bindForReading()
 
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, shadowMap[2]);
-
-    glActiveTexture(GL_TEXTURE6);
-    glBindTexture(GL_TEXTURE_2D, IDTexture[0]);
-
-    glActiveTexture(GL_TEXTURE7);
-    glBindTexture(GL_TEXTURE_2D, IDTexture[1]);
-
-    glActiveTexture(GL_TEXTURE8);
-    glBindTexture(GL_TEXTURE_2D, IDTexture[2]);
 }
 
 void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
@@ -100,7 +77,6 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
         glCullFace(GL_FRONT);
         for (int i = 0; i < size; i++)
         {
-            depthShader.set("objectID", (int)i + 1);
             depthShader.set("model", objects[i].transform.getMatrix());
             objects[i].model.draw();
         }
@@ -187,6 +163,5 @@ glm::mat4 CascadeShadowMap::getLightSpaceMatrix(const float nearPlane, const flo
 void CascadeShadowMap::destroy(){
     depthShader.destroy();
     glDeleteTextures(3, shadowMap);
-    glDeleteTextures(3, IDTexture);
     glDeleteFramebuffers(1, &fbo);
 }
