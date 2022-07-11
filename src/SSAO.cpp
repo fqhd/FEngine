@@ -78,5 +78,9 @@ void SSAO::draw(DeferredRenderer &renderer, Camera *camera)
 
 void SSAO::destroy()
 {
+    glDeleteFramebuffers(1, &fbo);
+    glDeleteTextures(1, &textureID);
     quad.destroy();
+    shader.destroy();
+    noiseTexture.destroy();
 }

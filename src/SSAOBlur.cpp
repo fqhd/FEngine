@@ -35,4 +35,7 @@ void SSAOBlur::draw(GLuint ssaoTexture)
 
 void SSAOBlur::destroy(){
     quad.destroy();
+    glDeleteTextures(1, &textureID);
+    glDeleteFramebuffers(1, &fbo);
+    shader.destroy();
 }
