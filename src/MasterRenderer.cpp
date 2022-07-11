@@ -59,4 +59,7 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
 void MasterRenderer::destroy(){
     shadowMap.destroy();
     shader.destroy();
+    ssaoBlur.destroy();
+    ssao.destroy();
+    quad.destroy();
 }

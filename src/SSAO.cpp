@@ -78,5 +78,5 @@ void SSAO::draw(DeferredRenderer &renderer, Camera *camera)
 
 void SSAO::destroy()
 {
-    // TODO Fill this.
+    quad.destroy();
 }

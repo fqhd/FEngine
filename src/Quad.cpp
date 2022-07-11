@@ -1,5 +1,7 @@
 #include "Quad.hpp"
 
+#include <iostream>
+
 void Quad::init(){
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
@@ -28,4 +30,8 @@ void Quad::draw(){
     glBindVertexArray(vaoID);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
+}
+
+void Quad::destroy(){
+    glDeleteVertexArrays(1, &vaoID);
 }

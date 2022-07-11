@@ -32,3 +32,7 @@ void SSAOBlur::draw(GLuint ssaoTexture)
     shader.unbind();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
+void SSAOBlur::destroy(){
+    quad.destroy();
+}
