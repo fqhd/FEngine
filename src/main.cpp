@@ -10,9 +10,9 @@ int main()
     engine.objects.push_back(cube);
     engine.objects.push_back(plane);
 
-    engine.objects[0].transform.position.y = 2;
+    engine.objects[0].transform.position.y = 1;
     engine.objects[0].transform.position.z = 5;
-    engine.objects[1].transform.scale = glm::vec3(1000);
+    engine.objects[1].transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
     engine.camera.position.y = 5;

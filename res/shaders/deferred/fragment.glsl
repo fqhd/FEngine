@@ -13,7 +13,7 @@ uniform int objectID;
 
 void main(){
     fPosition = vPosition;
-    fNormal = vNormal;
+    fNormal = normalize(vNormal);
     fAlbedo.rgb = texture(albedoTexture, vUV).rgb;
     fAlbedo.a = objectID / 255.0;
 }
