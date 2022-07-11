@@ -67,8 +67,8 @@ float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
         {
             float pcfDepth = texture(gShadowMap[layer], projCoords.xy + vec2(x, y) * texelSize).r;
             float r = texture(idTexture[layer], projCoords.xy + vec2(x, y) * texelSize).r;
-            if(currentDepth > pcfDepth && objectID != r){
-                shadow += 0.3;
+            if(currentDepth > pcfDepth){
+                shadow += 0.6;
             }
         }    
     }
@@ -90,6 +90,8 @@ void main(){
 
     float shadowFactor = ShadowCalculation(worldPos, int(albedo.a));
     vec3 normal = texture(texNormal, vUV).rgb;
+    float brightness = max(dot(normal, lightDir), 0.4);
+    brightness = min(shadowFactor, brightness);
 
-    outColor = vec4(diffuse * shadowFactor * ssao, 1.0);
+    outColor = vec4(diffuse * ssao * brightness, 1.0);
 }
