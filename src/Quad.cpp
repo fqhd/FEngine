@@ -13,8 +13,6 @@ void Quad::init(){
         -1.0, 1.0,
         -1.0, -1.0,
         1.0, 1.0,
-        1.0, 1.0,
-        -1.0, -1.0,
         1.0, -1.0,
     };
 
@@ -28,7 +26,7 @@ void Quad::init(){
 
 void Quad::draw(){
     glBindVertexArray(vaoID);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 6);
     glBindVertexArray(0);
 }
 
