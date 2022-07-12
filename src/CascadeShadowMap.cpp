@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-void CascadeShadowMap::init(Camera *cam, Window* win)
+void CascadeShadowMap::init(Camera *cam, Window *win)
 {
     window = win;
     camera = cam;
@@ -11,50 +11,49 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
     glGenFramebuffers(1, &fbo);
 
     // Create the depth buffer
-    glGenTextures(3, shadowMap);
+    glGenTextures(1, &texture);
     int width = 4096;
-    for (int i = 0; i < 3; i++)
-    {
-        glBindTexture(GL_TEXTURE_2D, shadowMap[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, width, width, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        cascadeSplits[0] = camera->near;
-        cascadeSplits[1] = 15.0f;
-        cascadeSplits[2] = 70.0f;
-        cascadeSplits[3] = camera->far;
-    }
+    glBindTexture(GL_TEXTURE_2D_ARRAY, texture);
+    glTexImage3D(
+        GL_TEXTURE_2D_ARRAY,
+        0,
+        GL_DEPTH_COMPONENT16,
+        width,
+        width,
+        3,
+        0,
+        GL_DEPTH_COMPONENT,
+        GL_FLOAT,
+        nullptr);
+
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+    constexpr float bordercolor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, bordercolor);
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[0], 0);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
 
-    GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    // Disable color buffer
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
 
-    if (Status != GL_FRAMEBUFFER_COMPLETE)
+    int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (status != GL_FRAMEBUFFER_COMPLETE)
     {
-        std::cout << "Failed to compile ShadowMap Framebuffer with Error 0x" << Status << std::endl;
+        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!";
+        throw 0;
     }
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
 
-void CascadeShadowMap::bindForWriting(int index)
-{
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap[index], 0);
-}
-
-void CascadeShadowMap::bindForReading()
-{
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, shadowMap[0]);
-
-    glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, shadowMap[1]);
-
-    glActiveTexture(GL_TEXTURE5);
-    glBindTexture(GL_TEXTURE_2D, shadowMap[2]);
+    cascadeSplits[0] = camera->near;
+    cascadeSplits[1] = 15.0f;
+    cascadeSplits[2] = 70.0f;
+    cascadeSplits[3] = camera->far;
 }
 
 void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
@@ -66,22 +65,21 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
     lightSpaceMatrices[2] = getLightSpaceMatrix(cascadeSplits[2], cascadeSplits[3]);
 
     int width = 4096;
-    for (int i = 0; i < 3; i++)
-    {
-        glViewport(0, 0, width, width);
-        bindForWriting(i);
-        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-        // Draw to depth texture
-        depthShader.bind();
-        depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
-        for (int i = 0; i < size; i++)
-        {
-            depthShader.set("model", objects[i].transform.getMatrix());
-            objects[i].model.draw();
-        }
-        depthShader.unbind();
+    glViewport(0, 0, width, width);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    // Draw to depth texture
+    depthShader.bind();
+    // Upload 3 light space matrices
+    for(int i = 0; i < 3; i++){
+        depthShader.set("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
     }
 
+    for (int i = 0; i < size; i++)
+    {
+        depthShader.set("model", objects[i].transform.getMatrix());
+        objects[i].model.draw();
+    }
+    depthShader.unbind();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glm::ivec2 windowSize = window->getFramebufferSize();
     glViewport(0, 0, windowSize.x, windowSize.y);
@@ -159,8 +157,9 @@ glm::mat4 CascadeShadowMap::getLightSpaceMatrix(const float nearPlane, const flo
     return lightProjection * lightView;
 }
 
-void CascadeShadowMap::destroy(){
+void CascadeShadowMap::destroy()
+{
     depthShader.destroy();
-    glDeleteTextures(3, shadowMap);
+    glDeleteTextures(1, &texture);
     glDeleteFramebuffers(1, &fbo);
 }

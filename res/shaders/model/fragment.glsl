@@ -9,7 +9,7 @@ uniform sampler2D texAlbedo;
 uniform sampler2D texNormal;
 uniform sampler2D texSpecular;
 uniform sampler2D texPosition;
-uniform sampler2D gShadowMap[NUM_CASCADES];
+uniform sampler2DArray gShadowMap;
 uniform sampler2D ssaoTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
@@ -64,7 +64,7 @@ float ShadowCalculation(vec3 fragPosViewSpace, vec3 normal)
     {
         for(int y = -kernelSize; y <= kernelSize; ++y)
         {
-            float pcfDepth = texture(gShadowMap[layer], projCoords.xy + vec2(x, y) * texelSize).r;
+            float pcfDepth = texture(gShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, layer)).r;
             if(currentDepth > pcfDepth){
                 shadow += 0.6;
             }

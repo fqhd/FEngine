@@ -8,10 +8,8 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shader.set("texAlbedo", 0);
     shader.set("texNormal", 1);
     shader.set("texPosition", 2);
-    shader.set("gShadowMap[0]", 3);
-    shader.set("gShadowMap[1]", 4);
-    shader.set("gShadowMap[2]", 5);
-    shader.set("ssaoTexture", 6);
+    shader.set("gShadowMap", 3);
+    shader.set("ssaoTexture", 4);
     shadowMap.init(camera, window);
     quad.init();
     ssao.init(window);
@@ -42,15 +40,15 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     }
 
     // Bind the cascades
-    shadowMap.bindForReading();
-
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.albedoTextureID);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.normalTextureID);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.positionTextureID);
-    glActiveTexture(GL_TEXTURE6);
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
+    glActiveTexture(GL_TEXTURE4);
     glBindTexture(GL_TEXTURE_2D, ssaoBlur.textureID);
     quad.draw();
     shader.unbind();
