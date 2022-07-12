@@ -74,13 +74,11 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
         // Draw to depth texture
         depthShader.bind();
         depthShader.set("lightSpaceMatrix", lightSpaceMatrices[i]);
-        glCullFace(GL_FRONT);
         for (int i = 0; i < size; i++)
         {
             depthShader.set("model", objects[i].transform.getMatrix());
             objects[i].model.draw();
         }
-        glCullFace(GL_BACK);
         depthShader.unbind();
     }
 

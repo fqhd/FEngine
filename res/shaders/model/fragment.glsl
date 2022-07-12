@@ -21,7 +21,7 @@ uniform vec3 viewPos;
 
 out vec4 outColor;
 
-float ShadowCalculation(vec3 fragPosViewSpace)
+float ShadowCalculation(vec3 fragPosViewSpace, vec3 normal)
 {
     // select cascade layer
     float depthValue = abs(fragPosViewSpace.z);
@@ -59,7 +59,7 @@ float ShadowCalculation(vec3 fragPosViewSpace)
     float shadow = 0.0;
     float width = 4096.0;
     float texelSize = 1.0 / width;
-    int kernelSize = 3;
+    int kernelSize = 2;
     for(int x = -kernelSize; x <= kernelSize; ++x)
     {
         for(int y = -kernelSize; y <= kernelSize; ++y)
@@ -68,14 +68,9 @@ float ShadowCalculation(vec3 fragPosViewSpace)
             if(currentDepth > pcfDepth){
                 shadow += 0.6;
             }
-        }    
+        }
     }
-    if((kernelSize % 2) != 0){
-        kernelSize = kernelSize * 2 + 1;
-    }else{
-        kernelSize = kernelSize * 2;
-    }
-    shadow /= float(kernelSize * kernelSize);
+    shadow /= 25.0;
         
     return 1.0 - shadow;
 }
@@ -85,10 +80,9 @@ void main(){
     float ssao = texture(ssaoTexture, vUV).r;
     vec3 worldPos = texture(texPosition, vUV).rgb;
 
-    float shadowFactor = ShadowCalculation(worldPos);
     vec3 normal = texture(texNormal, vUV).rgb;
+    float shadowFactor = ShadowCalculation(worldPos, normal);
     float brightness = max(dot(normal, lightDir), 0.4);
-    brightness = min(shadowFactor, brightness);
 
-    outColor = vec4(albedo * ssao * brightness, 1.0);
+    outColor = vec4(albedo * ssao * shadowFactor, 1.0);
 }

@@ -15,7 +15,7 @@ int main()
     engine.objects[1].transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
-    engine.camera.position.y = 5;
+    engine.camera.position.y = 1;
     engine.camera.yaw = 90;
     engine.camera.pitch = -15;
     
