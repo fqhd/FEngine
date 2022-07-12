@@ -23,8 +23,8 @@ void CascadeShadowMap::init(Camera *cam, Window* win)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         cascadeSplits[0] = camera->near;
-        cascadeSplits[1] = 25.0f;
-        cascadeSplits[2] = 90.0f;
+        cascadeSplits[1] = 15.0f;
+        cascadeSplits[2] = 70.0f;
         cascadeSplits[3] = camera->far;
     }
 

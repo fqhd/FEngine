@@ -4,7 +4,7 @@ FEngine::FEngine(const char *title, int width, int height)
 {
     window.create(width, height, title);
     inputManager.init(window.getWindowPtr());
-    camera.init(width, height, 70.0f, 0.1, 450.0f);
+    camera.init(width, height, 70.0f, 0.1, 350.0f);
     masterRenderer.init(&camera, &window);
     deferredRenderer.init(&camera, &window);
 }

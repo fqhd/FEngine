@@ -5,7 +5,7 @@ in vec2 vUV;
 uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform sampler2D texNoise;
-uniform vec3 samples[32];
+uniform vec3 samples[64];
 uniform mat4 projection;
 uniform mat4 view;
 uniform int screenWidth;
@@ -13,7 +13,7 @@ uniform int screenHeight;
 uniform int kernelSize;
 out float FragColor;
 
-const float radius = 0.5;
+const float radius = 0.1;
 const float bias = 0.025;
 
 void main(){

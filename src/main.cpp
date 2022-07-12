@@ -11,7 +11,7 @@ int main()
     engine.objects.push_back(plane);
 
     engine.objects[0].transform.position.y = 1;
-    engine.objects[0].transform.position.z = -50;
+    engine.objects[0].transform.position.z = 5;
     engine.objects[1].transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
@@ -19,7 +19,7 @@ int main()
     engine.camera.yaw = 90;
     engine.camera.pitch = -15;
     
-    float speed = 1.1;
+    float speed = 0.2;
     while (engine.window.isOpen())
     {
         if(engine.inputManager.isKeyDown(GLFW_KEY_W)){

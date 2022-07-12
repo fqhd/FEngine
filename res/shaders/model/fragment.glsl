@@ -59,7 +59,7 @@ float ShadowCalculation(vec3 fragPosViewSpace)
     float shadow = 0.0;
     float width = 4096.0;
     float texelSize = 1.0 / width;
-    int kernelSize = 1;
+    int kernelSize = 3;
     for(int x = -kernelSize; x <= kernelSize; ++x)
     {
         for(int y = -kernelSize; y <= kernelSize; ++y)
