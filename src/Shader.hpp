@@ -28,6 +28,7 @@ private:
 
 	GLuint m_programID = 0;
 	GLuint m_vertexID = 0;
+    GLuint m_geometryID = 0;
 	GLuint m_fragmentID = 0;
 
 };
