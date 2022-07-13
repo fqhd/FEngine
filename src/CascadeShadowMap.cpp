@@ -17,7 +17,7 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     glTexImage3D(
         GL_TEXTURE_2D_ARRAY,
         0,
-        GL_DEPTH_COMPONENT32,
+        GL_DEPTH_COMPONENT,
         width,
         width,
         3,
@@ -34,28 +34,12 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     constexpr float bordercolor[] = {1.0f, 1.0f, 1.0f, 1.0f};
     glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, bordercolor);
 
-    glGenTextures(1, &idtexture);
-    glBindTexture(GL_TEXTURE_2D_ARRAY, idtexture);
-    glTexImage3D(
-        GL_TEXTURE_2D_ARRAY,
-        0,
-        GL_RED,
-        width,
-        width,
-        3,
-        0,
-        GL_RED,
-        GL_UNSIGNED_BYTE,
-        nullptr);
-
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, idtexture, 0);
     glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
+
+    // Disable color read/write
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
 
     int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (status != GL_FRAMEBUFFER_COMPLETE)
