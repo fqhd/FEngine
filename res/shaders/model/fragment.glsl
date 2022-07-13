@@ -89,7 +89,7 @@ void main(){
         float shadowFactor = ShadowCalculation(worldPos);
         float brightness = max(dot(lightDir, normal), 0.4);
         brightness = min(brightness, shadowFactor);
-        outColor = vec4(diffuse * ssao * brightness, 1.0);
+        outColor = vec4(diffuse * ssao * brightness * 1.5, 1.0);
     }else{
         outColor = vec4(diffuse, 1.0);
     }
