@@ -3,7 +3,7 @@
 
 int main()
 {
-    FEngine engine("Window", 500, 400);
+    FEngine engine("Window", 800, 600);
     FObject cube = engine.loadObject("res/cube", Color(255, 255, 255));
     FObject plane = engine.loadObject("res/plane", Color(170, 180, 190));
 

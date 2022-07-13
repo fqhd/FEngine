@@ -13,7 +13,7 @@ uniform int screenHeight;
 uniform int kernelSize;
 out float FragColor;
 
-const float radius = 0.1;
+const float radius = 0.3;
 const float bias = 0.025;
 
 void main(){
