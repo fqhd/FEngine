@@ -40,13 +40,15 @@ void GBuffer::init(unsigned int width, unsigned int height)
     glDrawBuffers(3, attachments);
 
     // Depth buffer
-    glGenRenderbuffers(1, &rboID);
-    glBindRenderbuffer(GL_RENDERBUFFER, rboID);
+    glGenTextures(1, &depthTexture);
+    glBindTexture(GL_TEXTURE_2D, depthTexture);
 
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rboID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
@@ -72,6 +74,6 @@ void GBuffer::destroy()
     glDeleteTextures(1, &positionTextureID);
     glDeleteTextures(1, &albedoTextureID);
     glDeleteTextures(1, &normalTextureID);
-    glDeleteRenderbuffers(1, &rboID);
+    glDeleteTextures(1, &depthTexture);
     glDeleteFramebuffers(1, &fboID);
 }

@@ -10,6 +10,7 @@ uniform sampler2D texNormal;
 uniform sampler2D texPosition;
 uniform sampler2DArray gShadowMap;
 uniform sampler2D ssaoTexture;
+uniform sampler2D depthTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
 uniform mat4 view;
@@ -78,14 +79,18 @@ float ShadowCalculation(vec3 fragPosViewSpace)
 void main(){
     uvec4 albedo = texture(texAlbedo, vUV);
     vec3 diffuse = albedo.rgb / 255.0;
-    float ssao = texture(ssaoTexture, vUV).r;
-    vec3 worldPos = texture(texPosition, vUV).rgb;
+    float depth = texture(depthTexture, vUV).r;
+    if(depth != 1.0){
+        float ssao = texture(ssaoTexture, vUV).r;
+        vec3 worldPos = texture(texPosition, vUV).rgb;
 
-    vec3 normal = texture(texNormal, vUV).rgb;
+        vec3 normal = texture(texNormal, vUV).rgb;
 
-    float shadowFactor = ShadowCalculation(worldPos);
-    float brightness = max(dot(lightDir, normal), 0.4);
-    brightness = min(brightness, shadowFactor);
-    
-    outColor = vec4(diffuse * ssao * brightness, 1.0);
+        float shadowFactor = ShadowCalculation(worldPos);
+        float brightness = max(dot(lightDir, normal), 0.4);
+        brightness = min(brightness, shadowFactor);
+        outColor = vec4(diffuse * ssao * brightness, 1.0);
+    }else{
+        outColor = vec4(diffuse, 1.0);
+    }
 }

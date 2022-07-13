@@ -16,4 +16,5 @@ public:
     GLuint positionTextureID = 0;
     GLuint albedoTextureID = 0;
     GLuint normalTextureID = 0;
+    GLuint depthTexture;
 };
