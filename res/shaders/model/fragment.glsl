@@ -49,7 +49,7 @@ vec2 ShadowCalculation(vec3 fragPosViewSpace)
 
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
-    if(layer == 2){
+    if(layer >= 2){
         ssao = 1.0;
     }
 
