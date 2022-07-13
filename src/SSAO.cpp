@@ -36,7 +36,7 @@ void SSAO::init(Window *win)
 
     std::uniform_real_distribution<float> randomFloats(0.0, 1.0); // random floats between [0.0, 1.0]
     std::default_random_engine generator;
-    for (unsigned int i = 0; i < 16; ++i)
+    for (unsigned int i = 0; i < 8; ++i)
     {
         glm::vec3 sample(
             randomFloats(generator) * 2.0 - 1.0,
@@ -44,7 +44,7 @@ void SSAO::init(Window *win)
             randomFloats(generator));
         sample = glm::normalize(sample);
         sample *= randomFloats(generator);
-        float scale = (float)i / 16.0;
+        float scale = (float)i / 8.0;
         scale = lerp(0.1f, 1.0f, scale * scale);
         sample *= scale;
         ssaoKernel.push_back(sample);
