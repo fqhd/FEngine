@@ -14,9 +14,7 @@ uniform sampler2D depthTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
 uniform mat4 view;
-uniform float farPlane;
 uniform vec3 lightDir;
-uniform vec3 viewPos;
 
 out vec4 outColor;
 

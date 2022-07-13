@@ -25,8 +25,6 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     shader.bind();
     shader.set("projection", camera->getProjection());
     shader.set("view", camera->getView());
-    shader.set("viewPos", camera->position);
-    shader.set("farPlane", camera->far);
     shader.set("lightDir", camera->lightDirection);
 
     // Upload light space matrices
