@@ -18,6 +18,7 @@ public:
     Window* window;
     GLuint fbo;
     GLuint texture;
+    GLuint idtexture;
     glm::mat4 lightSpaceMatrices[3];
     float cascadeSplits[4];
 };

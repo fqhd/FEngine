@@ -11,11 +11,12 @@ int main()
     engine.objects.push_back(plane);
 
     engine.objects[0].transform.position.y = 1;
+    engine.objects[0].transform.position.x = -10;
     engine.objects[0].transform.position.z = 5;
     engine.objects[1].transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
-    engine.camera.position.y = 1;
+    engine.camera.position.y = 6;
     engine.camera.yaw = 90;
     engine.camera.pitch = -15;
     

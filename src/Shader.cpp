@@ -69,6 +69,12 @@ void Shader::init(const std::string &dirPath)
     }
 
     glLinkProgram(m_programID);
+    GLint isLinked = 0;
+    glGetProgramiv(m_programID, GL_LINK_STATUS, &isLinked);
+    if (isLinked == GL_FALSE)
+    {
+        std::cout << "Failed to link shader: " + dirPath << std::endl;
+    }
     glValidateProgram(m_programID);
 }
 

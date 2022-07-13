@@ -9,7 +9,8 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shader.set("texNormal", 1);
     shader.set("texPosition", 2);
     shader.set("gShadowMap", 3);
-    shader.set("ssaoTexture", 4);
+    shader.set("gObjectID", 4);
+    shader.set("ssaoTexture", 5);
     shadowMap.init(camera, window);
     quad.init();
     ssao.init(window);
@@ -49,6 +50,8 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
     glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.idtexture);
+    glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, ssaoBlur.textureID);
     quad.draw();
     shader.unbind();

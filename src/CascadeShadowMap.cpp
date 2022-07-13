@@ -12,12 +12,12 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
 
     // Create the depth buffer
     glGenTextures(1, &texture);
-    int width = 4096;
+    const int width = 4096;
     glBindTexture(GL_TEXTURE_2D_ARRAY, texture);
     glTexImage3D(
         GL_TEXTURE_2D_ARRAY,
         0,
-        GL_DEPTH_COMPONENT16,
+        GL_DEPTH_COMPONENT32,
         width,
         width,
         3,
@@ -34,12 +34,28 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     constexpr float bordercolor[] = {1.0f, 1.0f, 1.0f, 1.0f};
     glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, bordercolor);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
+    glGenTextures(1, &idtexture);
+    glBindTexture(GL_TEXTURE_2D_ARRAY, idtexture);
+    glTexImage3D(
+        GL_TEXTURE_2D_ARRAY,
+        0,
+        GL_RED,
+        width,
+        width,
+        3,
+        0,
+        GL_RED,
+        GL_UNSIGNED_BYTE,
+        nullptr);
 
-    // Disable color buffer
-    glDrawBuffer(GL_NONE);
-    glReadBuffer(GL_NONE);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, idtexture, 0);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texture, 0);
 
     int status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (status != GL_FRAMEBUFFER_COMPLETE)
@@ -66,7 +82,7 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
 
     int width = 4096;
     glViewport(0, 0, width, width);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     // Draw to depth texture
     depthShader.bind();
     // Upload 3 light space matrices

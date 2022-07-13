@@ -5,11 +5,11 @@ const int cascadeCount = 3;
 
 in vec2 vUV;
 
-uniform sampler2D texAlbedo;
+uniform usampler2D texAlbedo;
 uniform sampler2D texNormal;
-uniform sampler2D texSpecular;
 uniform sampler2D texPosition;
 uniform sampler2DArray gShadowMap;
+uniform usampler2DArray gObjectID;
 uniform sampler2D ssaoTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
@@ -18,10 +18,9 @@ uniform float farPlane;
 uniform vec3 lightDir;
 uniform vec3 viewPos;
 
-
 out vec4 outColor;
 
-float ShadowCalculation(vec3 fragPosViewSpace, vec3 normal)
+float ShadowCalculation(vec3 fragPosViewSpace, int objectID)
 {
     // select cascade layer
     float depthValue = abs(fragPosViewSpace.z);
@@ -65,7 +64,8 @@ float ShadowCalculation(vec3 fragPosViewSpace, vec3 normal)
         for(int y = -kernelSize; y <= kernelSize; ++y)
         {
             float pcfDepth = texture(gShadowMap, vec3(projCoords.xy + vec2(x, y) * texelSize, layer)).r;
-            if(currentDepth > pcfDepth){
+            int id = int(texture(gObjectID, vec3(projCoords.xy + vec2(x, y) * texelSize, layer)).r);
+            if(currentDepth > pcfDepth && objectID != id){
                 shadow += 0.6;
             }
         }
@@ -76,13 +76,17 @@ float ShadowCalculation(vec3 fragPosViewSpace, vec3 normal)
 }
 
 void main(){
-    vec3 albedo = texture(texAlbedo, vUV).rgb;
-    float ssao = texture(ssaoTexture, vUV).r;
+    uvec4 albedo = texture(texAlbedo, vUV);
+    vec3 diffuse = albedo.rgb / 255.0;
+    // float ssao = texture(ssaoTexture, vUV).r;
     vec3 worldPos = texture(texPosition, vUV).rgb;
+    int objectID = int(albedo.a);
 
-    vec3 normal = texture(texNormal, vUV).rgb;
-    float shadowFactor = ShadowCalculation(worldPos, normal);
-    float brightness = max(dot(normal, lightDir), 0.4);
+    // vec3 normal = texture(texNormal, vUV).rgb;
 
-    outColor = vec4(albedo * ssao * shadowFactor, 1.0);
+    float shadowFactor = ShadowCalculation(worldPos, objectID);
+    
+    // float brightness = max(dot(normal, lightDir), 0.4);
+
+    outColor = vec4(diffuse * shadowFactor, 1.0);
 }
