@@ -51,9 +51,9 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     cascadeSplits[0] = camera->near;
-    cascadeSplits[1] = 15.0f;
-    cascadeSplits[2] = 70.0f;
-    cascadeSplits[3] = camera->far;
+    cascadeSplits[1] = 10.0f;
+    cascadeSplits[2] = 45.0f;
+    cascadeSplits[3] = camera->far / 2.0;
 }
 
 void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
