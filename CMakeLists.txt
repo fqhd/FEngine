@@ -6,5 +6,4 @@ add_library(fengine STATIC src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp 
 set_property(TARGET fengine PROPERTY CXX_STANDARD 17)
 
 target_include_directories(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_include_directories(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/deps/include")
-target_link_libraries(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/deps/libs/glfw3.a")
+target_link_libraries(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw3.a")
