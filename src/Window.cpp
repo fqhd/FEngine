@@ -39,10 +39,9 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
 
     glfwMakeContextCurrent(m_window);
 
-    // Create GL context
-    if (glewInit() != GLEW_OK)
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialize GLEW" << std::endl;
+        std::cout << "Failed to initialize OpenGL context" << std::endl;
     }
 
     // Vsync
@@ -80,10 +79,10 @@ void Window::clear()
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-glm::ivec2 Window::getFramebufferSize(){
+glm::ivec2 Window::getFramebufferSize()
+{
     return framebufferSize;
 }
-
 
 void Window::update()
 {

@@ -31,7 +31,7 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-    constexpr float bordercolor[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    const float bordercolor[] = {1.0f, 1.0f, 1.0f, 1.0f};
     glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, bordercolor);
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -134,7 +134,7 @@ glm::mat4 CascadeShadowMap::getLightSpaceMatrix(const float nearPlane, const flo
     }
 
     // Tune this parameter according to the scene
-    constexpr float zMult = 10.0f;
+    const float zMult = 10.0f;
     if (minZ < 0)
     {
         minZ *= zMult;

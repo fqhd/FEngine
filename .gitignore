@@ -3,3 +3,4 @@
 .ninja_log
 out
 .DS_Store
+build/
