@@ -15,6 +15,7 @@ void MasterRenderer::init(Camera *cam, Window *window)
     quad.init();
     ssao.init(window);
     ssaoBlur.init(window);
+    fxaa.init(window);
 }
 
 void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& renderer)
@@ -51,8 +52,11 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     glBindTexture(GL_TEXTURE_2D, ssaoBlur.textureID);
     glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.depthTexture);
+    fxaa.bind();
     quad.draw();
+    fxaa.unbind();
     shader.unbind();
+    fxaa.drawWithFXAA();
 }
 
 void MasterRenderer::destroy(){
@@ -61,4 +65,5 @@ void MasterRenderer::destroy(){
     ssaoBlur.destroy();
     ssao.destroy();
     quad.destroy();
+    fxaa.destroy();
 }
