@@ -1,22 +1,22 @@
 # FENGINE
-
+---
 ## Dependencies
 - GLFW
-- GLEW
 - GLM
-- ninja
-- pkg-config
+- CMake
 
 ### Mac OS
-`brew install clang glfw glm glew pkg-config ninja`
+`brew install glfw glm`
 
 ### Ubuntu
-`sudo apt install pkg-config ninja-build libglm-dev libglew-dev libglfw-dev libglfw3-dev clang`
+`sudo apt install libglm-dev libglfw3-dev`
 
 ## Build Instructions
-
-Open a terminal and go to the main directory of the project.
-
-To build the project, enter the command `ninja`
-
-To run the project, enter the command `./out`
+Note: Make sure you have dependencies installed first
+1. Clone the repository `git clone https://github.com/fqhd/FEngine.git`
+1. CD into the repository `cd FEngine`
+1. Make the build folder and cd into it `mkdir build && cd build`
+1. Create cmake config files `cmake ..`
+1. Build the project `cmake --build .`
+1. Move the res folder into the build directory `mv -r ../res build`
+1. Run the executable binary `./out`
