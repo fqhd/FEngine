@@ -1,9 +1,22 @@
 cmake_minimum_required(VERSION 3.23.2)
 project(FEngine VERSION 1.0.0)
 
-add_library(fengine STATIC src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/DeferredRenderer.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/SSAO.cpp src/SSAOBlur.cpp src/SSAOTexture.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp include/Camera.hpp include/CascadeShadowMap.hpp include/Cube.hpp include/DeferredRenderer.hpp include/Fengine.hpp include/GBuffer.hpp include/GLTexture.hpp include/Image.hpp include/InputManager.hpp include/MasterRenderer.hpp include/Model.hpp include/OBJLoader.hpp include/Quad.hpp include/Shader.hpp include/Skybox.hpp include/SSAO.hpp include/SSAOBlur.hpp include/SSAOTexture.hpp include/Texture.hpp include/Transform.hpp include/Window.hpp include/stb_image.h include/FObject.hpp src/glad.c include/glad.h include/khrplatform.h)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set_property(TARGET fengine PROPERTY CXX_STANDARD 17)
+add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/DeferredRenderer.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/SSAO.cpp src/SSAOBlur.cpp src/SSAOTexture.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp src/glad.c)
 
-target_include_directories(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(fengine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/deps/glfw3.a")
+find_library(ourGLFWLib glfw NAMES glfw glfw3 GLFW GLFW3 DOC "Windowing Library")
+find_path(ourGLMLib glm NAMES glm GLM DOC "OpenGL Mathematics Library")
+find_path(ourGLFWinclude glfw NAMES glfw GLFW3 GLFW GLFW3 DOC "Include directory for glfw")
+
+target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/FEngine)
+target_include_directories(fengine PUBLIC ${ourGLFWinclude})
+target_include_directories(fengine PUBLIC ${ourGLMLib})
+target_link_libraries(fengine PRIVATE ${ourGLFWLib})
+
+install(TARGETS fengine DESTINATION lib)
+install(DIRECTORY include/FEngine DESTINATION include)
+
+add_executable(out main.cpp)
+target_link_libraries(out PRIVATE fengine)
