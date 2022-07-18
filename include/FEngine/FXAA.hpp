@@ -18,4 +18,5 @@ private:
     GLuint textureID;
     Shader shader;
     Quad quad;
+    Window* window;
 };

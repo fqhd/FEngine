@@ -15,6 +15,7 @@ public:
 	void destroy();
 
 	void set(const std::string& name, const glm::vec3& vec);
+	void set(const std::string& name, const glm::ivec2& vec);
 	void set(const std::string& name, const glm::mat4& matrix);
 	void set(const std::string& name, float f);
 	void set(const std::string& name, int i);

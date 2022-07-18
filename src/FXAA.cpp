@@ -1,6 +1,7 @@
 #include "FXAA.hpp"
 
-void FXAA::init(Window* window){
+void FXAA::init(Window* win){
+    window = win;
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glGenTextures(1, &textureID);
@@ -33,6 +34,7 @@ void FXAA::drawWithFXAA(){
     shader.bind();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureID);
+    shader.set("iResolution", window->getFramebufferSize());
     quad.draw();
     shader.unbind();
 }
