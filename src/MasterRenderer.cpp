@@ -3,7 +3,7 @@
 void MasterRenderer::init(Camera *cam, Window *window)
 {
     camera = cam;
-    shader.init("./res/shaders/model");
+    shader.init("../res/shaders/model");
     shader.bind();
     shader.set("gShadowMap", 0);
     shadowMap.init(camera, window);

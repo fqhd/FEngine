@@ -3,7 +3,7 @@
 
 void Skybox::init() {
 	cube.init();
-	shader.init("res/shaders/skybox");
+	shader.init("../res/shaders/skybox");
 }
 
 void Skybox::render(const glm::mat4& projection, glm::mat4 view) {

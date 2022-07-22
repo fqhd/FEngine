@@ -24,7 +24,7 @@ void FXAA::init(Window* win){
         std::cout << "Failed to create SSAO Blur Framebuffer with error: 0x" << Status << std::endl;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    shader.init("res/shaders/fxaa");
+    shader.init("../res/shaders/fxaa");
     quad.init();
 }
 
