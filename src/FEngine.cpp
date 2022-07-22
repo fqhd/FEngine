@@ -14,23 +14,13 @@ void FEngine::draw()
     inputManager.processInput();
     camera.update();
 
-    masterRenderer.drawObjects(objects.data(), objects.size());
+    masterRenderer.drawObjects();
 
     window.update();
-}
-
-FObject FEngine::loadObject(const std::string &path, Color color)
-{
-    return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg", color);
 }
 
 void FEngine::destroy()
 {
     masterRenderer.destroy();
-    for (auto &object : objects)
-    {
-        object.model.destroy();
-        object.texture.destroy();
-    }
     window.close();
 }

@@ -3,14 +3,13 @@
 #include "glad.h"
 #include <glm/glm.hpp>
 #include "Camera.hpp"
-#include "FObject.hpp"
 #include "Window.hpp"
 #include "Shader.hpp"
 
 class CascadeShadowMap {
 public:
     void init(Camera* camera, Window* window);
-    void generateShadowMap(FObject* objects, int size);
+    void generateShadowMap();
     void destroy();
     glm::mat4 getLightSpaceMatrix(const float nearPlane, const float farPlane);
     Camera* camera;
