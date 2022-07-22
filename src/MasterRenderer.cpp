@@ -9,20 +9,15 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shader.set("texNormal", 1);
     shader.set("texPosition", 2);
     shader.set("gShadowMap", 3);
-    shader.set("ssaoTexture", 4);
-    shader.set("depthTexture", 5);
+    shader.set("depthTexture", 4);
     shadowMap.init(camera, window);
     quad.init();
-    ssao.init(window);
-    ssaoBlur.init(window);
     fxaa.init(window);
 }
 
 void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& renderer)
 {
     shadowMap.generateShadowMap(objects, size);
-    ssao.draw(renderer, camera);
-    ssaoBlur.draw(ssao.textureID);
     shader.bind();
     shader.set("projection", camera->getProjection());
     shader.set("view", camera->getView());
@@ -49,8 +44,6 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
     glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
     glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, ssaoBlur.textureID);
-    glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.depthTexture);
     fxaa.bind();
     quad.draw();
@@ -62,8 +55,6 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
 void MasterRenderer::destroy(){
     shadowMap.destroy();
     shader.destroy();
-    ssaoBlur.destroy();
-    ssao.destroy();
     quad.destroy();
     fxaa.destroy();
 }
