@@ -8,6 +8,7 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shader.set("gShadowMap", 0);
     shadowMap.init(camera, window);
     fxaa.init(window);
+    skybox.init();
 }
 
 void MasterRenderer::drawObjects(FObject *objects, int size)
@@ -38,12 +39,14 @@ void MasterRenderer::drawObjects(FObject *objects, int size)
         objects[i].model.draw();
     }
     shader.unbind();
+    skybox.render(camera->getProjection(), camera->getView());
     fxaa.unbind();
     
     fxaa.drawWithFXAA();
 }
 
 void MasterRenderer::destroy(){
+    skybox.destroy();
     shadowMap.destroy();
     shader.destroy();
     fxaa.destroy();
