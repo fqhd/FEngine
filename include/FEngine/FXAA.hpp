@@ -15,6 +15,7 @@ public:
 
 private:
     GLuint fbo;
+    GLuint rbo;
     GLuint textureID;
     Shader shader;
     Quad quad;

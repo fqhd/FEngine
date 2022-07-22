@@ -4,12 +4,10 @@ const int NUM_CASCADES = 3;
 const int cascadeCount = 3;
 
 in vec2 vUV;
+in vec3 vNormal;
+in vec3 vWorldSpacePosition;
 
-uniform usampler2D texAlbedo;
-uniform sampler2D texNormal;
-uniform sampler2D texPosition;
 uniform sampler2DArray gShadowMap;
-uniform sampler2D depthTexture;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
 uniform mat4 view;
@@ -74,15 +72,9 @@ float ShadowCalculation(vec3 fragPosViewSpace)
 }
 
 void main(){
-    uvec4 albedo = texture(texAlbedo, vUV);
-    vec3 diffuse = albedo.rgb / 255.0;
-    float depth = texture(depthTexture, vUV).r;
-    vec3 worldPos = texture(texPosition, vUV).rgb;
-
-    vec3 normal = texture(texNormal, vUV).rgb;
-
+    vec3 worldPos = vWorldSpacePosition;
     float shadowFactor = ShadowCalculation(worldPos);
-    float brightness = max(dot(lightDir, normal), 0.4);
+    float brightness = max(dot(lightDir, normalize(vNormal)), 0.4);
     brightness = min(brightness, shadowFactor);
     outColor = vec4(diffuse * brightness * 1.5, 1.0);
 }
