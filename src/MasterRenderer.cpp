@@ -3,25 +3,18 @@
 void MasterRenderer::init(Camera *cam, Window *window)
 {
     camera = cam;
-    shader.init("./res/shaders/model");
+    shader.init("../res/shaders/model");
     shader.bind();
-    shader.set("texAlbedo", 0);
-    shader.set("texNormal", 1);
-    shader.set("texPosition", 2);
-    shader.set("gShadowMap", 3);
-    shader.set("ssaoTexture", 4);
-    shader.set("depthTexture", 5);
+    shader.set("gShadowMap", 0);
     shadowMap.init(camera, window);
-    quad.init();
-    ssao.init(window);
-    ssaoBlur.init(window);
+    fxaa.init(window);
+    skybox.init();
 }
 
-void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& renderer)
+void MasterRenderer::drawObjects(FObject *objects, int size)
 {
     shadowMap.generateShadowMap(objects, size);
-    ssao.draw(renderer, camera);
-    ssaoBlur.draw(ssao.textureID);
+    fxaa.bind();
     shader.bind();
     shader.set("projection", camera->getProjection());
     shader.set("view", camera->getView());
@@ -40,25 +33,21 @@ void MasterRenderer::drawObjects(FObject *objects, int size, DeferredRenderer& r
 
     // Bind the cascades
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.albedoTextureID);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.normalTextureID);
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.positionTextureID);
-    glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
-    glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, ssaoBlur.textureID);
-    glActiveTexture(GL_TEXTURE5);
-    glBindTexture(GL_TEXTURE_2D, renderer.gbuffer.depthTexture);
-    quad.draw();
+    for(int i = 0; i < size; i++){
+        shader.set("model", objects[i].transform.getMatrix());
+        objects[i].model.draw();
+    }
     shader.unbind();
+    skybox.render(camera->getProjection(), camera->getView());
+    fxaa.unbind();
+    
+    fxaa.drawWithFXAA();
 }
 
 void MasterRenderer::destroy(){
+    skybox.destroy();
     shadowMap.destroy();
     shader.destroy();
-    ssaoBlur.destroy();
-    ssao.destroy();
-    quad.destroy();
+    fxaa.destroy();
 }

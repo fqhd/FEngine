@@ -1,18 +1,23 @@
 #pragma once
 
-#include <glad.h>
+#include "glad.h"
+#include "Shader.hpp"
 #include "Quad.hpp"
 #include "Window.hpp"
-#include "Shader.hpp"
 
-class SSAOBlur {
+class FXAA {
 public:
     void init(Window* window);
-    void draw(GLuint ssaoTexture);
+    void bind();
+    void unbind();
+    void drawWithFXAA();
     void destroy();
 
-    Quad quad;
+private:
     GLuint fbo;
+    GLuint rbo;
     GLuint textureID;
     Shader shader;
+    Quad quad;
+    Window* window;
 };

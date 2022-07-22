@@ -6,7 +6,6 @@ FEngine::FEngine(const char *title, int width, int height)
     inputManager.init(window.getWindowPtr());
     camera.init(width, height, 70.0f, 0.1, 350.0f);
     masterRenderer.init(&camera, &window);
-    deferredRenderer.init(&camera, &window);
 }
 
 void FEngine::draw()
@@ -15,9 +14,7 @@ void FEngine::draw()
     inputManager.processInput();
     camera.update();
 
-    deferredRenderer.draw(objects.data(), objects.size());
-
-    masterRenderer.drawObjects(objects.data(), objects.size(), deferredRenderer);
+    masterRenderer.drawObjects(objects.data(), objects.size());
 
     window.update();
 }
@@ -30,7 +27,6 @@ FObject FEngine::loadObject(const std::string &path, Color color)
 void FEngine::destroy()
 {
     masterRenderer.destroy();
-    deferredRenderer.destroy();
     for (auto &object : objects)
     {
         object.model.destroy();

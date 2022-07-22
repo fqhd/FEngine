@@ -4,7 +4,7 @@ project(FEngine VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/DeferredRenderer.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/SSAO.cpp src/SSAOBlur.cpp src/SSAOTexture.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp src/glad.c)
+add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp src/glad.c src/FXAA.cpp)
 
 find_library(ourGLFWLib glfw NAMES glfw glfw3 GLFW GLFW3 DOC "Windowing Library")
 find_path(ourGLMLib glm NAMES glm GLM DOC "OpenGL Mathematics Library")

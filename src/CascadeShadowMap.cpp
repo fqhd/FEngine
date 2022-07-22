@@ -7,7 +7,7 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
 {
     window = win;
     camera = cam;
-    depthShader.init("./res/shaders/depth");
+    depthShader.init("../res/shaders/depth");
     glGenFramebuffers(1, &fbo);
 
     // Create the depth buffer
@@ -66,7 +66,7 @@ void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
 
     int width = 4096;
     glViewport(0, 0, width, width);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
     // Draw to depth texture
     depthShader.bind();
     // Upload 3 light space matrices
