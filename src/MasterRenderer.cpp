@@ -9,10 +9,12 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shadowMap.init(camera, window);
     fxaa.init(window);
     skybox.init();
+    instanceRenderer.init();
 }
 
 void MasterRenderer::drawObjects()
 {
+    instanceRenderer.end();
     shadowMap.generateShadowMap();
     fxaa.bind();
     shader.bind();
@@ -34,15 +36,13 @@ void MasterRenderer::drawObjects()
     // Bind the cascades
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
-    // for(int i = 0; i < size; i++){
-    //     shader.set("model", objects[i].transform.getMatrix());
-    //     objects[i].model.draw();
-    // }
+    instanceRenderer.draw();
     shader.unbind();
     skybox.render(camera->getProjection(), camera->getView());
     fxaa.unbind();
     
     fxaa.drawWithFXAA();
+    instanceRenderer.begin();
 }
 
 void MasterRenderer::destroy(){

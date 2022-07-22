@@ -3,7 +3,7 @@
 const int NUM_CASCADES = 3;
 const int cascadeCount = 3;
 
-in vec2 vUV;
+in vec3 vColor;
 in vec3 vNormal;
 in vec3 vWorldSpacePosition;
 
@@ -72,10 +72,10 @@ float ShadowCalculation(vec3 fragPosViewSpace)
 }
 
 void main(){
-    vec3 color = vec3(1.0, 0.0, 1.0);
-    vec3 worldPos = vWorldSpacePosition;
-    float shadowFactor = ShadowCalculation(worldPos);
-    float brightness = max(dot(lightDir, normalize(vNormal)), 0.4);
-    brightness = min(brightness, shadowFactor);
-    outColor = vec4(color * brightness * 1.5, 1.0);
+    // vec3 worldPos = vWorldSpacePosition;
+    // float shadowFactor = ShadowCalculation(worldPos);
+
+    float brightness = max(dot(normalize(vec3(0.0, 1.0, 1.0)), normalize(vNormal)), 0.2);
+    
+    outColor = vec4(vColor * brightness, 1.0);
 }

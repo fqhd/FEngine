@@ -8,6 +8,10 @@ FEngine::FEngine(const char *title, int width, int height)
     masterRenderer.init(&camera, &window);
 }
 
+void FEngine::add(const glm::mat4& matrix, const Color& color){
+    masterRenderer.instanceRenderer.add(matrix, color);
+}
+
 void FEngine::draw()
 {
     window.clear();

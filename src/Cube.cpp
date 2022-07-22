@@ -52,7 +52,8 @@ void Cube::init()
         1.0f, -1.0f, -1.0f,
         1.0f, -1.0f, -1.0f,
         -1.0f, -1.0f, 1.0f,
-        1.0f, -1.0f, 1.0f};
+        1.0f, -1.0f, 1.0f
+    };
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

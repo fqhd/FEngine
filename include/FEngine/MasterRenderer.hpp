@@ -2,6 +2,7 @@
 #include "CascadeShadowMap.hpp"
 #include "FXAA.hpp"
 #include "Skybox.hpp"
+#include "InstanceRenderer.hpp"
 
 class MasterRenderer {
 public:
@@ -9,6 +10,7 @@ public:
     void drawObjects();
     void destroy();
 
+    InstanceRenderer instanceRenderer;
     Skybox skybox;
     FXAA fxaa;
     Shader shader;
