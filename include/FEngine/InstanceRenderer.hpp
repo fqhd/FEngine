@@ -21,7 +21,7 @@ public:
     void begin();
     void add(const glm::mat4& matrix, const Color& color);
     void end();
-    void draw();
+    void draw() const;
     void destroy();
 
 private:

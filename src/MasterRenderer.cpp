@@ -15,7 +15,7 @@ void MasterRenderer::init(Camera *cam, Window *window)
 void MasterRenderer::drawObjects()
 {
     instanceRenderer.end();
-    shadowMap.generateShadowMap();
+    shadowMap.generateShadowMap(instanceRenderer);
     fxaa.bind();
     shader.bind();
     shader.set("projection", camera->getProjection());

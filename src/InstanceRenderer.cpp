@@ -97,7 +97,7 @@ void InstanceRenderer::end(){
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void InstanceRenderer::draw(){
+void InstanceRenderer::draw() const {
     glBindVertexArray(vaoID);
     glDrawArraysInstanced(GL_TRIANGLES, 0, 36, objects.size());
     glBindVertexArray(0);

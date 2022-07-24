@@ -5,7 +5,11 @@
 int main()
 {
     FEngine engine("Window", 800, 600);
-    Transform transform;
+    Transform t1;
+    Transform t2;
+    t2.position.y = -5;
+    t2.scale.x = 100;
+    t2.scale.z = 100;
 
     engine.camera.position.z = -5;
     engine.camera.position.y = 6;
@@ -46,9 +50,8 @@ int main()
             engine.camera.yaw -= speed * 7.0;
         }
 
-        transform.rotation.y += 1.0;
-
-        engine.add(transform.getMatrix(), Color(200, 100, 100));
+        engine.add(t1.getMatrix(), Color(200, 100, 100));
+        engine.add(t2.getMatrix(), Color(100, 100, 100));
 
         engine.draw();
     }
