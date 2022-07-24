@@ -72,10 +72,11 @@ float ShadowCalculation(vec3 fragPosViewSpace)
 }
 
 void main(){
-    // vec3 worldPos = vWorldSpacePosition;
-    // float shadowFactor = ShadowCalculation(worldPos);
+    vec3 worldPos = vWorldSpacePosition;
+    float shadowFactor = ShadowCalculation(worldPos);
 
-    float brightness = max(dot(normalize(vec3(0.0, 1.0, 1.0)), normalize(vNormal)), 0.2);
+    float brightness = max(dot(normalize(lightDir), normalize(vNormal)), 0.2);
+    brightness = min(shadowFactor, brightness);
     
     outColor = vec4(vColor * brightness, 1.0);
 }
