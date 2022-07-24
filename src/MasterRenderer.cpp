@@ -22,16 +22,12 @@ void MasterRenderer::drawObjects()
     shader.set("view", camera->getView());
     shader.set("lightDir", camera->lightDirection);
 
-    // Upload light space matrices
-    for (int i = 0; i < 3; i++)
-    {
-        shader.set("lightSpaceMatrices[" + std::to_string(i) + "]", shadowMap.lightSpaceMatrices[i]);
-    }
-    // Upload cascade plane distances
-    for (int i = 0; i < 3; i++)
-    {
-        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", shadowMap.cascadeSplits[i + 1]);
-    }
+    shader.set("lightSpaceMatrices[0]", shadowMap.lightSpaceMatrices[0]);
+    shader.set("lightSpaceMatrices[1]", shadowMap.lightSpaceMatrices[1]);
+    shader.set("lightSpaceMatrices[2]", shadowMap.lightSpaceMatrices[2]);
+    shader.set("cascadePlaneDistances[0]", shadowMap.cascadeSplits[1]);
+    shader.set("cascadePlaneDistances[1]", shadowMap.cascadeSplits[2]);
+    shader.set("cascadePlaneDistances[2]", shadowMap.cascadeSplits[3]);
 
     // Bind the cascades
     glActiveTexture(GL_TEXTURE0);
