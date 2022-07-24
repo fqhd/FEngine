@@ -3,17 +3,16 @@
 #include "Window.hpp"
 #include "InputManager.hpp"
 #include "Camera.hpp"
-#include "FObject.hpp"
 #include "Shader.hpp"
 #include "Skybox.hpp"
 #include "MasterRenderer.hpp"
-#include "GBuffer.hpp"
+#include "Color.hpp"
 
 class FEngine {
 public:
 
     FEngine(const char* title, int width, int height);
-    FObject loadObject(const std::string& path, Color color);
+    void add(const glm::mat4& matrix, const Color& color);
     void draw();
     void destroy();
     
@@ -21,5 +20,4 @@ public:
     InputManager inputManager;
     Camera camera;
     MasterRenderer masterRenderer;
-    std::vector<FObject> objects;
 };
