@@ -1,5 +1,5 @@
 #include <iostream>
-#include "FEngine.hpp"
+#include <FEngine/FEngine.hpp>
 
 int main()
 {
