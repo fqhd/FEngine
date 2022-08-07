@@ -1,15 +1,19 @@
 #include <iostream>
-#include "FEngine.hpp"
-#include "Transform.hpp"
+#include <FEngine/FEngine.hpp>
 
 int main()
 {
     FEngine engine("Window", 800, 600);
-    Transform t1;
-    Transform t2;
-    t2.position.y = -5;
-    t2.scale.x = 100;
-    t2.scale.z = 100;
+    FObject cube = engine.loadObject("res/cube", Color(255, 255, 255));
+    FObject plane = engine.loadObject("res/plane", Color(170, 180, 190));
+
+    engine.objects.push_back(cube);
+    engine.objects.push_back(plane);
+
+    engine.objects[0].transform.position.y = 2;
+    engine.objects[0].transform.position.x = -10;
+    engine.objects[0].transform.position.z = 5;
+    engine.objects[1].transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
     engine.camera.position.y = 6;
@@ -37,6 +41,7 @@ int main()
         if(engine.inputManager.isKeyDown(GLFW_KEY_LEFT_SHIFT)){
             engine.camera.position.y -= speed;
         }
+
         if(engine.inputManager.isKeyDown(GLFW_KEY_UP)){
             engine.camera.pitch += speed * 7.0;
         }
@@ -50,9 +55,7 @@ int main()
             engine.camera.yaw -= speed * 7.0;
         }
 
-        engine.add(t1.getMatrix(), Color(200, 100, 100));
-        engine.add(t2.getMatrix(), Color(100, 100, 100));
-
+        engine.objects[0].transform.rotation.y -= 1;
         engine.draw();
     }
 
