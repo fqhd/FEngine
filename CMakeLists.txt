@@ -10,10 +10,12 @@ add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp 
 # Compile dependencies
 add_subdirectory(deps/glfw)
 add_subdirectory(deps/glm)
+add_subdirectory(deps/stb)
 
 # Link dependencies
 target_link_libraries(fengine PUBLIC glfw)
 target_link_libraries(fengine PUBLIC glm)
+target_link_libraries(fengine PUBLIC stb)
 target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/FEngine)
 
