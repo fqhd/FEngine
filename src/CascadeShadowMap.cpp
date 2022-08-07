@@ -56,7 +56,7 @@ void CascadeShadowMap::init(Camera *cam, Window *win)
     cascadeSplits[3] = camera->far / 2.0;
 }
 
-void CascadeShadowMap::generateShadowMap(const InstanceRenderer& renderer)
+void CascadeShadowMap::generateShadowMap(FObject *objects, int size)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
@@ -74,8 +74,11 @@ void CascadeShadowMap::generateShadowMap(const InstanceRenderer& renderer)
         depthShader.set("lightSpaceMatrices[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
     }
 
-    renderer.draw();
-
+    for (int i = 0; i < size; i++)
+    {
+        depthShader.set("model", objects[i].transform.getMatrix());
+        objects[i].model.draw();
+    }
     depthShader.unbind();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glm::ivec2 windowSize = window->getFramebufferSize();

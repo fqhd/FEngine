@@ -4,11 +4,6 @@
 
 struct Color
 {
-    Color(){
-        r = 0;
-        g = 0;
-        b = 0;
-    }
     Color(GLubyte R, GLubyte G, GLubyte B)
     {
         r = R;

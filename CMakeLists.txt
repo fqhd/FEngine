@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add FEngine library (source code)
-add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/DeferredRenderer.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp src/glad.c src/FXAA.cpp)
+add_library(fengine SHARED src/Camera.cpp src/CascadeShadowMap.cpp src/Cube.cpp src/Fengine.cpp src/GBuffer.cpp src/GLTexture.cpp src/Image.cpp src/InputManager.cpp src/MasterRenderer.cpp src/Model.cpp src/OBJLoader.cpp src/Quad.cpp src/Shader.cpp src/Skybox.cpp src/Texture.cpp src/Transform.cpp src/Window.cpp src/glad.c src/FXAA.cpp)
 
 # Compile dependencies
 add_subdirectory(deps/glfw)

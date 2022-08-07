@@ -1,16 +1,16 @@
 #pragma once
 #include "CascadeShadowMap.hpp"
+#include "FObject.hpp"
+#include "Quad.hpp"
 #include "FXAA.hpp"
 #include "Skybox.hpp"
-#include "InstanceRenderer.hpp"
 
 class MasterRenderer {
 public:
     void init(Camera* camera, Window* window);
-    void drawObjects();
+    void drawObjects(FObject* objects, int size);
     void destroy();
 
-    InstanceRenderer instanceRenderer;
     Skybox skybox;
     FXAA fxaa;
     Shader shader;

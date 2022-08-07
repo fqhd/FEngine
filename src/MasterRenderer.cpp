@@ -9,36 +9,40 @@ void MasterRenderer::init(Camera *cam, Window *window)
     shadowMap.init(camera, window);
     fxaa.init(window);
     skybox.init();
-    instanceRenderer.init();
 }
 
-void MasterRenderer::drawObjects()
+void MasterRenderer::drawObjects(FObject *objects, int size)
 {
-    instanceRenderer.end();
-    shadowMap.generateShadowMap(instanceRenderer);
+    shadowMap.generateShadowMap(objects, size);
     fxaa.bind();
     shader.bind();
     shader.set("projection", camera->getProjection());
     shader.set("view", camera->getView());
     shader.set("lightDir", camera->lightDirection);
 
-    shader.set("lightSpaceMatrices[0]", shadowMap.lightSpaceMatrices[0]);
-    shader.set("lightSpaceMatrices[1]", shadowMap.lightSpaceMatrices[1]);
-    shader.set("lightSpaceMatrices[2]", shadowMap.lightSpaceMatrices[2]);
-    shader.set("cascadePlaneDistances[0]", shadowMap.cascadeSplits[1]);
-    shader.set("cascadePlaneDistances[1]", shadowMap.cascadeSplits[2]);
-    shader.set("cascadePlaneDistances[2]", shadowMap.cascadeSplits[3]);
+    // Upload light space matrices
+    for (int i = 0; i < 3; i++)
+    {
+        shader.set("lightSpaceMatrices[" + std::to_string(i) + "]", shadowMap.lightSpaceMatrices[i]);
+    }
+    // Upload cascade plane distances
+    for (int i = 0; i < 3; i++)
+    {
+        shader.set("cascadePlaneDistances[" + std::to_string(i) + "]", shadowMap.cascadeSplits[i + 1]);
+    }
 
     // Bind the cascades
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
-    instanceRenderer.draw();
+    for(int i = 0; i < size; i++){
+        shader.set("model", objects[i].transform.getMatrix());
+        objects[i].model.draw();
+    }
     shader.unbind();
     skybox.render(camera->getProjection(), camera->getView());
     fxaa.unbind();
     
     fxaa.drawWithFXAA();
-    instanceRenderer.begin();
 }
 
 void MasterRenderer::destroy(){
