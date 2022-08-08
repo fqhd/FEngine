@@ -4,8 +4,9 @@
 int main()
 {
     FEngine engine("Window", 800, 600);
-    FObject cube = engine.loadObject("../res/cube", Color(255, 255, 255));
-    FObject plane = engine.loadObject("../res/plane", Color(170, 180, 190));
+    FObject cube = engine.getObject("../res/cube", Color(255, 255, 255));
+    FObject cube2 = engine.getObject("../res/cube", Color(255, 255, 255));
+    FObject plane = engine.getObject("../res/plane", Color(170, 180, 190));
 
     cube.transform.position.y = 2;
     cube.transform.position.x = -10;
@@ -54,6 +55,7 @@ int main()
 
         cube.transform.rotation.y -= 1;
         engine.draw(cube);
+        engine.draw(cube2);
         engine.draw(plane);
 
         engine.update();

@@ -24,9 +24,15 @@ void FEngine::update(){
     objects.clear();
 }
 
-FObject FEngine::loadObject(const std::string &path, Color color)
+FObject FEngine::getObject(const std::string &path, Color color)
 {
-    return FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg", color);
+    auto it = map.find(path);
+    if(it != map.end()){
+        return it->second;
+    }
+    const FObject obj = FObject(path + "/model.obj", path + "/albedo.jpg", path + "/normal.jpg", path + "/specular.jpg", color);
+    map[path] = obj;
+    return obj;
 }
 
 void FEngine::destroy()

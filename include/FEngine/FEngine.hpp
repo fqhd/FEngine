@@ -13,7 +13,7 @@ class FEngine {
 public:
 
     FEngine(const char* title, int width, int height);
-    FObject loadObject(const std::string& path, Color color);
+    FObject getObject(const std::string& path, Color defaultColor);
     void update();
     void draw(const FObject& object);
     void destroy();
@@ -26,4 +26,6 @@ private:
 
     MasterRenderer masterRenderer;
     std::vector<FObject> objects;
+    std::unordered_map<std::string, FObject> map;
+
 };
