@@ -1,4 +1,4 @@
-#include "InputManager.hpp"
+#include <FEngine/InputManager.hpp>
 #include <iostream>
 
 static std::unordered_map<int, bool> keyMap;

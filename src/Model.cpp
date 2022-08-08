@@ -1,4 +1,4 @@
-#include "Model.hpp"
+#include <FEngine/Model.hpp>
 #include <iostream>
 
 void Model::init(const std::string& path){

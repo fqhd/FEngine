@@ -13,13 +13,13 @@ public:
 	void clear();
 	void update();
 	void close();
-    bool isOpen();
-    glm::ivec2 getFramebufferSize();
+	bool isOpen();
+	glm::ivec2 getFramebufferSize();
 	GLFWwindow* getWindowPtr();
 
 private:
 
-    glm::ivec2 framebufferSize;
+	glm::ivec2 framebufferSize;
 	GLFWwindow* m_window;
 
 };

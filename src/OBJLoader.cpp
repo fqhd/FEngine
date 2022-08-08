@@ -1,4 +1,4 @@
-#include "OBJLoader.hpp"
+#include <FEngine/OBJLoader.hpp>
 #include <fstream>
 #include <iostream>
 #include <algorithm>

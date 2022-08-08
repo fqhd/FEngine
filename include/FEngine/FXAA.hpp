@@ -1,9 +1,9 @@
 #pragma once
 
 #include "glad.h"
-#include "Shader.hpp"
-#include "Quad.hpp"
-#include "Window.hpp"
+#include <FEngine/Shader.hpp>
+#include <FEngine/Quad.hpp>
+#include <FEngine/Window.hpp>
 
 class FXAA {
 public:

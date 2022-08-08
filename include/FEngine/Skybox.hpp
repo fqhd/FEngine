@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Shader.hpp"
-#include "Cube.hpp"
+#include <FEngine/Shader.hpp>
+#include <FEngine/Cube.hpp>
 
 class Skybox {
 public:

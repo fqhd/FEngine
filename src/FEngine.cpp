@@ -1,4 +1,4 @@
-#include "FEngine.hpp"
+#include <FEngine/FEngine.hpp>
 
 FEngine::FEngine(const char *title, int width, int height)
 {

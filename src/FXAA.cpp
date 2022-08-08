@@ -1,4 +1,4 @@
-#include "FXAA.hpp"
+#include <FEngine/FXAA.hpp>
 
 void FXAA::init(Window* win){
     window = win;

@@ -2,7 +2,7 @@
 
 #include <string>
 #include <glad.h>
-#include "GLTexture.hpp"
+#include <FEngine/GLTexture.hpp>
 
 class Texture
 {

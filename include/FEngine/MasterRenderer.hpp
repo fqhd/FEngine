@@ -1,9 +1,10 @@
 #pragma once
-#include "CascadeShadowMap.hpp"
-#include "FObject.hpp"
-#include "Quad.hpp"
-#include "FXAA.hpp"
-#include "Skybox.hpp"
+#include <FEngine/CascadeShadowMap.hpp>
+#include <FEngine/FObject.hpp>
+#include <FEngine/FObject.hpp>
+#include <FEngine/Quad.hpp>
+#include <FEngine/FXAA.hpp>
+#include <FEngine/Skybox.hpp>
 
 class MasterRenderer {
 public:

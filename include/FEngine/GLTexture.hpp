@@ -2,8 +2,8 @@
 
 #include <string>
 #include <glad.h>
-#include "Image.hpp"
-#include "Color.hpp"
+#include <FEngine/Image.hpp>
+#include <FEngine/Color.hpp>
 
 class GLTexture
 {

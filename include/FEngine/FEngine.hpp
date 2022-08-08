@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Window.hpp"
-#include "InputManager.hpp"
-#include "Camera.hpp"
-#include "FObject.hpp"
-#include "Shader.hpp"
-#include "Skybox.hpp"
-#include "MasterRenderer.hpp"
-#include "GBuffer.hpp"
+#include <FEngine/Window.hpp>
+#include <FEngine/InputManager.hpp>
+#include <FEngine/Camera.hpp>
+#include <FEngine/FObject.hpp>
+#include <FEngine/Shader.hpp>
+#include <FEngine/Skybox.hpp>
+#include <FEngine/MasterRenderer.hpp>
 
 class FEngine {
 public:

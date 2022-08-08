@@ -1,4 +1,4 @@
-#include "MasterRenderer.hpp"
+#include <FEngine/MasterRenderer.hpp>
 
 void MasterRenderer::init(Camera *cam, Window *window)
 {

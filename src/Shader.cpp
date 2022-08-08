@@ -1,4 +1,4 @@
-#include "Shader.hpp"
+#include <FEngine/Shader.hpp>
 #include <iostream>
 
 std::string readFileToString(const std::string &shaderName)

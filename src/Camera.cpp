@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include <FEngine/Camera.hpp>
 #include <iostream>
 
 void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPlane){

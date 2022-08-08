@@ -1,4 +1,4 @@
-#include "Window.hpp"
+#include <FEngine/Window.hpp>
 #include <iostream>
 
 void Window::create(unsigned int _width, unsigned int _height, const char *_title)

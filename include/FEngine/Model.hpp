@@ -1,7 +1,7 @@
 #pragma once
 
-#include "OBJLoader.hpp"
-#include "Vertex.hpp"
+#include <FEngine/OBJLoader.hpp>
+#include <FEngine/Vertex.hpp>
 #include <glad.h>
 
 class Model {

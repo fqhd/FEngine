@@ -1,4 +1,4 @@
-#include "Skybox.hpp"
+#include <FEngine/Skybox.hpp>
 #include <iostream>
 
 void Skybox::init() {

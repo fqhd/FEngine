@@ -1,7 +1,7 @@
 #pragma once
-#include "Model.hpp"
-#include "Texture.hpp"
-#include "Transform.hpp"
+#include <FEngine/Model.hpp>
+#include <FEngine/Texture.hpp>
+#include <FEngine/Transform.hpp>
 
 class FObject {
 public:

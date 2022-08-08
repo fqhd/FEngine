@@ -1,5 +1,5 @@
-#include "GLTexture.hpp"
-#include "Image.hpp"
+#include <FEngine/GLTexture.hpp>
+#include <FEngine/Image.hpp>
 
 void GLTexture::init(const char *path, Color color)
 {

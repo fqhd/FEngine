@@ -2,10 +2,10 @@
 
 #include "glad.h"
 #include <glm/glm.hpp>
-#include "Camera.hpp"
-#include "FObject.hpp"
-#include "Window.hpp"
-#include "Shader.hpp"
+#include <FEngine/Camera.hpp>
+#include <FEngine/FObject.hpp>
+#include <FEngine/Window.hpp>
+#include <FEngine/Shader.hpp>
 
 class CascadeShadowMap {
 public:

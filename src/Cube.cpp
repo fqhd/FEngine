@@ -1,4 +1,4 @@
-#include "Cube.hpp"
+#include <FEngine/Cube.hpp>
 
 void Cube::init()
 {
