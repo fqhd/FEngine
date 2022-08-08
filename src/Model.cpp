@@ -2,7 +2,6 @@
 #include <iostream>
 
 void Model::init(const std::string& path){
-	std::cout << "loading model: " + path << std::endl;
 	glGenVertexArrays(1, &m_vaoID);
 	glBindVertexArray(m_vaoID);
 
