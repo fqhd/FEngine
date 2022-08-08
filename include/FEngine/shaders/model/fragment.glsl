@@ -1,5 +1,4 @@
-#version 330 core
-
+LOAD_AS_STRING(
 const int NUM_CASCADES = 3;
 const int cascadeCount = 3;
 
@@ -79,3 +78,4 @@ void main(){
     brightness = min(brightness, shadowFactor);
     outColor = vec4(color * brightness * 1.5, 1.0);
 }
+)

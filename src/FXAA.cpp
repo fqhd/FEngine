@@ -1,5 +1,7 @@
 #include <FEngine/FXAA.hpp>
 
+#define LOAD_AS_STRING(...) "#version 330 core \n"#__VA_ARGS__
+
 void FXAA::init(Window* win){
     window = win;
     glGenFramebuffers(1, &fbo);
@@ -24,7 +26,13 @@ void FXAA::init(Window* win){
         std::cout << "Failed to create SSAO Blur Framebuffer with error: 0x" << Status << std::endl;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    shader.init("../res/shaders/fxaa");
+
+    shader.init(
+        #include <FEngine/shaders/fxaa/vertex.glsl>
+        ,
+        #include <FEngine/shaders/fxaa/fragment.glsl>
+    );
+
     quad.init();
 }
 

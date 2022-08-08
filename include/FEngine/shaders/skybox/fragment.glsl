@@ -1,5 +1,4 @@
-#version 330 core
-
+LOAD_AS_STRING(
 //Ins
 in vec3 textureCoords;
 
@@ -16,3 +15,4 @@ void main(){
     float blendFactor = clamp((normalize(textureCoords).y - lowerLimit) / (upperLimit - lowerLimit), 0.0, 1.0);
     out_color = vec4(mix(bottomColor, topColor, blendFactor), 1.0);
 }
+)

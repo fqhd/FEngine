@@ -1,5 +1,4 @@
-#version 330 core
-
+LOAD_AS_STRING(
 uniform sampler2D ourTexture;
 in vec2 vUV;
 in vec2 v_rgbNW;
@@ -63,3 +62,4 @@ vec4 fxaa() {
 void main(){
     outColor = fxaa();
 }
+)

@@ -3,11 +3,20 @@
 #include <iostream>
 #include <vector>
 
+#define LOAD_AS_STRING(...) "#version 330 core\n"#__VA_ARGS__,
+#define LOAD_AS_STRING_GS(...) "#version 330 core\n#extension GL_ARB_gpu_shader5: require \n"#__VA_ARGS__
+
 void CascadeShadowMap::init(Camera *cam, Window *win)
 {
     window = win;
     camera = cam;
-    depthShader.init("../res/shaders/depth");
+
+    depthShader.init(
+        #include <FEngine/shaders/depth/vertex.glsl>
+        #include <FEngine/shaders/depth/fragment.glsl>
+        #include <FEngine/shaders/depth/geometry.glsl>
+    );
+
     glGenFramebuffers(1, &fbo);
 
     // Create the depth buffer

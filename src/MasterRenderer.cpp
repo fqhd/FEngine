@@ -1,9 +1,16 @@
 #include <FEngine/MasterRenderer.hpp>
 
+#define LOAD_AS_STRING(...) "#version 330 core \n"#__VA_ARGS__
+
 void MasterRenderer::init(Camera *cam, Window *window)
 {
     camera = cam;
-    shader.init("../res/shaders/model");
+    shader.init(
+        #include <FEngine/shaders/model/vertex.glsl>
+        ,
+        #include <FEngine/shaders/model/fragment.glsl>
+    );
+    
     shader.bind();
     shader.set("gShadowMap", 0);
     shadowMap.init(camera, window);

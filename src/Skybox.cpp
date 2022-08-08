@@ -1,9 +1,16 @@
 #include <FEngine/Skybox.hpp>
 #include <iostream>
 
+#define LOAD_AS_STRING(...) "#version 330 core \n"#__VA_ARGS__
+
 void Skybox::init() {
 	cube.init();
-	shader.init("../res/shaders/skybox");
+
+	shader.init(
+		#include <FEngine/shaders/skybox/vertex.glsl>
+		,
+		#include <FEngine/shaders/skybox/fragment.glsl>
+	);
 }
 
 void Skybox::render(const glm::mat4& projection, glm::mat4 view) {

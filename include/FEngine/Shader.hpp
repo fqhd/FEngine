@@ -9,7 +9,7 @@
 class Shader {
 public:
 
-	void init(const std::string& dirPath);
+	void init(const char* vsCode, const char* fsCode, const char* gsCode = nullptr);
 	void bind();
 	void unbind();
 	void destroy();

@@ -1,4 +1,4 @@
-#version 330 core
+LOAD_AS_STRING(
 
 layout (location = 0) in vec3 aPosition;
 layout (location = 1) in vec3 aNormal;
@@ -19,3 +19,4 @@ void main(){
     vWorldSpacePosition = wPos.xyz;
     gl_Position = projection * wPos;
 }
+)

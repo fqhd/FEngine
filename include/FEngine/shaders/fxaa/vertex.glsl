@@ -1,4 +1,4 @@
-#version 330 core
+LOAD_AS_STRING(
 
 layout (location = 0) in vec2 aPosition;
 
@@ -21,3 +21,4 @@ void main(){
 	v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;
 	v_rgbM = vec2(fragCoord * inverseVP);
 }
+)
