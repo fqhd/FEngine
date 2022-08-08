@@ -12,7 +12,7 @@ void MasterRenderer::init(Camera *cam, Window *window)
     );
     
     shader.bind();
-    shader.set("gShadowMap", 0);
+    shader.set("gShadowMap", 2);
     shadowMap.init(camera, window);
     fxaa.init(window);
     skybox.init();
@@ -39,7 +39,7 @@ void MasterRenderer::drawObjects(FObject *objects, int size)
     }
 
     // Bind the cascades
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
     for(int i = 0; i < size; i++){
         shader.set("model", objects[i].transform.getMatrix());

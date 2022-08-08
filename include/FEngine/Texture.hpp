@@ -7,7 +7,7 @@
 class Texture
 {
 public:
-    void init(const std::string &aPath, const std::string &nPath, const std::string &sPath, Color color);
+    void init(const std::string &aPath, Color color);
     void bind() const;
     void unbind();
     void destroy();
@@ -16,6 +16,4 @@ public:
 
 private:
     GLTexture albedo;
-    GLTexture normal;
-    GLTexture specular;
 };
