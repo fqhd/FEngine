@@ -15,8 +15,6 @@ void Model::init(const std::string& path){
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
     glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
-    glEnableVertexAttribArray(3);
-	glVertexAttribIPointer(3, 1, GL_UNSIGNED_BYTE, sizeof(Vertex), (void*)offsetof(Vertex, id));
 
 	// Loading the data and sending it to the GPU
 	IndexedModel model = OBJModel(path).ToIndexedModel();
@@ -28,13 +26,6 @@ void Model::init(const std::string& path){
             model.texCoords[i]
 		);
 	}
-    int indexID = 0;
-    for(unsigned int i = 0; i < model.indices.size(); i+=3){
-        vertices[i].id = indexID;
-        vertices[i+1].id = indexID;
-        vertices[i+2].id = indexID;
-        indexID++;
-    }
 
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), vertices.data(), GL_STATIC_DRAW);
 
