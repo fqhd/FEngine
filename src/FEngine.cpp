@@ -30,7 +30,7 @@ FObject FEngine::getObject(const std::string &path, Color color)
     if(it != map.end()){
         return it->second;
     }
-    const FObject obj = FObject(path + "/model.obj", path + "/albedo.jpg", color);
+    const FObject obj = FObject(path + "/model.obj", path + "/ambient.png", path + "/albedo.png", color);
     map[path] = obj;
     return obj;
 }

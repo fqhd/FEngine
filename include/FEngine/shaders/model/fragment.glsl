@@ -6,6 +6,8 @@ in vec2 vUV;
 in vec3 vNormal;
 in vec3 vWorldSpacePosition;
 
+uniform sampler2D albedoTexture;
+uniform sampler2D ambientTexture;
 uniform sampler2DArray gShadowMap;
 uniform mat4 lightSpaceMatrices[NUM_CASCADES];
 uniform float cascadePlaneDistances[NUM_CASCADES];
@@ -71,11 +73,12 @@ float ShadowCalculation(vec3 fragPosViewSpace)
 }
 
 void main(){
-    vec3 color = vec3(1.0, 0.0, 1.0);
+    vec3 color = texture(albedoTexture, vec2(vUV.x, 1.0 - vUV.y)).rgb;
+    float ambient = texture(ambientTexture, vUV).r;
     vec3 worldPos = vWorldSpacePosition;
     float shadowFactor = ShadowCalculation(worldPos);
     float brightness = max(dot(lightDir, normalize(vNormal)), 0.4);
     brightness = min(brightness, shadowFactor);
-    outColor = vec4(color * brightness * 1.5, 1.0);
+    outColor = vec4(color * brightness * 1.5 * ambient, 1.0);
 }
 )

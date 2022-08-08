@@ -8,7 +8,7 @@
 class GLTexture
 {
 public:
-    void init(const char* path, Color color);
+    void init(const char* path, Color color, bool redonly = false);
     void bind(GLenum loc) const;
     void unbind(GLenum loc);
     void destroy();

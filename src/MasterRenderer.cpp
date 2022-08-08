@@ -12,6 +12,8 @@ void MasterRenderer::init(Camera *cam, Window *window)
     );
     
     shader.bind();
+    shader.set("albedoTexture", 0);
+    shader.set("ambientTexture", 1);
     shader.set("gShadowMap", 2);
     shadowMap.init(camera, window);
     fxaa.init(window);
@@ -41,10 +43,14 @@ void MasterRenderer::drawObjects(FObject *objects, int size)
     // Bind the cascades
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap.texture);
+
+    // Draw the models
     for(int i = 0; i < size; i++){
         shader.set("model", objects[i].transform.getMatrix());
+        objects[i].texture.bind();
         objects[i].model.draw();
     }
+
     shader.unbind();
     skybox.render(camera->getProjection(), camera->getView());
     fxaa.unbind();

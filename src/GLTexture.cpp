@@ -1,7 +1,7 @@
 #include <FEngine/GLTexture.hpp>
 #include <FEngine/Image.hpp>
 
-void GLTexture::init(const char *path, Color color)
+void GLTexture::init(const char *path, Color color, bool redonly)
 {
 
     // Generating texture
@@ -13,11 +13,26 @@ void GLTexture::init(const char *path, Color color)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
+    
+
     // Loading in data
     Image image;
     if (image.loadFromFile(path) == 1)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getData());
+        if(redonly){
+            // Parse data into single channel red only value before sending to GPU
+            unsigned char* data = (unsigned char*)malloc(sizeof(char) * image.getWidth() * image.getHeight());
+            int numPixels = image.getWidth() * image.getHeight();
+            int index = 0;
+            for(int i = 0; i < numPixels; i += image.getNumChannels()){
+                index++;
+                data[index] = image.getData()[i];
+            }
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, image.getWidth(), image.getHeight(), 0, GL_RED, GL_UNSIGNED_BYTE, data);
+            free(data);
+        }else{
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getData());
+        }
     }
     else
     {

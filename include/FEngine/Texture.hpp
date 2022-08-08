@@ -7,13 +7,12 @@
 class Texture
 {
 public:
-    void init(const std::string &aPath, Color color);
+    void init(const std::string &aPath, const std::string& aoPath, Color color);
     void bind() const;
     void unbind();
     void destroy();
 
-    GLuint getID();
-
 private:
     GLTexture albedo;
+    GLTexture ambient;
 };
