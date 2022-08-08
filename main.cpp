@@ -7,13 +7,10 @@ int main()
     FObject cube = engine.loadObject("../res/cube", Color(255, 255, 255));
     FObject plane = engine.loadObject("../res/plane", Color(170, 180, 190));
 
-    engine.objects.push_back(cube);
-    engine.objects.push_back(plane);
-
-    engine.objects[0].transform.position.y = 2;
-    engine.objects[0].transform.position.x = -10;
-    engine.objects[0].transform.position.z = 5;
-    engine.objects[1].transform.scale = glm::vec3(10);
+    cube.transform.position.y = 2;
+    cube.transform.position.x = -10;
+    cube.transform.position.z = 5;
+    plane.transform.scale = glm::vec3(10);
 
     engine.camera.position.z = -5;
     engine.camera.position.y = 6;
@@ -55,8 +52,11 @@ int main()
             engine.camera.yaw -= speed * 7.0;
         }
 
-        engine.objects[0].transform.rotation.y -= 1;
-        engine.draw();
+        cube.transform.rotation.y -= 1;
+        engine.draw(cube);
+        engine.draw(plane);
+
+        engine.update();
     }
 
     engine.destroy();

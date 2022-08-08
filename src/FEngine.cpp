@@ -8,8 +8,12 @@ FEngine::FEngine(const char *title, int width, int height)
     masterRenderer.init(&camera, &window);
 }
 
-void FEngine::draw()
+void FEngine::draw(const FObject& object)
 {
+    objects.push_back(object);
+}
+
+void FEngine::update(){
     window.clear();
     inputManager.processInput();
     camera.update();
@@ -17,6 +21,7 @@ void FEngine::draw()
     masterRenderer.drawObjects(objects.data(), objects.size());
 
     window.update();
+    objects.clear();
 }
 
 FObject FEngine::loadObject(const std::string &path, Color color)
