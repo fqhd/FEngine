@@ -4,7 +4,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <glm/glm.hpp>
-#include <glad.h>
+#include <GLAD/glad.h>
 
 class Shader {
 public:

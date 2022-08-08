@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <glad.h>
+#include <GLAD/glad.h>
 #include <FEngine/GLTexture.hpp>
 
 class Texture

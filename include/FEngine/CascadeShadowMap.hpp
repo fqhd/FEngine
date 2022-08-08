@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad.h"
+#include <GLAD/glad.h>
 #include <glm/glm.hpp>
 #include <FEngine/Camera.hpp>
 #include <FEngine/FObject.hpp>

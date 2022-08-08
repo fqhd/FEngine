@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glad.h"
+#include <GLAD/glad.h>
 #include <FEngine/Shader.hpp>
 #include <FEngine/Quad.hpp>
 #include <FEngine/Window.hpp>
