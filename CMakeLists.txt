@@ -15,6 +15,7 @@ add_subdirectory(deps/stb-cmake)
 # Link dependencies
 target_link_libraries(fengine PUBLIC glfw)
 target_link_libraries(fengine PUBLIC glm)
+target_link_libraries(fengine PUBLIC stb-cmake)
 target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/FEngine)
 
