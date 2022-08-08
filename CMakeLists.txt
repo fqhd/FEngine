@@ -19,7 +19,3 @@ target_link_libraries(fengine PUBLIC glm)
 target_link_libraries(fengine PUBLIC stb-cmake)
 target_link_libraries(fengine PUBLIC glad-cmake)
 target_include_directories(fengine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-add_executable(out main.cpp)
-
-target_link_libraries(out PUBLIC fengine)
