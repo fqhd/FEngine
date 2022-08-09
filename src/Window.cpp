@@ -21,7 +21,7 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
@@ -57,6 +57,9 @@ void Window::create(unsigned int _width, unsigned int _height, const char *_titl
 
     // We need to do this for the skybox to work
     glDepthFunc(GL_LEQUAL);
+
+    // Enable MSAA
+    glEnable(GL_MULTISAMPLE);
 
     // Caching the framebuffer size
     int x, y;
