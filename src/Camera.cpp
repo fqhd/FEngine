@@ -10,6 +10,8 @@ void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPla
     pitch = 0.0f;
     far = farPlane;
     lightDirection = glm::normalize(glm::vec3(0.5, 1.0, -0.7));
+    speed = 2.5f;
+    mouseSensitivity = 0.3f;
 }
 
 void Camera::update(){

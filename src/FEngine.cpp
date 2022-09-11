@@ -6,6 +6,7 @@ FEngine::FEngine(const char *title, int width, int height)
     inputManager.init(window.getWindowPtr());
     camera.init(width, height, 70.0f, 0.1, 350.0f);
     masterRenderer.init(&camera, &window);
+    fpCam = false;
 }
 
 void FEngine::draw(const FObject& object)
@@ -13,15 +14,48 @@ void FEngine::draw(const FObject& object)
     objects.push_back(object);
 }
 
+void FEngine::firstPersonInput(float deltaTime){
+    glm::vec3 f = camera.getForward();
+    glm::vec3 forward = glm::normalize(glm::vec3(f.x, 0.0f, f.z));
+    glm::vec3 side = glm::normalize(glm::cross(forward, glm::vec3(0.0f, 1.0f, 0.0f)));
+    if(inputManager.isKeyDown(GLFW_KEY_W)){
+        camera.position += camera.speed * deltaTime * forward;
+    }
+    if(inputManager.isKeyDown(GLFW_KEY_A)){
+        camera.position -= camera.speed * deltaTime * side;
+    }
+    if(inputManager.isKeyDown(GLFW_KEY_S)){
+        camera.position -= camera.speed * deltaTime * forward;
+    }
+    if(inputManager.isKeyDown(GLFW_KEY_D)){
+        camera.position += camera.speed * deltaTime * side;
+    }
+    if(inputManager.isKeyDown(GLFW_KEY_LEFT_SHIFT)){
+        camera.position.y -= camera.speed * deltaTime;
+    }
+    if(inputManager.isKeyDown(GLFW_KEY_SPACE)){
+        camera.position.y += camera.speed * deltaTime;
+    }
+    camera.yaw += inputManager.getDeltaMousePos().x * camera.mouseSensitivity;
+    camera.pitch += inputManager.getDeltaMousePos().y * camera.mouseSensitivity;
+}
+
 void FEngine::update(){
     window.clear();
     inputManager.processInput();
     camera.update();
 
+    if(fpCam) firstPersonInput(0.1f);
+
     masterRenderer.drawObjects(objects.data(), objects.size());
 
     window.update();
     objects.clear();
+}
+
+void FEngine::firstPersonCamera(bool enabled){
+    fpCam = enabled;
+    window.setMouseGrabbed(enabled);
 }
 
 FObject FEngine::loadObject(const std::string &path, Color color)

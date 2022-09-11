@@ -37,6 +37,11 @@ void InputManager::init(GLFWwindow* _window) {
 void InputManager::processInput() {
 	previousKeyMap = keyMap;
 	glfwPollEvents();
+	glm::vec2 prevMousePos = mousePos;
+	double x, y;
+	glfwGetCursorPos(m_window, &x, &y);
+	mousePos = glm::vec2(x, y);
+	deltaMousePos = mousePos - prevMousePos;
 }
 
 bool InputManager::isKeyDown(int keyID){
@@ -61,4 +66,12 @@ bool InputManager::isKeyPressed(int keyID){
 
 bool InputManager::isKeyReleased(int keyID){
 	return (!isKeyDown(keyID) && wasKeyDown(keyID));
+}
+
+const glm::vec2& InputManager::getMousePos() const {
+	return mousePos;
+}
+
+const glm::vec2& InputManager::getDeltaMousePos() const {
+	return deltaMousePos;
 }

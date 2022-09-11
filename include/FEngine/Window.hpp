@@ -14,6 +14,7 @@ public:
 	void update();
 	void close();
 	bool isOpen();
+	void setMouseGrabbed(bool grabbed);
 	glm::ivec2 getFramebufferSize();
 	GLFWwindow* getWindowPtr();
 

@@ -97,3 +97,11 @@ void Window::close()
     glfwDestroyWindow(m_window);
     glfwTerminate();
 }
+
+void Window::setMouseGrabbed(bool grabbed){
+	if(grabbed){
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}else{
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+}

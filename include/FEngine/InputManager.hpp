@@ -16,9 +16,13 @@ public:
 	bool isKeyReleased(int _keyID);
 	bool isKeyDown(int _keyID);
 	bool wasKeyDown(int _keyID);
+	const glm::vec2& getMousePos() const;
+	const glm::vec2& getDeltaMousePos() const;
 
 private:
 
 	GLFWwindow* m_window;
+	glm::vec2 deltaMousePos;
+	glm::vec2 mousePos;
 
 };

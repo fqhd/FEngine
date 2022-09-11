@@ -17,6 +17,7 @@ public:
     void update();
     void draw(const FObject& object);
     void destroy();
+    void firstPersonCamera(bool enabled);
     
     Window window;
     InputManager inputManager;
@@ -27,5 +28,7 @@ private:
     MasterRenderer masterRenderer;
     std::vector<FObject> objects;
     std::unordered_map<std::string, FObject> map;
+    bool fpCam;
+    void firstPersonInput(float deltaTime);
 
 };

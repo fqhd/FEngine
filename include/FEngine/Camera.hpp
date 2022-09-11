@@ -13,6 +13,8 @@ public:
     float near;
     float far;
     float ar;
+    float speed;
+    float mouseSensitivity;
     glm::vec3 lightDirection;
     void update();
     const glm::mat4& getProjection() const;
