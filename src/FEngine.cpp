@@ -24,7 +24,7 @@ void FEngine::update(){
     objects.clear();
 }
 
-FObject FEngine::getObject(const std::string &path, Color color)
+FObject FEngine::loadObject(const std::string &path, Color color)
 {
     auto it = map.find(path);
     if(it != map.end()){

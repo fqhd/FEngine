@@ -13,7 +13,7 @@ class FEngine {
 public:
 
     FEngine(const char* title, int width, int height);
-    FObject getObject(const std::string& path, Color defaultColor);
+    FObject loadObject(const std::string& path, Color defaultColor);
     void update();
     void draw(const FObject& object);
     void destroy();
