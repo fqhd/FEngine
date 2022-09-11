@@ -32,6 +32,8 @@ void InputManager::init(GLFWwindow* _window) {
 	m_window = _window;
 	glfwSetKeyCallback(_window, keyPressedCallback);
 	glfwSetMouseButtonCallback(_window, buttonPressedCallback);
+	mousePos = glm::vec3(0.0f);
+	deltaMousePos = glm::vec3(0.0f);
 }
 
 void InputManager::processInput() {

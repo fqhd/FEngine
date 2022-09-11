@@ -36,8 +36,14 @@ void FEngine::firstPersonInput(float deltaTime){
     if(inputManager.isKeyDown(GLFW_KEY_SPACE)){
         camera.position.y += camera.speed * deltaTime;
     }
-    camera.yaw += inputManager.getDeltaMousePos().x * camera.mouseSensitivity;
-    camera.pitch += inputManager.getDeltaMousePos().y * camera.mouseSensitivity;
+    camera.yaw -= inputManager.getDeltaMousePos().x * camera.mouseSensitivity;
+    camera.pitch -= inputManager.getDeltaMousePos().y * camera.mouseSensitivity;
+    if(camera.pitch >= 89.9f){
+        camera.pitch = 89.9f;
+    }
+    if(camera.pitch <= -89.9f){
+        camera.pitch = -89.9f;
+    }
 }
 
 void FEngine::update(){
