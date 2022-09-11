@@ -3,9 +3,11 @@
 
 void Camera::init(unsigned int w, unsigned int h, float f, float n, float farPlane){
     ar = w / (float)h;
-	position = glm::vec3(0);
+	position = glm::vec3(0.0f);
     fov = f;
     near = n;
+    yaw = 0.0f;
+    pitch = 0.0f;
     far = farPlane;
     lightDirection = glm::normalize(glm::vec3(0.5, 1.0, -0.7));
 }
