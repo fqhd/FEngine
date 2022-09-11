@@ -16,9 +16,9 @@ void Camera::update(){
         previousYaw = yaw;
         previousPosition = position;
         glm::vec3 direction;
-        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.x = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
         direction.y = sin(glm::radians(pitch));
-        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.z = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
         view = glm::lookAt(position, position + direction, glm::vec3(0, 1, 0));
     }
     if(fov != previousFov){
