@@ -17,6 +17,7 @@ public:
     void update();
     const glm::mat4& getProjection() const;
     const glm::mat4& getView() const;
+    const glm::vec3 getForward() const;
 
 private:
     glm::mat4 projection;

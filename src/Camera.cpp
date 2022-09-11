@@ -17,10 +17,7 @@ void Camera::update(){
         previousPitch = pitch;
         previousYaw = yaw;
         previousPosition = position;
-        glm::vec3 direction;
-        direction.x = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-        direction.y = sin(glm::radians(pitch));
-        direction.z = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        glm::vec3 direction = getForward();
         view = glm::lookAt(position, position + direction, glm::vec3(0, 1, 0));
     }
     if(fov != previousFov){
@@ -34,4 +31,12 @@ const glm::mat4& Camera::getProjection() const {
 
 const glm::mat4& Camera::getView() const {
     return view;
+}
+
+const glm::vec3 Camera::getForward() const {
+    glm::vec3 direction;
+    direction.x = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    return direction;
 }
