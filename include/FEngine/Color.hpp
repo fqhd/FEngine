@@ -2,15 +2,18 @@
 
 #include <GLAD/glad.h>
 
-struct Color
+namespace FEngine
 {
-    Color(GLubyte R, GLubyte G, GLubyte B)
+    struct Color
     {
-        r = R;
-        g = G;
-        b = B;
-    }
-    GLubyte r;
-    GLubyte g;
-    GLubyte b;
-};
+        Color(GLubyte R, GLubyte G, GLubyte B)
+        {
+            r = R;
+            g = G;
+            b = B;
+        }
+        GLubyte r;
+        GLubyte g;
+        GLubyte b;
+    };
+}

@@ -1,15 +1,16 @@
 #pragma once
 #include <chrono>
 
-class Timer {
-public:
+namespace FEngine
+{
+    class Timer
+    {
+    public:
+        Timer();
+        float restart();
+        float getElapsedTime();
 
-    Timer();
-    float restart();
-    float getElapsedTime();
-
-private:
-
-    std::__1::chrono::steady_clock::time_point start;
-
-};
+    private:
+        std::__1::chrono::steady_clock::time_point start;
+    };
+}

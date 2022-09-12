@@ -3,16 +3,17 @@
 #include <FEngine/Shader.hpp>
 #include <FEngine/Cube.hpp>
 
-class Skybox {
-public:
+namespace FEngine
+{
+	class Skybox
+	{
+	public:
+		void init();
+		void render(const glm::mat4 &projection, glm::mat4 view);
+		void destroy();
 
-	void init();
-	void render(const glm::mat4& projection, glm::mat4 view);
-	void destroy();
-
-private:
-
-	Cube cube;
-	Shader shader;
-
-};
+	private:
+		Cube cube;
+		Shader shader;
+	};
+}

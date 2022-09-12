@@ -10,29 +10,30 @@
 #include <FEngine/Timer.hpp>
 #include <unordered_map>
 
-class FEngine {
-public:
+namespace FEngine
+{
+    class FEngine
+    {
+    public:
+        FEngine(const char *title, int width, int height);
+        FObject loadObject(const std::string &path, Color defaultColor);
+        void update();
+        void draw(const FObject &object);
+        void destroy();
+        void firstPersonCamera(bool enabled);
+        float getDeltaTime();
 
-    FEngine(const char* title, int width, int height);
-    FObject loadObject(const std::string& path, Color defaultColor);
-    void update();
-    void draw(const FObject& object);
-    void destroy();
-    void firstPersonCamera(bool enabled);
-    float getDeltaTime();
-    
-    Window window;
-    InputManager inputManager;
-    Camera camera;
+        Window window;
+        InputManager inputManager;
+        Camera camera;
 
-private:
-
-    Timer timer;
-    MasterRenderer masterRenderer;
-    std::vector<FObject> objects;
-    std::unordered_map<std::string, FObject> map;
-    bool fpCam;
-    float deltaTime;
-    void firstPersonInput(float deltaTime);
-
-};
+    private:
+        Timer timer;
+        MasterRenderer masterRenderer;
+        std::vector<FObject> objects;
+        std::unordered_map<std::string, FObject> map;
+        bool fpCam;
+        float deltaTime;
+        void firstPersonInput(float deltaTime);
+    };
+}

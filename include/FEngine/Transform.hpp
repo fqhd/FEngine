@@ -2,15 +2,17 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-class Transform {
-public:
+namespace FEngine
+{
+	class Transform
+	{
+	public:
+		Transform();
 
-	Transform();
+		glm::mat4 getMatrix() const;
 
-	glm::mat4 getMatrix() const;
-
-	glm::vec3 position;
-	glm::vec3 rotation;
-	glm::vec3 scale;
-
-};
+		glm::vec3 position;
+		glm::vec3 rotation;
+		glm::vec3 scale;
+	};
+}

@@ -4,15 +4,18 @@
 #include <GLAD/glad.h>
 #include <FEngine/GLTexture.hpp>
 
-class Texture
+namespace FEngine
 {
-public:
-    void init(const std::string &aPath, const std::string& aoPath, Color color);
-    void bind() const;
-    void unbind();
-    void destroy();
+    class Texture
+    {
+    public:
+        void init(const std::string &aPath, const std::string &aoPath, Color color);
+        void bind() const;
+        void unbind();
+        void destroy();
 
-private:
-    GLTexture albedo;
-    GLTexture ambient;
-};
+    private:
+        GLTexture albedo;
+        GLTexture ambient;
+    };
+}

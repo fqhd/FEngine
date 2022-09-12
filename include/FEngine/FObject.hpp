@@ -4,14 +4,19 @@
 #include <FEngine/Transform.hpp>
 #include <iostream>
 
-class FObject {
-public:
-    FObject(){}
-    FObject(const std::string& modelPath, const std::string& albedoPath, const std::string& ambientPath, Color color){
-        model.init(modelPath);
-        texture.init(albedoPath, ambientPath, color);
-    }
-    Texture texture;
-    Model model;
-    Transform transform;
-};
+namespace FEngine
+{
+    class FObject
+    {
+    public:
+        FObject() {}
+        FObject(const std::string &modelPath, const std::string &albedoPath, const std::string &ambientPath, Color color)
+        {
+            model.init(modelPath);
+            texture.init(albedoPath, ambientPath, color);
+        }
+        Texture texture;
+        Model model;
+        Transform transform;
+    };
+}
