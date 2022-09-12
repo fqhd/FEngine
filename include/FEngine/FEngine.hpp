@@ -7,6 +7,7 @@
 #include <FEngine/Shader.hpp>
 #include <FEngine/Skybox.hpp>
 #include <FEngine/MasterRenderer.hpp>
+#include <FEngine/Timer.hpp>
 #include <unordered_map>
 
 class FEngine {
@@ -18,6 +19,7 @@ public:
     void draw(const FObject& object);
     void destroy();
     void firstPersonCamera(bool enabled);
+    float getDeltaTime();
     
     Window window;
     InputManager inputManager;
@@ -25,10 +27,12 @@ public:
 
 private:
 
+    Timer timer;
     MasterRenderer masterRenderer;
     std::vector<FObject> objects;
     std::unordered_map<std::string, FObject> map;
     bool fpCam;
+    float deltaTime;
     void firstPersonInput(float deltaTime);
 
 };

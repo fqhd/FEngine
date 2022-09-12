@@ -7,6 +7,8 @@ FEngine::FEngine(const char *title, int width, int height)
     camera.init(width, height, 70.0f, 0.1, 350.0f);
     masterRenderer.init(&camera, &window);
     fpCam = false;
+    timer.restart();
+    deltaTime = 0.0f;
 }
 
 void FEngine::draw(const FObject& object)
@@ -49,9 +51,11 @@ void FEngine::firstPersonInput(float deltaTime){
 void FEngine::update(){
     window.clear();
     inputManager.processInput();
+    deltaTime = timer.restart();
+    
     camera.update();
 
-    if(fpCam) firstPersonInput(0.1f);
+    if(fpCam) firstPersonInput(deltaTime);
 
     masterRenderer.drawObjects(objects.data(), objects.size());
 
@@ -73,6 +77,10 @@ FObject FEngine::loadObject(const std::string &path, Color color)
     const FObject obj = FObject(path + "/model.obj", path + "/ambient.png", path + "/albedo.png", color);
     map[path] = obj;
     return obj;
+}
+
+float FEngine::getDeltaTime(){
+    return deltaTime;
 }
 
 void FEngine::destroy()
